@@ -1,7 +1,6 @@
+
 import java.io.*;
-
 public class GenerateStaffRecords {
-
     private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrskuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     public static int numRecords = 10;
 
