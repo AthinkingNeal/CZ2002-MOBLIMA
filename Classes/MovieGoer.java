@@ -1,3 +1,4 @@
+package edu.ntu.assignment;
 
 public class MovieGoer {
     protected String name;
@@ -19,5 +20,49 @@ public class MovieGoer {
                 History[i].printRecord();
             }
         }
+    }
+
+    public int getMovieGoerID() {
+        return movieGoerID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMovieGoerID(int movieGoerID) {
+        this.movieGoerID = movieGoerID;
+    }
+
+    public void setMobileNumber(int mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setHistory(PaymentRecord[] history) {
+        History = history;
+    }
+
+    public int getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
     }
 }
