@@ -1,21 +1,42 @@
 package edu.ntu.assignment;
 
+import java.util.ArrayList;
+
 public class PaymentRecord {
     protected String TID;
     //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
 
     protected int movieGoerID;
     protected int movieID;
-    protected int minemaID;
+    protected int cinemaID;
     protected int mineplexID;
     protected int amountOfTickets;
-    protected int [][] seatID;
+    protected ArrayList<String> seatID;
     protected float totalCost;
+    protected Boolean canceled;
 
+    public Boolean getCanceled() {
+        return canceled;
+    }
 
-    public void printRecord()
-    {
-        System.out.println("Print information"); // to be done
+    public void setCanceled(Boolean canceled) {
+        this.canceled = canceled;
+    }
+
+    public ArrayList<String> getSeatID() {
+        return seatID;
+    }
+
+    public void setSeatID(ArrayList<String> seatID) {
+        this.seatID = seatID;
+    }
+
+    public int getCinemaID() {
+        return cinemaID;
+    }
+
+    public void setCinemaID(int cinemaID) {
+        this.cinemaID = cinemaID;
     }
 
     public String getTID() {
@@ -42,13 +63,6 @@ public class PaymentRecord {
         this.movieID = movieID;
     }
 
-    public int getMinemaID() {
-        return minemaID;
-    }
-
-    public void setMinemaID(int minemaID) {
-        this.minemaID = minemaID;
-    }
 
     public int getMineplexID() {
         return mineplexID;
@@ -66,14 +80,6 @@ public class PaymentRecord {
         this.amountOfTickets = amountOfTickets;
     }
 
-    public int[][] getSeatID() {
-        return seatID;
-    }
-
-    public void setSeatID(int[][] seatID) {
-        this.seatID = seatID;
-    }
-
     public float getTotalCost() {
         return totalCost;
     }
@@ -81,5 +87,22 @@ public class PaymentRecord {
     public void setTotalCost(float totalCost) {
         this.totalCost = totalCost;
     }
+
+
+    public void printRecord()
+    {
+        String temp = "Following are your record information: ";
+        temp += "\nTransaction ID: "+ getTID();
+        temp += "\nmovieGoerID: " + getMovieGoerID();
+        temp += "\nmovieID: " + getMovieID();
+        temp += "\ncinemaID: " + getCinemaID();
+        temp += "\namountOfTickets: " + getAmountOfTickets();
+        for(int i = 0; i < seatID.size(); i++)
+            temp += "seatID: " + seatID.get(i);
+        temp += "totalCost: " + getTotalCost();
+
+        System.out.println("temp");
+    }
+
 
 }
