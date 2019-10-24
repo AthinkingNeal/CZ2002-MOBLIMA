@@ -13,7 +13,10 @@ public class Cinema{
     public void DisplayLayout(){
         System.out.println(layout);
     }
-    public void UpdateLayout(Seat[][] newLayout){
-        layout=newLayout;
+    public void cancelSeat(int x, int y){
+        layout[x][y].cancelBooking()
+    }
+    public void bookSeat(int x, int y){
+        layout[x][y].bookSeat()
     }
 }
