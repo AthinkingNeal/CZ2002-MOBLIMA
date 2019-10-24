@@ -4,6 +4,8 @@ import java.util.*;
 public class MovieSheduleDB {
 
     // integer is the index that is used to identify the
+
+    // create movieRecordID
     private Map<Integer, movieRecord> movieRecords = new HashMap<Integer, movieRecord>();
 
     /**

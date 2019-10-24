@@ -18,6 +18,7 @@ public class movieRecord {
         this.startTime = startTime;
         this.endTime = endTime;
 
+
     }
 
     public void setCineplexID(int newCineplexID){this.cineplexID = newCineplexID;}
