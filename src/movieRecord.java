@@ -8,8 +8,9 @@ public class movieRecord {
     private String startTime; //"18:00"
     private String endTime;
 
+    // add cinema
     // index is used to search and identify this record
-    public movieRecord(int cineplexID, int cinemaID, int movieID, String movieName, String datetime, String startTime, String endTime, Cinema) {
+    public movieRecord(int cineplexID, int cinemaID, int movieID, String movieName, String datetime, String startTime, String endTime) {
         this.cinemaID = cinemaID;
         this.cineplexID = cineplexID;
         this.movieID = movieID;
