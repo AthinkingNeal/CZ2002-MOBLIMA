@@ -8,6 +8,13 @@ public class MovieGoer {
     protected int age;
     protected PaymentRecord [] History;
 
+    public void MovieGoer(String name, int mobileNumber, String emailAddress, int age){
+        this.name = name;
+        this.mobileNumber = mobileNumber;
+        this.emailAddress = emailAddress;
+        this.age = age;
+    }
+
     public void getHistory(){
         PaymentRecord temp;
         int len = History.length;
@@ -22,6 +29,14 @@ public class MovieGoer {
         }
     }
 
+    /*
+    update PaymentRecord, flag as refunded
+    update MovieSale, sale - 1
+    update Seat, flag as available
+    */
+    public void cancelBooking(String recordID){
+
+    }
     public int getMovieGoerID() {
         return movieGoerID;
     }
@@ -65,4 +80,7 @@ public class MovieGoer {
     public String getName() {
         return name;
     }
+
+
+
 }
