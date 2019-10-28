@@ -3,10 +3,8 @@ import java.util.*;
 
 public class MovieSheduleDB {
 
-    // integer is the index that is used to identify the
-
     // create movieRecordID
-    private Map<Integer, movieRecord> movieRecords = new HashMap<Integer, movieRecord>();
+    private Map<String, MovieSchedule> movieRecords = new HashMap<String, MovieSchedule>();
 
     /**
      * Initialise with empty movie records
@@ -17,9 +15,9 @@ public class MovieSheduleDB {
     /**
      * Initialise with a single record
      *
-     * @param record an instance of the movieRecord object
+     * @param record an instance of the MovieSchedule object
      */
-    public MovieSheduleDB(movieRecord record) {
+    public MovieSheduleDB(MovieSchedule record) {
         addMovieRecord(record);
     }
 
@@ -34,10 +32,10 @@ public class MovieSheduleDB {
 
 
     public void addMovieRecords(int cineplexID, int cinemaID, int movieID, String movieName, String date, String startTime, String endTime) {
-        this.movieRecords.put(movieRecords.size() + 1, new movieRecord(cineplexID, cinemaID, movieID, movieName, date, startTime, endTime));
+        this.movieRecords.put(movieRecords.size() + 1, new MovieSchedule(cineplexID, cinemaID, movieID, movieName, date, startTime, endTime));
     }
 
-    public void addMovieRecord(movieRecord record) {
+    public void addMovieRecord(MovieSchedule record) {
         movieRecords.put(movieRecords.size() + 1, record);
     }
 
@@ -51,7 +49,7 @@ public class MovieSheduleDB {
 
                 String delims = "[ ]+";
                 String[] tokens = inputLine.split(delims);
-                this.movieRecords.put(movieRecords.size() + 1, new movieRecord(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]),
+                this.movieRecords.put(movieRecords.size() + 1, new MovieSchedule(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]),
                         Integer.parseInt(tokens[2]), tokens[3], tokens[4], tokens[5], tokens[6]));
             }
             brStream.close();
@@ -79,7 +77,7 @@ public class MovieSheduleDB {
      */
 
     public void modifyMovieReord(int index) {
-        movieRecord newRecord = movieRecords.get(index);
+        MovieSchedule newRecord = movieRecords.get(index);
         System.out.println("Which attribute in the record would you like to change?\n"
                 + "1. Change Movie ID\n" + "2. Change Cineplex ID\n" + "3. Change Cinema ID\n" + "4. Change date of screening\n"
                 + "5. Change start time of screening\n" + "6. Change end time of screening\n" + "7. Quit\n" + "Please key in your option");
@@ -137,8 +135,8 @@ public class MovieSheduleDB {
         System.out.println("Successfullly removed!");
     }
 
-    public ArrayList<movieRecord> findAllRecordsByMovieName(String moviename) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByMovieName(String moviename) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
         for (int i = 0; i < movieRecords.size(); i++) {
             if (movieRecords.get(i).getMovieName() == moviename)
                 records.add(movieRecords.get(i));
@@ -146,8 +144,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByMovieName(ArrayList<movieRecord> searchSpace, String moviename) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByMovieName(ArrayList<MovieSchedule> searchSpace, String moviename) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
 
         for (int i = 0; i < searchSpace.size(); i++) {
             if (searchSpace.get(i).getMovieName() == moviename)
@@ -156,8 +154,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByMovieID(int movieID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByMovieID(int movieID) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
         for (int i = 0; i < movieRecords.size(); i++) {
             if (movieRecords.get(i).getMovieID() == movieID)
                 records.add(movieRecords.get(i));
@@ -165,8 +163,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByMovieID(ArrayList<movieRecord> searchSpace, int movieID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByMovieID(ArrayList<MovieSchedule> searchSpace, int movieID) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
 
         for (int i = 0; i < searchSpace.size(); i++) {
             if (searchSpace.get(i).getMovieID() == movieID)
@@ -176,8 +174,8 @@ public class MovieSheduleDB {
     }
 
 
-    public ArrayList<movieRecord> findAllRecordsByCinemaID(int cinemaID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByCinemaID(int cinemaID) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
         for (int i = 0; i < movieRecords.size(); i++) {
             if (movieRecords.get(i).getCinemaID() == cinemaID)
                 records.add(movieRecords.get(i));
@@ -185,8 +183,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByCinemaID(ArrayList<movieRecord> searchSpace, int cinemaID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByCinemaID(ArrayList<MovieSchedule> searchSpace, int cinemaID) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
 
         for (int i = 0; i < searchSpace.size(); i++) {
             if (searchSpace.get(i).getCinemaID() == cinemaID)
@@ -195,8 +193,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByCineplexID(int cineplexID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByCineplexID(int cineplexID) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
         for (int i = 0; i < movieRecords.size(); i++) {
             if (movieRecords.get(i).getCineplexID() == cineplexID)
                 records.add(movieRecords.get(i));
@@ -204,8 +202,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByCineplexID(ArrayList<movieRecord> searchSpace, int cineplexID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByCineplexID(ArrayList<MovieSchedule> searchSpace, int cineplexID) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
 
         for (int i = 0; i < searchSpace.size(); i++) {
             if (searchSpace.get(i).getCineplexID() == cineplexID)
@@ -214,8 +212,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByDate(String date) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByDate(String date) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
         for (int i = 0; i < movieRecords.size(); i++) {
             if (movieRecords.get(i).getDateTime() == date)
                 records.add(movieRecords.get(i));
@@ -223,8 +221,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByDate(ArrayList<movieRecord> searchSpace, String date) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByDate(ArrayList<MovieSchedule> searchSpace, String date) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
 
         for (int i = 0; i < searchSpace.size(); i++) {
             if (searchSpace.get(i).getDateTime() == date)
@@ -233,8 +231,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByStarttime(String starttime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByStarttime(String starttime) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
         for (int i = 0; i < movieRecords.size(); i++) {
             if (movieRecords.get(i).getStartTime() == starttime)
                 records.add(movieRecords.get(i));
@@ -242,8 +240,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByStarttime(ArrayList<movieRecord> searchSpace, String starttime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByStarttime(ArrayList<MovieSchedule> searchSpace, String starttime) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
 
         for (int i = 0; i < searchSpace.size(); i++) {
             if (searchSpace.get(i).getStartTime() == starttime)
@@ -252,8 +250,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByEndtime(String endtime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByEndtime(String endtime) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
         for (int i = 0; i < movieRecords.size(); i++) {
             if (movieRecords.get(i).getEndTime() == endtime)
                 records.add(movieRecords.get(i));
@@ -261,8 +259,8 @@ public class MovieSheduleDB {
         return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByEndtime(ArrayList<movieRecord> searchSpace, String endtime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public ArrayList<MovieSchedule> findAllRecordsByEndtime(ArrayList<MovieSchedule> searchSpace, String endtime) {
+        ArrayList<MovieSchedule> records = new ArrayList<MovieSchedule>();
 
         for (int i = 0; i < searchSpace.size(); i++) {
             if (searchSpace.get(i).getEndTime() == endtime)
