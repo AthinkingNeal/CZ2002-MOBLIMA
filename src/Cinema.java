@@ -1,10 +1,12 @@
 import java.io.*;
 import java.util.*;
 
-public class MovieSheduleDB extends Database {
+public class Cinema extends Database {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
     private Map<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
+    private int cinemaID;
+    private String CinemaType;
     private String filename;
 
 
@@ -13,7 +15,9 @@ public class MovieSheduleDB extends Database {
      *
      * @param filename file containing records in the order (movieID, movieName, date, startTime, endTime)
      */
-    public MovieSheduleDB(String filename) {
+    public Cinema(int cinemaID, String cinemaType, String filename) {
+        this.cinemaID = cinemaID;
+        this.CinemaType = cinemaType;
         this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
