@@ -1,275 +1,199 @@
 import java.io.*;
 import java.util.*;
 
-public class MovieSheduleDB {
+public class MovieSheduleDB extends Database {
 
-    // integer is the index that is used to identify the
+    // hashmap: key: "dateStarttime", value: MovieSchedule
+    private Map<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
+    private String filename;
 
-    // create movieRecordID
-    private Map<Integer, movieRecord> movieRecords = new HashMap<Integer, movieRecord>();
-
-    /**
-     * Initialise with empty movie records
-     */
-    public MovieSheduleDB() {
-    }
 
     /**
-     * Initialise with a single record
+     * Initialise with a file containing all the moviescheduleinfo
      *
-     * @param record an instance of the movieRecord object
-     */
-    public MovieSheduleDB(movieRecord record) {
-        addMovieRecord(record);
-    }
-
-    /**
-     * Initialise with a file containing all the records info
-     *
-     * @param filename file containing records in the order (cineplexID, cinemaID, movieID, movieName, date, startTime, endTime)
+     * @param filename file containing records in the order (movieID, movieName, date, startTime, endTime)
      */
     public MovieSheduleDB(String filename) {
-        addMovieRecords(filename);
-    }
-
-
-    public void addMovieRecords(int cineplexID, int cinemaID, int movieID, String movieName, String date, String startTime, String endTime) {
-        this.movieRecords.put(movieRecords.size() + 1, new movieRecord(cineplexID, cinemaID, movieID, movieName, date, startTime, endTime));
-    }
-
-    public void addMovieRecord(movieRecord record) {
-        movieRecords.put(movieRecords.size() + 1, record);
-    }
-
-
-    public void addMovieRecords(String fileName) {
+        this.filename = filename;
         try {
-            FileReader frStream = new FileReader(fileName);
-            BufferedReader brStream = new BufferedReader(frStream);
-            String inputLine;
-            while ((inputLine = brStream.readLine()) != null) {
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
-                String delims = "[ ]+";
-                String[] tokens = inputLine.split(delims);
-                this.movieRecords.put(movieRecords.size() + 1, new movieRecord(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]),
-                        Integer.parseInt(tokens[2]), tokens[3], tokens[4], tokens[5], tokens[6]));
-            }
-            brStream.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error opening the input file!");
-            System.exit(0);
+            System.out.print("reading data from " + filename + "...");
+            MovieSchedule movieShedule;
+//            while ((movieShedule = (MovieSchedule) ois.readObject()) != null) // read the Date object from file ?? read object or read hashmap?
+//            {
+//                cinemaSchedule.put(movieShedule.getDateStartTime(), movieShedule);
+//            }
+            this.cinemaSchedule = (HashMap<String, MovieSchedule>) ois.readObject();
+            ois.close();
         } catch (IOException e) {
-            System.out.println("IO Error!");
-            e.printStackTrace();
-            System.exit(0);
+            System.out.println("File input error");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
         }
     }
 
-    public void displayAllMovieRecords() {
-        for (int i = 0; i < movieRecords.size(); i++) {
-            System.out.println("Index: " + i + 1);
-            movieRecords.get(i).displayMovieRecord();
-        }
+
+    /**
+     * Allow staff to add a single record of movie schedule
+     */
+    public void addRecord() {
+        Scanner s = new Scanner(System.in);
+        String dateStartTime;
+        int movieID;
+        String movieName;
+        boolean is3D;
+        boolean isBlockbuster;
+        double duration;
+        System.out.println("Please enter the date in this format: yyyy-mm-dd.");
+        dateStartTime = s.nextLine();
+        System.out.println("Please enter the start time of the movie in this format: hh-mm.");
+        dateStartTime += "-" + s.nextLine();
+
+        System.out.println("Please input the movie ID");
+        movieID = Integer.parseInt(s.nextLine());
+        System.out.println("Please input the movie name");
+        movieName = s.nextLine();
+
+        System.out.println("Is this movie 3D? Y/N");
+        String ans = s.nextLine();
+        if (ans == "Y" || ans == "y")
+            is3D = true;
+        else
+            is3D = false;
+
+        System.out.println("Is this movie a blockbuster? Y/N");
+        String ans1 = s.nextLine();
+        if (ans1 == "Y" || ans1 == "y")
+            isBlockbuster = true;
+        else
+            isBlockbuster = false;
+
+        System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
+        duration = Double.parseDouble(s.nextLine());
+
+        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration));
+        System.out.println("Successfully added!");
     }
 
     /**
-     * modify the attributes in the record that has key [index]
-     *
-     * @param index record index that is used to search and identify the record
+     * Allow staff to delete a single record of movie schedule
      */
-
-    public void modifyMovieReord(int index) {
-        movieRecord newRecord = movieRecords.get(index);
-        System.out.println("Which attribute in the record would you like to change?\n"
-                + "1. Change Movie ID\n" + "2. Change Cineplex ID\n" + "3. Change Cinema ID\n" + "4. Change date of screening\n"
-                + "5. Change start time of screening\n" + "6. Change end time of screening\n" + "7. Quit\n" + "Please key in your option");
+    public void deleteRecord() {
+        displayAllRecords();
         Scanner s = new Scanner(System.in);
-        int choice = s.nextInt();
-        while (choice != 7) {
+        System.out.println("Please enter the date and time of the movie schedule you want to delete in this format: YYYY-mm-dd-hh-mm");
+        String key = s.nextLine();
+        this.cinemaSchedule.remove(key);
+        System.out.println("Successfully deleted!");
+    }
+
+    /**
+     * Allow staff to update a single record of movie schedule
+     * Only allow staff to update
+     */
+    public void updateRecord() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Please enter the date and time of the movie schedule you want to update in this format: YYYY-mm-dd-hh-mm");
+        String key = s.nextLine();
+        MovieSchedule newRecord = cinemaSchedule.get(key);
+        this.cinemaSchedule.remove(key); // delete original record
+        System.out.println("Which attribute in the record would you like to change?\n"
+                + "1. Change is3D\n" + "2. Change isBlockbluster\n" + "3. Change duration\n" + "4. Quit\n" + "Please key in your option");
+        int choice = Integer.parseInt(s.nextLine());
+        while (choice != 4) {
             switch (choice) {
                 case 1:
-                    System.out.println("Please key in the new movie ID");
-                    int newMovieID = s.nextInt();
-                    newRecord.setMovieID(newMovieID);
-                    movieRecords.put(index, newRecord);
+                    System.out.println("The current is3D is:" + newRecord.getIs3D());
+                    System.out.println("Please key in the new is3D");
+                    newRecord.setIs3D(Boolean.parseBoolean(s.nextLine()));
                     System.out.println("Changed!");
+                    break;
                 case 2:
-                    System.out.println("Please key in the new Cineplex ID");
-                    int newCineplexID = s.nextInt();
-                    newRecord.setCineplexID(newCineplexID);
-                    movieRecords.put(index, newRecord);
+                    System.out.println("The current isBlockbuster is:" + newRecord.getIsBlockbuster());
+                    System.out.println("Please key in the new isBlockbuster");
+                    newRecord.setIsBlockbuster(Boolean.parseBoolean(s.nextLine()));
                     System.out.println("Changed!");
+                    break;
                 case 3:
-                    System.out.println("Please key in the new Cinema ID");
-                    int newCinemaID = s.nextInt();
-                    newRecord.setCinemaID(newCinemaID);
-                    movieRecords.put(index, newRecord);
+                    System.out.println("The current duration is:" + newRecord.getDuration());
+                    System.out.println("Please key in the new duration");
+                    newRecord.setDuration(Double.parseDouble(s.nextLine()));
                     System.out.println("Changed!");
-                case 4:
-                    System.out.println("Please key in the new date of screening");
-                    String newdate = s.next();
-                    newRecord.setDateTime(newdate);
-                    movieRecords.put(index, newRecord);
-                    System.out.println("Changed!");
-                case 5:
-                    System.out.println("Please key in the new start time");
-                    String starttime = s.next();
-                    newRecord.setStartTime(starttime);
-                    movieRecords.put(index, newRecord);
-                    System.out.println("Changed!");
-                case 6:
-                    System.out.println("Please key in the new end time");
-                    String end = s.next();
-                    newRecord.setEndTime(end);
-                    movieRecords.put(index, newRecord);
-                    System.out.println("Changed!");
+                    break;
                 default:
                     break;
             }
             System.out.println("Please key in your option:");
             choice = s.nextInt();
         }
-
+        this.cinemaSchedule.put(newRecord.getDateStartTime(), newRecord);
+        System.out.println("Successfully updated!");
     }
 
-    public void removeMovieReord(int index) {
-        movieRecords.remove(index);
-        System.out.println("Successfullly removed!");
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByMovieName(String moviename) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-        for (int i = 0; i < movieRecords.size(); i++) {
-            if (movieRecords.get(i).getMovieName() == moviename)
-                records.add(movieRecords.get(i));
+    /**
+     * Allow staff to update a single record of movie schedule
+     */
+    public void displayAllRecords() {
+        for (String key : cinemaSchedule.keySet()) {
+            cinemaSchedule.get(key).displayMovieRecord();
         }
-        return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByMovieName(ArrayList<movieRecord> searchSpace, String moviename) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-
-        for (int i = 0; i < searchSpace.size(); i++) {
-            if (searchSpace.get(i).getMovieName() == moviename)
-                records.add(searchSpace.get(i));
+    /**
+     * Once user has selected movie, location, display all available dates of this movie in this cinema
+     */
+    public void showAvailableDates(int movieID) {
+        for (String key : cinemaSchedule.keySet()) {
+            if (cinemaSchedule.get(key).getMovieID() == movieID)
+                System.out.println(cinemaSchedule.get(key).getDateStartTime().substring(0, 10)); // print out date in "YYYY-mm-dd"
         }
-        return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByMovieID(int movieID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-        for (int i = 0; i < movieRecords.size(); i++) {
-            if (movieRecords.get(i).getMovieID() == movieID)
-                records.add(movieRecords.get(i));
+    /**
+     * Once user has selected movie, location and date, display all available times of this movie in this cinema
+     */
+    public void showAvailableTime(int movieID, String date) {
+        for (String key : cinemaSchedule.keySet()) {
+            if (cinemaSchedule.get(key).getMovieID() == movieID)
+                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date))
+                    cinemaSchedule.get(key).displayMovieRecord();
         }
-        return records;
     }
 
-    public ArrayList<movieRecord> findAllRecordsByMovieID(ArrayList<movieRecord> searchSpace, int movieID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
+    public void cancelBooking(String dateStartTime, String[] seatID) {
+        this.cinemaSchedule.get(dateStartTime).getLayout().cancelbooking(seatID);
+    }
 
-        for (int i = 0; i < searchSpace.size(); i++) {
-            if (searchSpace.get(i).getMovieID() == movieID)
-                records.add(searchSpace.get(i));
+    public void bookSeat(String dateStarttime) {
+        this.cinemaSchedule.get(dateStartTime).getLayout().bookseat();
+    }
+
+    /**
+     * Save all MovieSchedule objects into the file
+     */
+    public void saveToFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(this.filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.print("saving data to " + filename + "...");
+
+
+//            for(String key : cinemaSchedule.keySet())
+//            {
+//                oos.writeObject(cinemaSchedule.get(key));
+//            }
+
+//            oos.writeObject(null);
+            oos.writeObject(cinemaSchedule);
+            oos.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
         }
-        return records;
     }
-
-
-    public ArrayList<movieRecord> findAllRecordsByCinemaID(int cinemaID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-        for (int i = 0; i < movieRecords.size(); i++) {
-            if (movieRecords.get(i).getCinemaID() == cinemaID)
-                records.add(movieRecords.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByCinemaID(ArrayList<movieRecord> searchSpace, int cinemaID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-
-        for (int i = 0; i < searchSpace.size(); i++) {
-            if (searchSpace.get(i).getCinemaID() == cinemaID)
-                records.add(searchSpace.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByCineplexID(int cineplexID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-        for (int i = 0; i < movieRecords.size(); i++) {
-            if (movieRecords.get(i).getCineplexID() == cineplexID)
-                records.add(movieRecords.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByCineplexID(ArrayList<movieRecord> searchSpace, int cineplexID) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-
-        for (int i = 0; i < searchSpace.size(); i++) {
-            if (searchSpace.get(i).getCineplexID() == cineplexID)
-                records.add(searchSpace.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByDate(String date) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-        for (int i = 0; i < movieRecords.size(); i++) {
-            if (movieRecords.get(i).getDateTime() == date)
-                records.add(movieRecords.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByDate(ArrayList<movieRecord> searchSpace, String date) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-
-        for (int i = 0; i < searchSpace.size(); i++) {
-            if (searchSpace.get(i).getDateTime() == date)
-                records.add(searchSpace.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByStarttime(String starttime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-        for (int i = 0; i < movieRecords.size(); i++) {
-            if (movieRecords.get(i).getStartTime() == starttime)
-                records.add(movieRecords.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByStarttime(ArrayList<movieRecord> searchSpace, String starttime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-
-        for (int i = 0; i < searchSpace.size(); i++) {
-            if (searchSpace.get(i).getStartTime() == starttime)
-                records.add(searchSpace.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByEndtime(String endtime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-        for (int i = 0; i < movieRecords.size(); i++) {
-            if (movieRecords.get(i).getEndTime() == endtime)
-                records.add(movieRecords.get(i));
-        }
-        return records;
-    }
-
-    public ArrayList<movieRecord> findAllRecordsByEndtime(ArrayList<movieRecord> searchSpace, String endtime) {
-        ArrayList<movieRecord> records = new ArrayList<movieRecord>();
-
-        for (int i = 0; i < searchSpace.size(); i++) {
-            if (searchSpace.get(i).getEndTime() == endtime)
-                records.add(searchSpace.get(i));
-        }
-        return records;
-    }
-
 
 }
+
+
+
