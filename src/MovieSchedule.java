@@ -14,7 +14,7 @@ public class MovieSchedule {
         this.is3D = is3D;
         this.isBlockbuster = isBlockbuster;
         this.duration = duration;
-        this.layout = new layout();
+        this.layout = new Layout();
     }
 
     public String getDateStartTime() {
@@ -53,7 +53,9 @@ public class MovieSchedule {
         this.duration = newDuration;
     }
 
-    public Layout getLayout()
+    public Layout getLayout() {
+        return layout;
+    }
 
     public void displayMovieRecord()
     {
