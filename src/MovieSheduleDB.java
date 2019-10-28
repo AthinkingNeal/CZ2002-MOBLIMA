@@ -21,10 +21,11 @@ public class MovieSheduleDB extends Database {
 
             System.out.print("reading data from " + filename + "...");
             MovieSchedule movieShedule;
-            while ((movieShedule = (MovieSchedule) ois.readObject()) != null) // read the Date object from file
-            {
-                cinemaSchedule.put(movieShedule.getDateStartTime(), movieShedule);
-            }
+//            while ((movieShedule = (MovieSchedule) ois.readObject()) != null) // read the Date object from file ?? read object or read hashmap?
+//            {
+//                cinemaSchedule.put(movieShedule.getDateStartTime(), movieShedule);
+//            }
+            this.cinemaSchedule = (HashMap<String, MovieSchedule>) ois.readObject();
             ois.close();
         } catch (IOException e) {
             System.out.println("File input error");
@@ -146,7 +147,7 @@ public class MovieSheduleDB extends Database {
     public void showAvailableDates(int movieID) {
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)
-                cinemaSchedule.get(key).displayMovieRecord();
+                System.out.println(cinemaSchedule.get(key).getDateStartTime().substring(0, 10)); // print out date in "YYYY-mm-dd"
         }
     }
 
@@ -167,6 +168,29 @@ public class MovieSheduleDB extends Database {
 
     public void bookSeat(String dateStarttime) {
         this.cinemaSchedule.get(dateStartTime).getLayout().bookseat();
+    }
+
+    /**
+     * Save all MovieSchedule objects into the file
+     */
+    public void saveToFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(this.filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.print("saving data to " + filename + "...");
+
+
+//            for(String key : cinemaSchedule.keySet())
+//            {
+//                oos.writeObject(cinemaSchedule.get(key));
+//            }
+
+//            oos.writeObject(null);
+            oos.writeObject(cinemaSchedule);
+            oos.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        }
     }
 
 }

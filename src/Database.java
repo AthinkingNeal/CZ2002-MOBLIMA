@@ -9,6 +9,6 @@ public abstract class Database {
 
     public abstract void updateRecord();
 
-    public abstract void displayAllRecords();
+    public abstract void saveToFile();
 
 }
