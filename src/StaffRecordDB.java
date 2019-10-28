@@ -4,19 +4,20 @@ import java.io.*;
 import java.util.Scanner;
 
 
-public class StaffRecord {
+public class StaffRecordDB {
     // key: StaffID, value: password
     private Map<String, String> staffIDPasswordRecord = new HashMap<String, String>();
 
     /**
     Default constructor with empty staffIDPasswordRecord
      */
-    public StaffRecord() {}
+    public StaffRecordDB() {
+    }
 
     /**
      Initiate the class by adding a single staff record
      */
-    public StaffRecord(String staffID, String password)
+    public StaffRecordDB(String staffID, String password)
     {
         addLoginRecord(staffID, password);
     }
@@ -24,7 +25,7 @@ public class StaffRecord {
     /**
      Initiate the class using a txt file to populate userPasswordRecord
      */
-    public StaffRecord(String fileName)
+    public StaffRecordDB(String fileName)
     {
         this.addLoginRecords(fileName);
     }
@@ -124,8 +125,8 @@ public class StaffRecord {
     public static void main(String args[])
     {
 
-        //StaffRecord record = new StaffRecord("sazt", "123456");
-        StaffRecord record = new StaffRecord("staffRecords.txt");
+        //StaffRecordDB record = new StaffRecordDB("sazt", "123456");
+        StaffRecordDB record = new StaffRecordDB("staffRecords.txt");
         record.login();
 
     }
