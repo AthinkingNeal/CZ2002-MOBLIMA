@@ -13,7 +13,7 @@ public class PaymentRecordDB extends Database{
      */
     public PaymentRecordDB(String fileName)
     {
-        this.filename = filename;
+        this.filename = fileName;
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
