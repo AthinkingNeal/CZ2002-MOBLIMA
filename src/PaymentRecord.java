@@ -1,19 +1,37 @@
-package edu.ntu.assignment;
-
 import java.util.ArrayList;
 
 public class PaymentRecord {
-    protected String TID;
+    private String TID;
     //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
+    private int movieGoerID;
+    private int movieID;
+    private int cinemaID;
+    private int cineplexID;
+    private int amountOfTickets;
+    private ArrayList<String> seatID;
+    private float totalCost;
+    private Boolean canceled;
 
-    protected int movieGoerID;
-    protected int movieID;
-    protected int cinemaID;
-    protected int mineplexID;
-    protected int amountOfTickets;
-    protected ArrayList<String> seatID;
-    protected float totalCost;
-    protected Boolean canceled;
+
+    public PaymentRecord(String TID, int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, Boolean canceled) {
+        this.TID = TID;
+        this.movieGoerID = movieGoerID;
+        this.movieID = movieID;
+        this.cinemaID = cinemaID;
+        this.cineplexID = cineplexID;
+        this.amountOfTickets = amountOfTickets;
+        this.seatID = seatID;
+        this.totalCost = totalCost;
+        this.canceled = canceled;
+    }
+
+    public int getCineplexID() {
+        return cineplexID;
+    }
+
+    public void setCineplexID(int cineplexID) {
+        this.cineplexID = cineplexID;
+    }
 
     public Boolean getCanceled() {
         return canceled;
@@ -64,13 +82,6 @@ public class PaymentRecord {
     }
 
 
-    public int getMineplexID() {
-        return mineplexID;
-    }
-
-    public void setMineplexID(int mineplexID) {
-        this.mineplexID = mineplexID;
-    }
 
     public int getAmountOfTickets() {
         return amountOfTickets;
