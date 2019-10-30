@@ -67,13 +67,40 @@ public class PaymentRecordDB extends Database{
         // need to check valid input
 
         PaymentRecordMap.get(TID).setCanceled(canceled);
+        System.out.println("Update successfully!");
         // get() returns a reference to the object
 
+    }
+
+    public void updateRecord(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the TID of the PaymentRecord you want to update: ");
+        String TID = sc.next();
+        System.out.println("Please input the canceled status of the PaymentRecord you want to update (T/F): ");
+        Character choice = sc.next().charAt(0);
+        Boolean canceled = false;
+        if (choice == 'T') {
+            canceled = true;
+        }
+        else if (choice == 'F'){
+            canceled = false;
+        }
+        else
+            System.out.println("Invalid input");
+
+        updateRecord(TID,canceled);
     }
 
     public void deleteRecord(String TID){
         // need to check valid input
         PaymentRecordMap.remove(TID);
+    }
+
+    public void deleteRecord(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the TID of the PaymentRecord you want to delete: ");
+        String TID = sc.next();
+        deleteRecord(TID);
     }
 //
     public PaymentRecord findRecordByMovieGoerID(int movieGoerID){
@@ -87,5 +114,17 @@ public class PaymentRecordDB extends Database{
         return null;
     }
 
+
+    public void saveToFile() {
+        try{
+            FileOutputStream fos = new FileOutputStream(this.filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.print("saving data to " + filename + "...");
+            oos.writeObject(PaymentRecordMap);
+            oos.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        }
+    }
 
 }
