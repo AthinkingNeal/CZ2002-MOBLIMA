@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Cinema extends Database {
+public class Cinema {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
     private Map<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
@@ -12,30 +12,10 @@ public class Cinema extends Database {
 
     /**
      * Initialise with a file containing all the moviescheduleinfo
-     *
-     * @param filename file containing records in the order (movieID, movieName, date, startTime, endTime)
      */
-    public Cinema(int cinemaID, String cinemaType, String filename) {
+    public Cinema(int cinemaID, String cinemaType) {
         this.cinemaID = cinemaID;
         this.CinemaType = cinemaType;
-        this.filename = filename;
-        try {
-            FileInputStream fis = new FileInputStream(filename);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            System.out.print("reading data from " + filename + "...");
-            MovieSchedule movieShedule;
-//            while ((movieShedule = (MovieSchedule) ois.readObject()) != null) // read the Date object from file ?? read object or read hashmap?
-//            {
-//                cinemaSchedule.put(movieShedule.getDateStartTime(), movieShedule);
-//            }
-            this.cinemaSchedule = (HashMap<String, MovieSchedule>) ois.readObject();
-            ois.close();
-        } catch (IOException e) {
-            System.out.println("File input error");
-        } catch (ClassNotFoundException e) {
-            System.out.println(e);
-        }
     }
 
 
@@ -177,25 +157,25 @@ public class Cinema extends Database {
     /**
      * Save all MovieSchedule objects into the file
      */
-    public void saveToFile() {
-        try {
-            FileOutputStream fos = new FileOutputStream(this.filename);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
-
-
-//            for(String key : cinemaSchedule.keySet())
-//            {
-//                oos.writeObject(cinemaSchedule.get(key));
-//            }
-
-//            oos.writeObject(null);
-            oos.writeObject(cinemaSchedule);
-            oos.close();
-        } catch (IOException e) {
-            System.out.println("File input error");
-        }
-    }
+//    public void saveToFile() {
+//        try {
+//            FileOutputStream fos = new FileOutputStream(this.filename);
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            System.out.print("saving data to " + filename + "...");
+//
+//
+////            for(String key : cinemaSchedule.keySet())
+////            {
+////                oos.writeObject(cinemaSchedule.get(key));
+////            }
+//
+////            oos.writeObject(null);
+//            oos.writeObject(cinemaSchedule);
+//            oos.close();
+//        } catch (IOException e) {
+//            System.out.println("File input error");
+//        }
+//    }
 
 }
 
