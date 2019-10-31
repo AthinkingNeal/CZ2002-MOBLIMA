@@ -1,6 +1,16 @@
-package projectMe;
-
 import java.util.Scanner;
+
+
+/*
+Methods to be implemented:
+movieInfoDB.configSystem(); 
+movieInfoDB.addNewMovie(); 
+movieInfoDB.UpdateMovie();
+movieInfoDB.removeMovie();
+movieInfoDB.listTopMovies()
+
+*/
+
 
 public class UI {
     private boolean isStaff;
@@ -18,8 +28,8 @@ public class UI {
 
 
     public UI() {
-        this.cineplexDB = new CineplexDB();
-        this.moviesInfoDB = new MoviesInfoDB();
+        this.cineplexDB = new CineplexDB(); // incomplete
+        this.moviesInfoDB = new MoviesInfoDB(); // incomplete
         this.movieGoerDB = new MovieGoerDB();
         this.paymentRecordDB = new PaymentRecordDB();
         this.staffRecordDB = new StaffRecordDB();
@@ -51,7 +61,6 @@ public class UI {
 
             int trialNumber = 0;
             while (choice == 1 && trialNumber < 3) {
-
                 System.out.println("Please enter your new staffID:");
                 String staffID = sc.next();
                 System.out.println("Please enter your password:");
@@ -59,7 +68,7 @@ public class UI {
                 System.out.println("Please re-enter and confirm your password:");
                 String reenterPassword = sc.next();
                 if (password.equals(reenterPassword)) {
-                    staffRecordDB.addLoginRecord(staffID, password);
+                    staffRecordDB.addRecord(staffID, password); // implemented
                     break;
                 } else {
                     System.out.println("Passwords don't match! Try again!");
@@ -75,7 +84,7 @@ public class UI {
                 // String staffID = sc.next()
                 // System.out.println("Please enter your passward:");
                 // String password = sc.next();
-                if (staffRecordDB.login())
+                if (staffRecordDB.login()) // implemented
                     break;
                 else {
                     if (trialNumber++ == 3) {
@@ -107,23 +116,34 @@ public class UI {
                         choice = sc.nextInt();
                         if (choice == 1) {
                             continue;
-                            // PriceTable.configurePrice()
+                            movieInfoDB.configSystem(); // to be implemented
                         }
                         break;
                     case 2:
-                        // not sure which class and which method
+                        movieInfoDB.addNewMovie(); // to be implemented
+                        // enter the forthcoming movies, its type
+                        /*
+					Cinema staff can enter the forthcoming movies, its type (Blockbuster/3D, etc.), movie rating (e.g. PG),
+ 					show times, the cinema, showing status (Coming Soon, Preview, Now Showing, End Of Showing), etc. 
+ 						*/
+
                         break;
                     case 3:// Update details of the moives or remove one movie
                         System.out.println("Please enter your choices: ");
                         System.out.println("1. Update movie details");
                         System.out.println("2. remove one movie");
                         choice = sc.nextInt();
-                        if (choice == 1):{
+                        if (choice == 1){
                         continue;
-                        // get the movie ID and
-                    }
-                    break;
+                        movieInfoDB.UpdateMovie(); // to be implemented
+                   	 	}
+                   	 	else{
+                   	 		movieInfoDB.removeMovie(); // to be implemented
+                   	 	}
+                    	break;
                     case 4:
+                    	movieInfoDB.listTopMovies() // to be implemented
+                    	// have two choices, by sales or by rating
                         break;
                 }
                 System.out.println("Please enter your choice:");
@@ -196,18 +216,9 @@ public class UI {
             } while () ;
 
         }
-
-
     }
-
 
 }
         }
-
-
                 }
-
-
-
-
 
