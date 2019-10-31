@@ -136,14 +136,20 @@ public class Cinema {
     }
 
     /**
-     * Once user has selected movie, location and date, display all available times of this movie in this cinema
+     * Once user has selected movie, location and date, display all available times of this movie in this cinema and return selected scheduels
+     *Assumption: in one cineplex, a movie cannot start at the same time!
      */
-    public void showAvailableTime(int movieID, String date) {
+    public HashMap<String, MovieSchedule> getAvailableTime(int movieID, String date) {
+        HashMap<String, MovieSchedule> rst = new HashMap<String, MovieSchedule>();
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)
-                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date))
+                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date)) {
                     cinemaSchedule.get(key).displayMovieRecord();
+                    rst.put(key, cinemaSchedule.get(key));
+                }
+
         }
+        return rst;
     }
 
     public void cancelBooking(String dateStartTime, String[] seatID) {

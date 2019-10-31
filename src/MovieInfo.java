@@ -13,7 +13,7 @@ public class MovieInfo {
     private String director;
     private String cast;
     private int numOfSales;
-    private double overAllRating;
+    private float overAllRating;
     private int numOfRating;
     private ArrayList<RevNRat> reviewsAndRating;
 
@@ -24,17 +24,17 @@ public class MovieInfo {
         System.out.println("Please input your rating: (0-5) ");
         Float rating = Float.parseFloat(s.nextLine());
         RevNRat newReview = new RevNRat(userID, review, rating);
+        reviewsAndRating.add(newReview);
         System.out.println("Your review has been posted successfully!");
-        this.overAllRating = (this.overAllRating * this.numOfRating)
-
-
+        this.overAllRating = ((this.overAllRating * this.numOfRating) + rating) / (++this.numOfRating);
     }
 
     public void incrementSales() {
         this.numOfSales++;
     }
 
-    public String movieInfo() {
+
+    public void displayMovieInfo() {
         String temp = "";
         temp += "Movie Title: " + getTitle();
         temp += "\nShowing Status: " + getShowingStatus();
@@ -48,13 +48,7 @@ public class MovieInfo {
         //!!!
     }
 
-    public String nextRev() {
-        String temp = "";
-        temp +=
-        if (getCurrRev() == getNumOfRating())
 
-        //!!!
-    }
 
     private class RevNRat {
         private int moviegoerID;
@@ -68,7 +62,7 @@ public class MovieInfo {
         }
 
         public void displayReviewRating() {
-            System.out.println("User: " + userName);
+            System.out.println("User: " + moviegoerID);
             System.out.println("Review:" + review);
             System.out.println("Rating: " + rating);
         }
