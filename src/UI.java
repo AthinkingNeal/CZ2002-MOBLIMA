@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class UI {
@@ -187,7 +188,134 @@ public class UI {
 
 
         }
+=======
+                }
+            }
+
+            // below is the Staff Operation
+
+            System.out.println("Please enter your choices: ");
+            System.out.println("1. Configure the system settings: (ticket prices, holidays,etc)");
+            System.out.println("2. Enter information about forthcoming movies");
+            System.out.println("3. Update details of the movies or remove one movie");
+            System.out.println("4. List the current top 5 ranking movies (by ticket sales or rating)");
+            System.out.println("5. Exit");
+
+            choice = sc.nextInt();
+            while (choice != 5) {
+                switch (choice) {
+                    case 1:
+                        // method used:
+                        // PriceTable.configureTicketPrice()
+                        // Date.configure()
+                        System.out.println("Please enter your choices: ");
+                        System.out.println("1. Configure ticket price");
+                        System.out.println("2. Configure holiday");
+                        choice = sc.nextInt();
+                        if (choice == 1) {
+                            continue;
+                            // PriceTable.configurePrice()
+                        }
+                        break;
+                    case 2:
+                        // not sure which class and which method
+                        break;
+                    case 3:// Update details of the moives or remove one movie
+                        System.out.println("Please enter your choices: ");
+                        System.out.println("1. Update movie details");
+                        System.out.println("2. remove one movie");
+                        choice = sc.nextInt();
+                        if (choice == 1):{
+                        continue;
+                        // get the movie ID and
+                    }
+                    break;
+                    case 4:
+                        break;
+                }
+                System.out.println("Please enter your choice:");
+                choice = sc.nextInt();
+            }
+
+            if (choice == 5)
+                System.exit(0);
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+        else if (!isStaff) {
+
+
+            while (choice != 1 && choice != 2) {
+                System.out.println("Please enter a valid input");
+                choice = sc.nextInt();
+            }
+            if (choice == 1) {
+
+            } else {
+                // if end here
+
+                ////////////////////////////////user operation////////////////////////////////////
+                // start choice 2 : current user login
+
+                do {
+                    // step 1: user login
+
+
+                    System.out.println("Please Enter your choice: ");
+                    System.out.println("1. Display current showing movies");
+                    System.out.println("2. Advanced sales");
+                    System.out.println("3. Go back");
+
+                    do {
+
+                        switch (choice) {
+                            case 1:
+                                System.out.println("current showing movies:");
+                                ArrayList<MovieInfo> selectedMovies = movieInfoDB.getByStatus("Current showing");
+                                for (int i = 0; i < selectedMovies.size(); i++)
+                                    System.out.println("Movie ID: " + selectedMovies.get(i).getMovieID() + "Movie Name: " + selectedMovies.get(i).getMovieName());
+                                System.out.println("Please Enter the selected MovieId");
+                                int movieId = sc.nextInt();
+
+
+                                break;
+
+                            case 2:
+                                System.out.println("current showing movies:");
+                                selectedMovies = movieInfoDB.getByStatus("Current showing");
+                                for (int i = 0; i < selectedMovies.size(); i++)
+                                    System.out.println("Movie ID: " + selectedMovies.get(i).getMovieID() + "Movie Name: " + selectedMovies.get(i).getMovieName());
+                                System.out.println("Please Enter the selected MovieId");
+                                movieId = sc.nextInt();
+
+
+                                break;
+                            case 3:
+
+
+                        }
+                    } while (choice < 4)
+
+                } choice = sc.nextInt();
+
+
+            } while () ;
+
+        }
+
+
+
     }
 
 
 }
+        }
+
+
+                }
+
+
+
+
+
