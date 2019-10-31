@@ -96,3 +96,7 @@ hs_err_pid*
 
 build/*
 /src/Movie(incomplete).java
+
+.DS_STORE
+.vscode/
+.idea
