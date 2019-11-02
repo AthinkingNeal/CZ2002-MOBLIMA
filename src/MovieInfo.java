@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieInfo {
-    private String movieId;
+    private int movieId;
     private String title;
     private Cineplex[] cineplexes;
     private String showingStatus;
@@ -14,8 +14,115 @@ public class MovieInfo {
     private String cast;
     private int numOfSales;
     private float overAllRating;
-    private int numOfRating;
     private ArrayList<RevNRat> reviewsAndRating;
+
+    public MovieInfo(int movieid, String title, String showingStatus, String synopsis, Cineplex[] cineplexes, boolean support2D, boolean support3D, boolean isBlockbluster, String director, String cast) {
+        this.movieId = movieid;
+        this.title = title;
+        this.showingStatus = showingStatus;
+        this.synopsis = synopsis;
+        this.cineplexes = cineplexes;
+        this.support2D = support2D;
+        this.support3D = support3D;
+        this.isBlockbluster = isBlockbluster;
+        this.director = director;
+        this.cast = cast;
+        this.overAllRating = 0;
+        this.numOfSales = 0;
+        reviewsAndRating = new ArrayList<>();
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Cineplex[] getCineplexes() {
+        return cineplexes;
+    }
+
+    public void setCineplexes(Cineplex[] cineplexes) {
+        this.cineplexes = cineplexes;
+    }
+
+    public String getShowingStatus() {
+        return showingStatus;
+    }
+
+    public void setShowingStatus(String showingStatus) {
+        this.showingStatus = showingStatus;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
+    public boolean isSupport2D() {
+        return support2D;
+    }
+
+    public void setSupport2D(boolean support2D) {
+        this.support2D = support2D;
+    }
+
+    public boolean isSupport3D() {
+        return support3D;
+    }
+
+    public void setSupport3D(boolean support3D) {
+        this.support3D = support3D;
+    }
+
+    public boolean isBlockbluster() {
+        return isBlockbluster;
+    }
+
+    public void setBlockbluster(boolean blockbluster) {
+        isBlockbluster = blockbluster;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getCast() {
+        return cast;
+    }
+
+    public void setCast(String cast) {
+        this.cast = cast;
+    }
+
+    public int getNumOfSales() {
+        return numOfSales;
+    }
+
+    public float getOverAllRating() {
+        return overAllRating;
+    }
+
+    public ArrayList<RevNRat> getReviewsAndRating() {
+        return reviewsAndRating;
+    }
 
     public void addReviewRating(int userID) {
         Scanner s = new Scanner(System.in);
@@ -24,9 +131,9 @@ public class MovieInfo {
         System.out.println("Please input your rating: (0-5) ");
         Float rating = Float.parseFloat(s.nextLine());
         RevNRat newReview = new RevNRat(userID, review, rating);
+        this.overAllRating = ((this.overAllRating * this.reviewsAndRating.size()) + rating) / (this.reviewsAndRating.size() + 1);
         reviewsAndRating.add(newReview);
         System.out.println("Your review has been posted successfully!");
-        this.overAllRating = ((this.overAllRating * this.numOfRating) + rating) / (++this.numOfRating);
     }
 
     public void incrementSales() {
@@ -37,17 +144,21 @@ public class MovieInfo {
     public void displayMovieInfo() {
         String temp = "";
         temp += "Movie Title: " + getTitle();
+        temp += "Movie ID: " + getMovieId();
         temp += "\nShowing Status: " + getShowingStatus();
         temp += "\nSynoposis: " + getSynopsis();
-        temp += "\nAvailable types: " + getAvailableTypes();
+        temp += "\nAvailable types: " + "3D: " + isSupport3D() + " 2D: " + isSupport2D();
+        temp += "\nBlockbuster: " + isBlockbluster();
         temp += "\nDirector: " + getDirector();
         temp += "\nCast: " + getCast();//!!!
-        temp += "\nOverall Rating: " + getOverAllRating();
         temp += "\nNumber Of Sales: " + getNumOfSales();
+        temp += "\nOverall Rating: " + getOverAllRating();
+        temp += "\nReviews: ";
+        System.out.println(temp);
+        for (int i = 0; i < this.reviewsAndRating.size(); i++)
+            reviewsAndRating.get(i).displayReviewRating();
 
-        //!!!
     }
-
 
 
     private class RevNRat {
@@ -68,10 +179,5 @@ public class MovieInfo {
         }
 
     }
-
 }
 
-
-
-
-}
