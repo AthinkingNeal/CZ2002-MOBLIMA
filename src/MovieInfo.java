@@ -1,22 +1,28 @@
+package projectMe;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieInfo {
     private int movieId;
     private String title;
-    private Cineplex[] cineplexes;
+    // private Cineplex[] cineplexes;
+    // change array to arrayList for future operation
+    private ArrayList<Cineplex> cineplexes;
     private String showingStatus;
     private String synopsis;
     private boolean support2D;
     private boolean support3D;
     private boolean isBlockbluster;
     private String director;
-    private String cast;
+    // private String cast;
+    // change String to arrayList of String for future operation
+    private ArrayList<String> cast;
     private int numOfSales;
     private float overAllRating;
     private ArrayList<RevNRat> reviewsAndRating;
 
-    public MovieInfo(int movieid, String title, String showingStatus, String synopsis, Cineplex[] cineplexes, boolean support2D, boolean support3D, boolean isBlockbluster, String director, String cast) {
+    public MovieInfo(int movieid, String title, String showingStatus, String synopsis, ArrayList<Cineplex> cineplexes, boolean support2D, boolean support3D, boolean isBlockbluster, String director, ArrayList<String> cast) {
         this.movieId = movieid;
         this.title = title;
         this.showingStatus = showingStatus;
@@ -48,11 +54,11 @@ public class MovieInfo {
         this.title = title;
     }
 
-    public Cineplex[] getCineplexes() {
+    public ArrayList<Cineplex> getCineplexes() {
         return cineplexes;
     }
 
-    public void setCineplexes(Cineplex[] cineplexes) {
+    public void setCineplexes(ArrayList<Cineplex> cineplexes) {
         this.cineplexes = cineplexes;
     }
 
@@ -104,11 +110,11 @@ public class MovieInfo {
         this.director = director;
     }
 
-    public String getCast() {
+    public ArrayList<String> getCast() {
         return cast;
     }
 
-    public void setCast(String cast) {
+    public void setCast(ArrayList<String> cast) {
         this.cast = cast;
     }
 
@@ -142,21 +148,43 @@ public class MovieInfo {
 
 
     public void displayMovieInfo() {
-        String temp = "";
-        temp += "Movie Title: " + getTitle();
-        temp += "Movie ID: " + getMovieId();
-        temp += "\nShowing Status: " + getShowingStatus();
-        temp += "\nSynoposis: " + getSynopsis();
-        temp += "\nAvailable types: " + "3D: " + isSupport3D() + " 2D: " + isSupport2D();
-        temp += "\nBlockbuster: " + isBlockbluster();
-        temp += "\nDirector: " + getDirector();
-        temp += "\nCast: " + getCast();//!!!
-        temp += "\nNumber Of Sales: " + getNumOfSales();
-        temp += "\nOverall Rating: " + getOverAllRating();
-        temp += "\nReviews: ";
+        StringBuilder temp = new StringBuilder();
+        temp.append("Movie Title: ").append(getTitle());
+        temp.append("Movie ID: ").append(getMovieId());
+        temp.append("\nShowing Status: ").append(getShowingStatus());
+        temp.append("\nSynoposis: ").append(getSynopsis());
+        temp.append("\nAvailable types: " + "3D: ").append(isSupport3D()).append(" 2D: ").append(isSupport2D());
+        temp.append("\nBlockbuster: ").append(isBlockbluster());
+        temp.append("\nDirector: ").append(getDirector());
+
+        for (int i = 0; i < getCast().size(); i++)
+            temp.append(getCast().get(i));
+
+        temp.append("\nNumber Of Sales: ").append(getNumOfSales());
+        temp.append("\nOverall Rating: ").append(getOverAllRating());
+        temp.append("\nReviews: ");
         System.out.println(temp);
         for (int i = 0; i < this.reviewsAndRating.size(); i++)
             reviewsAndRating.get(i).displayReviewRating();
+
+
+        // original
+//        String temp = "";
+//        temp += "Movie Title: " + getTitle();
+//        temp += "Movie ID: " + getMovieId();
+//        temp += "\nShowing Status: " + getShowingStatus();
+//        temp += "\nSynoposis: " + getSynopsis();
+//        temp += "\nAvailable types: " + "3D: " + isSupport3D() + " 2D: " + isSupport2D();
+//        temp += "\nBlockbuster: " + isBlockbluster();
+//        temp += "\nDirector: " + getDirector();
+//        temp += "\nCast: " + getCast(); //!!!
+//        temp += "\nNumber Of Sales: " + getNumOfSales();
+//        temp += "\nOverall Rating: " + getOverAllRating();
+//        temp += "\nReviews: ";
+//        System.out.println(temp);
+//        for (int i = 0; i < this.reviewsAndRating.size(); i++)
+//            reviewsAndRating.get(i).displayReviewRating();
+
 
     }
 
@@ -180,4 +208,3 @@ public class MovieInfo {
 
     }
 }
-
