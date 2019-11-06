@@ -1,23 +1,37 @@
+
+
 public class Layout{
-    enum Movieclass{
-        platinum,golden,normal
-    }
+    //    enum Movieclass{
+//        platinum,golden,normal
+//    }
     private Seat[][] layout;
-    private Movieclass movieclass=Movieclass.normal;
+    private String seatIDAlphabets = "ABCDEFGHIJ";
+    private Cinema.CinemaClass movieclass = Cinema.CinemaClass.normal;
 //    Layout(int cid, Seat[][] clayout, Movieclass cclass){
-    Layout(int cid, Movieclass cclass){
-        layout = new Seat[10][10];
-        for(int i= 0; i< 10;i++)
-            for(int j = 0; j < 10; j++)
-            layout[i][j] = new Seat(Integer.toString(i)+Integer.toString(j),false,false);
-        movieclass=cclass;
+
+    public Layout(int cid, Cinema.CinemaClass cinemaClass) {
+
+    int dimension;
+    if (cinemaClass == Cinema.CinemaClass.platinum)
+        dimension = 3; // if it's platinum, cinema has 3*3 seats;
+    else if (cinemaClass == Cinema.CinemaClass.golden)
+        dimension = 6;
+    else
+        dimension = 10;
+    layout = new Seat[dimension][dimension];
+    for(int i = 0; i< 10; i++)
+        for(int j = 0; j < 10; j++)
+            layout[i][j] = new Seat(seatIDAlphabets.charAt(i) + Integer.toString(j), false, false);
+    movieclass=cinemaClass;
 
     }
-    public Movieclass GetClass(){
+
+    public Cinema.CinemaClass GetClass() {
         return movieclass;
     }
+
     public void DisplayLayout(){
-        for (int t=0; t<Math.floor(4*layout.length)-5;t++)
+        for (int t = 0; t<Math.floor(4*layout.length)-5; t++)
             System.out.print(" ");
         System.out.print("[SCREEN]\n");
 //        for (int i=0; i<layout.length;i++) {
@@ -50,7 +64,7 @@ public class Layout{
 //            System.out.print("\n");
 //
 //        }
-        for (int i=0; i<layout.length;i++) {
+        for (int i=0; i<layout.length; i++) {
             for (int j = 0; j < layout[0].length; j++) {
                 if (j==0)
                     System.out.print(" \\_"+"_| ");
@@ -69,8 +83,7 @@ public class Layout{
                     System.out.print(" |_"+"_| ");
                 if (layout[i][j].GetOccu()){
                     System.out.print(" [XX] ");
-                }
-                else{
+                } else{
                     System.out.print(" [  ] ");
                 }
                 if (j==(layout[0].length-1))
@@ -81,14 +94,25 @@ public class Layout{
 
         }
     }
+
     public Seat[][] getLayout(){
         return layout;
     }
-    public void cancelSeat(int x, int y){
-        layout[x][y].cancelBooking();
+
+    public void cancelSeat(String[] seatIDs) {
+        for (int i = 0; i < seatIDs.length; i++) {
+            int x = seatIDAlphabets.indexOf(seatIDs[i].charAt(0));
+            int y = Integer.parseInt(String.valueOf(seatIDs[i].charAt(1)));
+            layout[x][y].cancelBooking();
+        }
     }
-    public void bookSeat(int x, int y){
-        layout[x][y].bookSeat();
+
+    public void bookSeat(String[] seatIDs) {
+        for (int i = 0; i < seatIDs.length; i++) {
+            int x = seatIDAlphabets.indexOf(seatIDs[i].charAt(0));
+            int y = Integer.parseInt(String.valueOf(seatIDs[i].charAt(1)));
+            layout[x][y].bookSeat();
+        }
     }
 
 }

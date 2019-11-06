@@ -1,20 +1,16 @@
-import java.io.*;
 import java.util.*;
 
 public class Cinema {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
-    private HashMap<String, MovieSchedule> cinemaSchedule;
+
+    private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
     private int cinemaID;
-    private String CinemaType;
     private String filename;
+    private CinemaClass cinemaClass;
 
-    public Map<String, MovieSchedule> getCinemaSchedule() {
+    public HashMap<String, MovieSchedule> getCinemaSchedule() {
         return cinemaSchedule;
-    }
-
-    public void setCinemaSchedule(Map<String, MovieSchedule> cinemaSchedule) {
-        this.cinemaSchedule = cinemaSchedule;
     }
 
     public int getCinemaID() {
@@ -25,14 +21,6 @@ public class Cinema {
         this.cinemaID = cinemaID;
     }
 
-    public String getCinemaType() {
-        return CinemaType;
-    }
-
-    public void setCinemaType(String cinemaType) {
-        CinemaType = cinemaType;
-    }
-
     public String getFilename() {
         return filename;
     }
@@ -41,14 +29,16 @@ public class Cinema {
         this.filename = filename;
     }
 
+
+
+
     /**
      * Initialise with a file containing all the moviescheduleinfo
      */
-    public Cinema(int cinemaID, String cinemaType) {
+    public Cinema(int cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
-        this.CinemaType = cinemaType;
+        this.cinemaClass = cinemaClass;
     }
-
 
     /**
      * Allow staff to add a single record of movie schedule
@@ -88,8 +78,12 @@ public class Cinema {
         System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
         duration = Double.parseDouble(s.nextLine());
 
-        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration));
+        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, cinemaClass));
         System.out.println("Successfully added!");
+    }
+
+    public void cancelBooking(String dateStartTime, String[] seatID) {
+        this.cinemaSchedule.get(dateStartTime).getLayout().cancelSeat(seatID);
     }
 
     /**
@@ -183,12 +177,13 @@ public class Cinema {
         return rst;
     }
 
-    public void cancelBooking(String dateStartTime, String[] seatID) {
-        this.cinemaSchedule.get(dateStartTime).getLayout().cancelbooking(seatID);
+    public void bookSeat(String dateStartTime, String[] seatID) {
+        this.cinemaSchedule.get(dateStartTime).getLayout().bookSeat(seatID);
     }
 
-    public void bookSeat(String dateStarttime) {
-        this.cinemaSchedule.get(dateStartTime).getLayout().bookseat();
+
+    public enum CinemaClass {
+        platinum, golden, normal
     }
 
     /**

@@ -82,7 +82,6 @@ public class PaymentRecord {
     }
 
 
-
     public int getAmountOfTickets() {
         return amountOfTickets;
     }
@@ -100,20 +99,17 @@ public class PaymentRecord {
     }
 
 
-    public void printRecord()
-    {
+    public void printRecord() {
         String temp = "Following are your record information: ";
-        temp += "\nTransaction ID: "+ getTID();
+        temp += "\nTransaction ID: " + getTID();
         temp += "\nmovieGoerID: " + getMovieGoerID();
         temp += "\nmovieID: " + getMovieID();
         temp += "\ncinemaID: " + getCinemaID();
         temp += "\namountOfTickets: " + getAmountOfTickets();
-        for(int i = 0; i < seatID.size(); i++)
+        for (int i = 0; i < seatID.size(); i++)
             temp += "seatID: " + seatID.get(i);
         temp += "totalCost: " + getTotalCost();
 
         System.out.println("temp");
     }
-
-
 }
