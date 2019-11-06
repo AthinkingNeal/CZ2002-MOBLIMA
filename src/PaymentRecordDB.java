@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class PaymentRecordDB extends Database{
-    private Map<String, PaymentRecord> PaymentRecordMap = new HashMap<String, PaymentRecord>();
+    private HashMap<String, PaymentRecord> PaymentRecordMap = new HashMap<String, PaymentRecord>();
     private String filename;
 
     /**
@@ -15,7 +15,7 @@ public class PaymentRecordDB extends Database{
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
             System.out.print("reading data from " + filename + "...");
-            this.PaymentRecordMap = (Map<String, PaymentRecord>) ois.readObject();
+            this.PaymentRecordMap = (HashMap<String, PaymentRecord>) ois.readObject();
             ois.close();
         } catch (IOException e) {
             System.out.println("File input error");
@@ -94,7 +94,12 @@ public class PaymentRecordDB extends Database{
 
     public void deleteRecord(String TID){
         // need to check valid input
-        PaymentRecordMap.remove(TID);
+        if (PaymentRecordMap.containsKey(TID) == false) {
+            System.out.println("You have entered an invalid PaymentRecord ID");
+        }
+        else{
+            PaymentRecordMap.remove(TID);
+        }
     }
 
     public void deleteRecord(){
