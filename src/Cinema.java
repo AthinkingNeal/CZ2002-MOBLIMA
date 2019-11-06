@@ -9,6 +9,10 @@ public class Cinema {
     private String filename;
     private Movieclass CinemaType;
 
+    public HashMap<String, MovieSchedule> getCinemaSchedule() {
+        return cinemaSchedule;
+    }
+
     /**
      * Initialise with a file containing all the moviescheduleinfo
      */
@@ -166,13 +170,10 @@ public class Cinema {
         return CinemaType;
     }
 
-    public Map<String, MovieSchedule> getCinemaSchedule() {
-        return cinemaSchedule;
-    }
-
     public enum Movieclass {
         platinum, golden, normal
     }
+
 
     /**
      * Save all MovieSchedule objects into the file

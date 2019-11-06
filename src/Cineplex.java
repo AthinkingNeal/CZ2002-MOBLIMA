@@ -28,7 +28,7 @@ public class Cineplex{
             HashMap<String,MovieSchedule> currentScheduleMap = currentCinema.getCinemaSchedule();
             MovieSchedule currentSchedule = currentScheduleMap.get(dateStartTime);
             if (currentSchedule == null) {
-                System.out.println("There is no movieSchedule in this period")
+                System.out.println("There is no movieSchedule in this period");
             }
         scheduleArrayList.add(currentSchedule);
         }
