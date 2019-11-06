@@ -6,14 +6,15 @@ public class Layout{
 //    }
     private Seat[][] layout;
     private String seatIDAlphabets = "ABCDEFGHIJ";
-    private Cinema.Movieclass movieclass = Cinema.Movieclass.normal;
+    private Cinema.CinemaClass movieclass = Cinema.CinemaClass.normal;
 //    Layout(int cid, Seat[][] clayout, Movieclass cclass){
-Layout(int cid, Cinema.Movieclass cclass) {
+
+    public Layout(int cid, Cinema.CinemaClass cinemaClass) {
 
     int dimension;
-    if (cclass == Cinema.Movieclass.platinum)
+    if (cinemaClass == Cinema.CinemaClass.platinum)
         dimension = 3; // if it's platinum, cinema has 3*3 seats;
-    else if (cclass == Cinema.Movieclass.golden)
+    else if (cinemaClass == Cinema.CinemaClass.golden)
         dimension = 6;
     else
         dimension = 10;
@@ -21,11 +22,11 @@ Layout(int cid, Cinema.Movieclass cclass) {
     for(int i = 0; i< 10; i++)
         for(int j = 0; j < 10; j++)
             layout[i][j] = new Seat(seatIDAlphabets.charAt(i) + Integer.toString(j), false, false);
-    movieclass=cclass;
+    movieclass=cinemaClass;
 
-}
+    }
 
-    public Cinema.Movieclass GetClass() {
+    public Cinema.CinemaClass GetClass() {
         return movieclass;
     }
 

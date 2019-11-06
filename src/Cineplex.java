@@ -1,5 +1,6 @@
 // This class is incomplete yet
 
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,11 +11,10 @@ public class Cineplex{
     private String location;
     private ArrayList<Cinema> cinemaArrayList = new ArrayList<Cinema>(); // Will this also initialize all the cinemas inside? Double Check
 
-    public Cineplex(int cineplexID, String name, String location, ArrayList<Cinema> cinemaArrayList){
+    public Cineplex(int cineplexID, String name, String location){
         this.cineplexID = cineplexID;
         this.name = name;
         this.location = location;
-        this.cinemaArrayList = cinemaArrayList;
     }
 
 
@@ -33,6 +33,36 @@ public class Cineplex{
         scheduleArrayList.add(currentSchedule);
         }
         return scheduleArrayList;
+    }
+
+    public void addCinema(){
+        Scanner sc = new Scanner(System.in);
+        int cinemaID;
+        Cinema.CinemaClass cinemaClass = Cinema.CinemaClass.normal; // initialize MovieClass to normal
+        int temp;
+        System.out.println("Please enter the cinema ID");
+        cinemaID = sc.nextInt();
+        System.out.println("Please enter the cinemaClass (enter corresponded integer): ");
+        System.out.println("1. Normal");
+        System.out.println("2. Golden");
+        System.out.println("3. Platinum");
+        temp = sc.nextInt();
+        if (temp == 1) {
+            cinemaClass = Cinema.CinemaClass.normal;
+        }
+        else if (temp == 2) {
+            cinemaClass = Cinema.CinemaClass.golden;
+        }
+        else if(temp == 3){
+            cinemaClass = Cinema.CinemaClass.platinum;
+        }
+        else{
+            System.out.println("You have entered an invalid class");
+        }
+
+        Cinema cinemaAdded = new Cinema(cinemaID = cinemaID, cinemaClass = cinemaClass);
+        cinemaArrayList.add(cinemaAdded);
+        System.out.println("You have successfully ");
     }
 
 
