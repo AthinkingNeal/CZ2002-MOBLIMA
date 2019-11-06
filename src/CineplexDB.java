@@ -1,11 +1,11 @@
-package projectMe;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CineplexDB extends Database {
     private static Map<Integer, Cineplex> CineplexMap = new HashMap<Integer, Cineplex>();
-
+    private String filename;
 
     public void addRecord() {
     }
@@ -27,12 +27,11 @@ public class CineplexDB extends Database {
             return false;
     }
 
-    public static Cineplex getCineplexByID(Integer cineplexID) {
 
+    public static Cineplex getCineplexByID(Integer cineplexID) {
         if (findCineplexByID(cineplexID))
             return CineplexMap.get(cineplexID);
         else return null;
-
     }
 
 }

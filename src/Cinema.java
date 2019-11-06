@@ -4,11 +4,42 @@ import java.util.*;
 public class Cinema {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
-    private Map<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
+    private HashMap<String, MovieSchedule> cinemaSchedule;
     private int cinemaID;
     private String CinemaType;
     private String filename;
 
+    public Map<String, MovieSchedule> getCinemaSchedule() {
+        return cinemaSchedule;
+    }
+
+    public void setCinemaSchedule(Map<String, MovieSchedule> cinemaSchedule) {
+        this.cinemaSchedule = cinemaSchedule;
+    }
+
+    public int getCinemaID() {
+        return cinemaID;
+    }
+
+    public void setCinemaID(int cinemaID) {
+        this.cinemaID = cinemaID;
+    }
+
+    public String getCinemaType() {
+        return CinemaType;
+    }
+
+    public void setCinemaType(String cinemaType) {
+        CinemaType = cinemaType;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     /**
      * Initialise with a file containing all the moviescheduleinfo

@@ -1,10 +1,8 @@
 // This class is incomplete yet
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.Map;
 
 public class Cineplex{
     private int cineplexID;
@@ -22,12 +20,18 @@ public class Cineplex{
 
     // the user already selects the movieID, date, and time already.
     // we assume that one movie will only exist in one MovieSchedule at a specific time.
-//    public MovieSchedule getSchedule(int movieID, String date, String time){
-//
-//    }
-//
-//
+    public MovieSchedule getMovieScheduleByID(int movieID, String dateStartTime){
+        ArrayList <MovieSchedule> scheduleArrayList;
+        int len = cinemaArrayList.size();
+        for(int i = 0; i < len; i++){
+            Cinema currentCinema = cinemaArrayList.get(i);
+            HashMap<String,MovieSchedule> currentScheduleMap = currentCinema.getCinemaSchedule();
+            MovieSchedule currentSchedule = currentScheduleMap.get(dateStartTime); // why do we need to force case this return value?
+            if (currentSchedule == null) {
 
+            }
+        }
+    }
 
 
 
@@ -62,14 +66,6 @@ public class Cineplex{
 
     public void setCinemaArrayList(ArrayList<Cinema> cinemaArrayList) {
         this.cinemaArrayList = cinemaArrayList;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
     }
 
 
