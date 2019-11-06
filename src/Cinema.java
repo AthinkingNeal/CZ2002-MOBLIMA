@@ -4,7 +4,7 @@ import java.util.*;
 public class Cinema {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
-    private Map<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
+    private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
     private int cinemaID;
     private String filename;
     private Movieclass CinemaType;
