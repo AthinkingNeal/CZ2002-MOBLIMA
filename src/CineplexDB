@@ -1,8 +1,0 @@
-// This class is incomplete yet
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class CineplexDB extends Database {
-    private Map<Integer, Cineplex> CineplexMap = new HashMap<Integer, Cineplex>();
-}
