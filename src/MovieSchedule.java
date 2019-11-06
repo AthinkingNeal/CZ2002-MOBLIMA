@@ -7,14 +7,14 @@ public class MovieSchedule {
     private double duration;
     private Layout layout;
 
-    public MovieSchedule(String dateStartTime, int movieID, String movieName, boolean is3D, boolean isBlockbuster, double duration) {
+    public MovieSchedule(String dateStartTime, int movieID, String movieName, boolean is3D, boolean isBlockbuster, double duration, int cinemaID, Cinema.Movieclass movieclass) {
         this.dateStartTime = dateStartTime;
         this.movieID = movieID;
         this.movieName = movieName;
         this.is3D = is3D;
         this.isBlockbuster = isBlockbuster;
         this.duration = duration;
-        this.layout = new Layout();
+        this.layout = new Layout(cinemaID, movieclass);
     }
 
     public String getDateStartTime() {
