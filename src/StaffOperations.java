@@ -12,7 +12,7 @@ public class StaffOperations {
 
         this.cineplexDB = new CineplexDB(//TODO read from file);
                 this.movieInfoDB = new MovieInfoDB(//TODO read from file);
-                        this.date = new Date();
+                        this.date = new Date(//TODO read from file);
         this.priceTable = new PriceTable();
 
     }

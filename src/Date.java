@@ -1,5 +1,3 @@
-package projectMe;
-
 public class Date {
     private int date;
     private String dayOfWeek;
