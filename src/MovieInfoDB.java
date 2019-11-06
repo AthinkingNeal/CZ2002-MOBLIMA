@@ -1,8 +1,6 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+
 
 public class MovieInfoDB extends Database {
     // key: movieID, value: MovieInfo object
@@ -59,13 +57,14 @@ public class MovieInfoDB extends Database {
         int noCine = sc.nextInt();
         // Cineplex[] cineplexes = new Cineplex[noCine];
         ArrayList<Integer> cineplexes = new ArrayList<Integer>();
+        Integer newCineplexID;
         for (int i = 0; i < noCine; i++) {
             do {
                 System.out.println("Please enter cineplex ID " + i + 1);
-                int cineplexID = sc.nextInt();
-                if (CineplexDB.findCineplexByID(cineplexID)) {
+                newCineplexID = sc.nextInt();
+                if (CineplexDB.findCineplexByID(newCineplexID)) {
                     // cineplexes[i] = CineplexDB.CineplexMap.get(sc.nextInt());
-                    cineplexes.add(cineplexID);
+                    cineplexes.add(newCineplexID);
                     break;
                 } else
                     System.out.println("Cinexplex ID does not exist");
@@ -226,6 +225,7 @@ public class MovieInfoDB extends Database {
                 System.out.println("2. Add a cineplex showing this movie");
                 System.out.println("3. Change a cineplex with another");
                 choice = sc.nextInt();
+
                 // Cineplex[] cineplexes = movieInfoRecord.get(movieId).getCineplexes();
                 ArrayList<Integer> cineplexes = movieInfoRecord.get(movieId).getCineplexes();
                 int size = cineplexes.size();
@@ -237,7 +237,7 @@ public class MovieInfoDB extends Database {
                 // remove a cineplex showing the movie
                 if (choice == 1) {
                     System.out.println("Please enter the cineplexID you want to remove: ");
-                    int i = 0;
+                    int i;
                     if (sc.hasNextInt()) {
                         for (i = 0; i < cineplexes.size(); i++) {
                             if (cineplexes.get(i) == sc.nextInt()) {
@@ -383,8 +383,56 @@ public class MovieInfoDB extends Database {
     }
 
     /**
+     * get movie by status
+     */
+    public ArrayList<MovieInfo> getByStatus(String status) {
+        ArrayList<MovieInfo> result = new ArrayList<MovieInfo>();
+        for (Map.Entry<Integer, MovieInfo> entry : movieInfoRecord.entrySet()) {
+            if (entry.getValue().getShowingStatus() == status) {
+                result.add(entry.getValue());
+            }
+        }
+        return result;
+        // System.out.println("The movieGoer you are looking for does not exist");
+    }
+
+    /**
+     * list top movies
+     */
+    public ArrayList<MovieInfo> listTopMovies(String priority) {
+        ArrayList<MovieInfo> result = new ArrayList<>();
+
+        List<Map.Entry<Integer, MovieInfo>> list = new LinkedList<>(movieInfoRecord.entrySet());
+        if (priority.equals("sales")) {
+            for (Map.Entry<Integer, MovieInfo> entry : movieInfoRecord.entrySet()) {
+                Collections.sort(list, new Comparator<Map.Entry<Integer, MovieInfo>>() {
+                    public int compare(Map.Entry<Integer, MovieInfo> o1,
+                                       Map.Entry<Integer, MovieInfo> o2) {
+                        return (Integer.valueOf(o1.getValue().getNumOfSales()).compareTo(Integer.valueOf(o2.getValue().getNumOfSales())));
+                    }
+                });
+            }
+        } else {
+            for (Map.Entry<Integer, MovieInfo> entry : movieInfoRecord.entrySet()) {
+                Collections.sort(list, new Comparator<Map.Entry<Integer, MovieInfo>>() {
+                    public int compare(Map.Entry<Integer, MovieInfo> o1,
+                                       Map.Entry<Integer, MovieInfo> o2) {
+                        return (Float.valueOf(o1.getValue().getOverAllRating()).compareTo(Float.valueOf(o2.getValue().getOverAllRating())));
+                    }
+                });
+            }
+        }
+
+        for (Map.Entry<Integer, MovieInfo> aa : list) {
+            result.add(aa.getValue());
+        }
+        return result;
+    }
+
+    /**
      * save to file after modifying the database
      */
+
 
     public void saveToFile() {
         try {
