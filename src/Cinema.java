@@ -6,18 +6,16 @@ public class Cinema {
     // hashmap: key: "dateStarttime", value: MovieSchedule
     private Map<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
     private int cinemaID;
-    private String CinemaType;
     private String filename;
-
+    private Movieclass CinemaType;
 
     /**
      * Initialise with a file containing all the moviescheduleinfo
      */
-    public Cinema(int cinemaID, String cinemaType) {
+    public Cinema(int cinemaID, Movieclass cinemaType) {
         this.cinemaID = cinemaID;
         this.CinemaType = cinemaType;
     }
-
 
     /**
      * Allow staff to add a single record of movie schedule
@@ -57,8 +55,12 @@ public class Cinema {
         System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
         duration = Double.parseDouble(s.nextLine());
 
-        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration));
+        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, CinemaType));
         System.out.println("Successfully added!");
+    }
+
+    public void cancelBooking(String dateStartTime, String[] seatID) {
+        this.cinemaSchedule.get(dateStartTime).getLayout().cancelSeat(seatID);
     }
 
     /**
@@ -152,12 +154,24 @@ public class Cinema {
         return rst;
     }
 
-    public void cancelBooking(String dateStartTime, String[] seatID) {
-        this.cinemaSchedule.get(dateStartTime).getLayout().cancelbooking(seatID);
+    public void bookSeat(String dateStartTime, String[] seatID) {
+        this.cinemaSchedule.get(dateStartTime).getLayout().bookSeat(seatID);
     }
 
-    public void bookSeat(String dateStarttime) {
-        this.cinemaSchedule.get(dateStartTime).getLayout().bookseat();
+    public int getCinemaID() {
+        return cinemaID;
+    }
+
+    public Movieclass getCinemaType() {
+        return CinemaType;
+    }
+
+    public Map<String, MovieSchedule> getCinemaSchedule() {
+        return cinemaSchedule;
+    }
+
+    public enum Movieclass {
+        platinum, golden, normal
     }
 
     /**
