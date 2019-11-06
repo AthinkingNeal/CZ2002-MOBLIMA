@@ -20,23 +20,19 @@ public class CineplexDB extends Database {
     }
 
     public static boolean findCineplexByID(Integer cineplexID) {
-        for (Map.Entry<Integer, Cineplex> entry : CineplexMap.entrySet()) {
-            if (entry.getValue().getCineplexID() == cineplexID) {
-                // System.out.println("The movie goer is found!");
-                return true;
-            }
-        }
-        return false;
+
+        if (CineplexMap.containsKey(cineplexID))
+            return true;
+        else
+            return false;
     }
 
     public static Cineplex getCineplexByID(Integer cineplexID) {
-        for (Map.Entry<Integer, Cineplex> entry : CineplexMap.entrySet()) {
-            if (entry.getValue().getCineplexID() == cineplexID) {
-                // System.out.println("The movie goer is found!");
-                return entry.getValue();
-            }
-        }
-        return null;
+
+        if (findCineplexByID(cineplexID))
+            return CineplexMap.get(cineplexID);
+        else return null;
+
     }
 
 }
