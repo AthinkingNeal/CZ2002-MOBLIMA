@@ -1,16 +1,14 @@
 // This class is incomplete yet
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.Map;
 
 public class Cineplex{
     private int cineplexID;
     private String name;
     private String location;
-    private ArrayList<Cinema> cinemaArrayList; // Will this also initialize all the cinemas inside? Double Check
+    private ArrayList<Cinema> cinemaArrayList = new ArrayList<Cinema>(); // Will this also initialize all the cinemas inside? Double Check
 
     public Cineplex(int cineplexID, String name, String location, ArrayList<Cinema> cinemaArrayList){
         this.cineplexID = cineplexID;
@@ -22,12 +20,20 @@ public class Cineplex{
 
     // the user already selects the movieID, date, and time already.
     // we assume that one movie will only exist in one MovieSchedule at a specific time.
-//    public MovieSchedule getSchedule(int movieID, String date, String time){
-//
-//    }
-//
-//
-
+    public ArrayList <MovieSchedule> getMovieScheduleByID(int movieID, String dateStartTime){
+        ArrayList <MovieSchedule> scheduleArrayList = new ArrayList<MovieSchedule>();
+        int len = cinemaArrayList.size();
+        for(int i = 0; i < len; i++){
+            Cinema currentCinema = cinemaArrayList.get(i);
+            HashMap<String,MovieSchedule> currentScheduleMap = currentCinema.getCinemaSchedule();
+            MovieSchedule currentSchedule = currentScheduleMap.get(dateStartTime);
+            if (currentSchedule == null) {
+                System.out.println("There is no movieSchedule in this period")
+            }
+        scheduleArrayList.add(currentSchedule);
+        }
+        return scheduleArrayList;
+    }
 
 
 
@@ -62,14 +68,6 @@ public class Cineplex{
 
     public void setCinemaArrayList(ArrayList<Cinema> cinemaArrayList) {
         this.cinemaArrayList = cinemaArrayList;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
     }
 
 
