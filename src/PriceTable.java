@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class PriceTableDB {
+public class PriceTable {
 
     private String filename;
     private Map<String, Double> priceTableRecord = new HashMap<String, Double>();
@@ -13,7 +13,7 @@ public class PriceTableDB {
     /*
      * initialise with a file containing all the detail price records
      * */
-    public PriceTableDB(String filename) {
+    public PriceTable(String filename) {
         this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
