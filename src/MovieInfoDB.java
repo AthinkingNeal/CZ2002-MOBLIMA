@@ -4,7 +4,7 @@ import java.util.*;
 
 public class MovieInfoDB extends Database {
     // key: movieID, value: MovieInfo object
-    private Map<Integer, MovieInfo> movieInfoRecord = new HashMap<Integer, MovieInfo>();
+    private HashMap<Integer, MovieInfo> movieInfoRecord = new HashMap<Integer, MovieInfo>();
     private String filename;
 
     /**
@@ -17,7 +17,7 @@ public class MovieInfoDB extends Database {
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             System.out.print("reading data from " + filename + "...");
-            this.movieInfoRecord = (Map<Integer, MovieInfo>) ois.readObject();
+            this.movieInfoRecord = (HashMap<Integer, MovieInfo>) ois.readObject();
             ois.close();
         } catch (IOException e) {
             System.out.println("File input error");
@@ -433,6 +433,9 @@ public class MovieInfoDB extends Database {
      * save to file after modifying the database
      */
 
+    public MovieInfo getMovieInfoByMovieID(Integer movieID) {
+        return movieInfoRecord.get(movieID);
+    }
 
     public void saveToFile() {
         try {
