@@ -6,8 +6,10 @@ public class MovieGoer {
     protected int age;
     protected PaymentRecord [] History;
 
-    public void MovieGoer(String name, int mobileNumber, String emailAddress, int age){
+
+    public MovieGoer(String name, int movieGoerID, int mobileNumber, String emailAddress, int age){
         this.name = name;
+        this.movieGoerID = movieGoerID;
         this.mobileNumber = mobileNumber;
         this.emailAddress = emailAddress;
         this.age = age;
@@ -27,6 +29,8 @@ public class MovieGoer {
         }
     }
 
+    // The method below is not complete
+
     /*
     update PaymentRecord, flag as refunded
     update MovieSale, sale - 1
@@ -35,11 +39,14 @@ public class MovieGoer {
     public void cancelBooking(String recordID){
         String id="id mock";
         int CineplexId=1;
-        int cinimaId=1;
+        int cinemaId=1;
         int movieId=1;
         String startTime="2018-10-09-13-30";
 
-        movielist=moviewSchedulerDb.findAllRecord(id,CineplexId,cinimaId,movieId,startTime)
+
+
+
+
 
     }
     public int getMovieGoerID() {
