@@ -58,13 +58,14 @@ public class MovieInfoDB extends Database {
         System.out.println("Please enter the number of cineplexes for this movie: ");
         int noCine = sc.nextInt();
         // Cineplex[] cineplexes = new Cineplex[noCine];
-        ArrayList<Cineplex> cineplexes = new ArrayList<Cineplex>();
+        ArrayList<Integer> cineplexes = new ArrayList<Integer>();
         for (int i = 0; i < noCine; i++) {
             do {
                 System.out.println("Please enter cineplex ID " + i + 1);
-                if (CineplexDB.findCineplexByID(sc.nextInt())) {
+                int cineplexID = sc.nextInt();
+                if (CineplexDB.findCineplexByID(cineplexID)) {
                     // cineplexes[i] = CineplexDB.CineplexMap.get(sc.nextInt());
-                    cineplexes.add(CineplexDB.getCineplexByID(sc.nextInt()));
+                    cineplexes.add(cineplexID);
                     break;
                 } else
                     System.out.println("Cinexplex ID does not exist");
@@ -226,12 +227,12 @@ public class MovieInfoDB extends Database {
                 System.out.println("3. Change a cineplex with another");
                 choice = sc.nextInt();
                 // Cineplex[] cineplexes = movieInfoRecord.get(movieId).getCineplexes();
-                ArrayList<Cineplex> cineplexes = movieInfoRecord.get(movieId).getCineplexes();
+                ArrayList<Integer> cineplexes = movieInfoRecord.get(movieId).getCineplexes();
                 int size = cineplexes.size();
 
                 System.out.println("Current cineplexes for movieID" + movieId);
                 for (int i = 0; i < cineplexes.size(); i++)
-                    System.out.println(cineplexes.get(i).getCineplexID());
+                    System.out.println(cineplexes.get(i));
 
                 // remove a cineplex showing the movie
                 if (choice == 1) {
@@ -239,7 +240,7 @@ public class MovieInfoDB extends Database {
                     int i = 0;
                     if (sc.hasNextInt()) {
                         for (i = 0; i < cineplexes.size(); i++) {
-                            if (cineplexes.get(i).getCineplexID() == sc.nextInt()) {
+                            if (cineplexes.get(i) == sc.nextInt()) {
                                 cineplexes.remove(i);
                                 System.out.println("Cineplex successfully removed!");
                                 break;
@@ -258,14 +259,14 @@ public class MovieInfoDB extends Database {
                     if (sc.hasNextInt()) {
                         int newCine = sc.nextInt();
                         for (i = 0; i < cineplexes.size(); i++) {
-                            if (cineplexes.get(i).getCineplexID() == newCine) {
+                            if (cineplexes.get(i) == newCine) {
                                 System.out.println("Cineplex already exists!");
                                 break;
                             }
                         }
                         if (i == cineplexes.size()) {
                             if (CineplexDB.findCineplexByID(newCine)) {
-                                cineplexes.add(CineplexDB.getCineplexByID(newCine));
+                                cineplexes.add(newCine);
                                 System.out.println("Cineplex successfully added!");
                             } else System.out.println("No Cineplex with ID" + newCine);
                         }
@@ -279,7 +280,7 @@ public class MovieInfoDB extends Database {
 
                     if (sc.hasNextInt()) {
                         for (i = 0; i < cineplexes.size(); i++)
-                            if (cineplexes.get(i).getCineplexID() == sc.nextInt()) // to-be-replaced exists
+                            if (cineplexes.get(i) == sc.nextInt()) // to-be-replaced exists
                                 break;
                         if (i == cineplexes.size()) {
                             System.out.println("Cineplex to be replaced does not exist");
@@ -289,7 +290,7 @@ public class MovieInfoDB extends Database {
                             if (sc.hasNextInt()) {
                                 sub = sc.nextInt();
                                 if (CineplexDB.findCineplexByID(sub))
-                                    cineplexes.set(i, CineplexDB.getCineplexByID(sub));
+                                    cineplexes.set(i, sub);
                             } else System.out.println("Invalid input.");
                         }
                     } else {

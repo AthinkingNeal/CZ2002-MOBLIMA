@@ -1,5 +1,3 @@
-package edu.ntu.assignment;
-
 public class MovieGoer {
     protected String name;
     protected int movieGoerID;

@@ -1,4 +1,3 @@
-package projectMe;
 
 import java.util.HashMap;
 import java.util.Map;

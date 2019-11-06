@@ -7,7 +7,7 @@ public class MovieInfo {
     private String title;
     // private Cineplex[] cineplexes;
     // change array to arrayList for future operation
-    private ArrayList<Cineplex> cineplexes;
+    private ArrayList<Integer> cineplexes; // store a list of cineplexes ID
     private String showingStatus;
     private String synopsis;
     private boolean support2D;
@@ -21,7 +21,7 @@ public class MovieInfo {
     private float overAllRating;
     private ArrayList<RevNRat> reviewsAndRating;
 
-    public MovieInfo(int movieid, String title, String showingStatus, String synopsis, ArrayList<Cineplex> cineplexes, boolean support2D, boolean support3D, boolean isBlockbluster, String director, ArrayList<String> cast) {
+    public MovieInfo(int movieid, String title, String showingStatus, String synopsis, ArrayList<Integer> cineplexes, boolean support2D, boolean support3D, boolean isBlockbluster, String director, ArrayList<String> cast) {
         this.movieId = movieid;
         this.title = title;
         this.showingStatus = showingStatus;
@@ -53,11 +53,11 @@ public class MovieInfo {
         this.title = title;
     }
 
-    public ArrayList<Cineplex> getCineplexes() {
+    public ArrayList<Integer> getCineplexes() {
         return cineplexes;
     }
 
-    public void setCineplexes(ArrayList<Cineplex> cineplexes) {
+    public void setCineplexes(ArrayList<Integer> cineplexes) {
         this.cineplexes = cineplexes;
     }
 
