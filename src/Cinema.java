@@ -4,21 +4,41 @@ import java.util.*;
 public class Cinema {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
+
     private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
     private int cinemaID;
     private String filename;
-    private Movieclass CinemaType;
+    private CinemaClass CinemaType;
 
     public HashMap<String, MovieSchedule> getCinemaSchedule() {
         return cinemaSchedule;
     }
 
+    public int getCinemaID() {
+        return cinemaID;
+    }
+
+    public void setCinemaID(int cinemaID) {
+        this.cinemaID = cinemaID;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+
+
+
     /**
      * Initialise with a file containing all the moviescheduleinfo
      */
-    public Cinema(int cinemaID, Movieclass cinemaType) {
+    public Cinema(int cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
-        this.CinemaType = cinemaType;
+        this.CinemaType = cinemaClass;
     }
 
     /**
@@ -162,18 +182,10 @@ public class Cinema {
         this.cinemaSchedule.get(dateStartTime).getLayout().bookSeat(seatID);
     }
 
-    public int getCinemaID() {
-        return cinemaID;
-    }
 
-    public Movieclass getCinemaType() {
-        return CinemaType;
-    }
-
-    public enum Movieclass {
+    public enum CinemaClass {
         platinum, golden, normal
     }
-
 
     /**
      * Save all MovieSchedule objects into the file
