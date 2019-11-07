@@ -2,9 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class PaymentRecordDB extends Database{
-
     private HashMap<String, PaymentRecord> PaymentRecordMap = new HashMap<String, PaymentRecord>();
-
     private String filename;
 
     /**
@@ -18,7 +16,6 @@ public class PaymentRecordDB extends Database{
             ObjectInputStream ois = new ObjectInputStream(fis);
             System.out.print("reading data from " + filename + "...");
             this.PaymentRecordMap = (HashMap<String, PaymentRecord>) ois.readObject();
-
             ois.close();
         } catch (IOException e) {
             System.out.println("File input error");

@@ -1,4 +1,5 @@
 
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,7 +10,6 @@ import java.util.Calendar;
   day of week is retrieved from system
 
  */
-
 public class Date {
     private String filename;
     // the value of the hashmap is a boolean array, containing [isHoliday, isHolidayEve]

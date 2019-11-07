@@ -1,14 +1,30 @@
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CineplexDB extends Database {
-    private static HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
+
+    private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
     private String filename;
+
+    public CineplexDB(String fileName) {
+        this.filename = filename;
+        try {
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            System.out.print("reading data from " + filename + "...");
+            this.cineplexMap = (HashMap<Integer, Cineplex>) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
 
 
     public void addRecord(int cineplexID, String name, String location){
@@ -16,8 +32,6 @@ public class CineplexDB extends Database {
         cineplexMap.put(cineplexID,temp);
         System.out.println("You have successfully added a new cineplex!");
     }
-
-
 
     public void addRecord() {
         Scanner sc = new Scanner(System.in);
@@ -72,8 +86,7 @@ public class CineplexDB extends Database {
         }
 
 
-
-    public static boolean findCineplexByID(Integer cineplexID) {
+    public boolean findCineplexByID(int cineplexID) {
 
         if (cineplexMap.containsKey(cineplexID))
             return true;
@@ -81,10 +94,9 @@ public class CineplexDB extends Database {
             return false;
     }
 
-
-    public static Cineplex getCineplexByID(Integer cineplexID) {
+    public Cineplex getCineplexByID(int cineplexID) {
         if (findCineplexByID(cineplexID))
-            return cineplexMap.get(cineplexID);
+            return this.cineplexMap.get(cineplexID);
         else return null;
     }
 
