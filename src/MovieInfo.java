@@ -57,6 +57,12 @@ public class MovieInfo {
         return cineplexes;
     }
 
+    public void displayCineplexes() {
+        for (int i = 0; i < cineplexes.size(); i++) {
+            System.out.println(cineplexes.get(i));
+        }
+    }
+
     public void setCineplexes(ArrayList<Integer> cineplexes) {
         this.cineplexes = cineplexes;
     }
