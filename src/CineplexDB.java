@@ -1,14 +1,28 @@
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CineplexDB extends Database {
-    private static HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
+    private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
     private String filename;
+
+    public CineplexDB(String fileName) {
+        this.filename = filename;
+        try {
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            System.out.print("reading data from " + filename + "...");
+            this.cineplexMap = (HashMap<Integer, Cineplex>) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
 
 
     public void addRecord(int cineplexID, String name, String location){
@@ -35,21 +49,17 @@ public class CineplexDB extends Database {
 
     }
 
+    public static void main(String args[]) {
+
+    }
+
     public void deleteRecord(int cineplexID){
-        if (cineplexMap.containsKey(cineplexID) == false) {
+        if (!cineplexMap.containsKey(cineplexID)) {
             System.out.println("You have entered an invalid cineplex ID");
         }
         else{
             cineplexMap.remove(cineplexID);
         }
-    }
-
-
-    public void deleteRecord() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please input the TID of the PaymentRecord you want to delete: ");
-        int cineplexID = sc.nextInt();
-        deleteRecord(cineplexID);
     }
 
 
@@ -70,9 +80,14 @@ public class CineplexDB extends Database {
             }
         }
 
+    public void deleteRecord() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the cineplex of the PaymentRecord you want to delete: ");
+        int cineplexID = sc.nextInt();
+        deleteRecord(cineplexID);
+    }
 
-
-    public static boolean findCineplexByID(Integer cineplexID) {
+    public boolean findCineplexByID(int cineplexID) {
 
         if (cineplexMap.containsKey(cineplexID))
             return true;
@@ -80,10 +95,9 @@ public class CineplexDB extends Database {
             return false;
     }
 
-
-    public static Cineplex getCineplexByID(Integer cineplexID) {
+    public Cineplex getCineplexByID(int cineplexID) {
         if (findCineplexByID(cineplexID))
-            return cineplexMap.get(cineplexID);
+            return this.cineplexMap.get(cineplexID);
         else return null;
     }
 

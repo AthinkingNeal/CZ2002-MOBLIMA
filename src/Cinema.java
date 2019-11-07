@@ -62,6 +62,7 @@ public class Cinema {
         System.out.println("Please input the movie name");
         movieName = s.nextLine();
 
+
         System.out.println("Is this movie 3D? Y/N");
         String ans = s.nextLine();
         if (ans == "Y" || ans == "y")

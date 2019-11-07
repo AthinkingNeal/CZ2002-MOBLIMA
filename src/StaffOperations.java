@@ -3,17 +3,20 @@ import java.util.Scanner;
 
 public class StaffOperations {
 
-    private Database cineplexDB;
-    private Database movieInfoDB;
+    private CineplexDB cineplexDB;
+    private MovieInfoDB movieInfoDB; //!! if use Database,
     private Date date;
     private PriceTable priceTable;
+    private StaffRecordDB staffRecordDB;
 
     public StaffOperations() {
 
-        this.cineplexDB = new CineplexDB(//TODO read from file);
-                this.movieInfoDB = new MovieInfoDB(//TODO read from file);
-                        this.date = new Date(//TODO read from file);
-        this.priceTable = new PriceTable();
+        this.cineplexDB = new CineplexDB("");
+        this.movieInfoDB = new MovieInfoDB("");
+        this.date = new Date("");
+        this.priceTable = new PriceTable("");
+        this.staffRecordDB = new StaffRecordDB("");
+        startOperations();
 
     }
 
@@ -33,6 +36,8 @@ public class StaffOperations {
     }
 
     private void startOperations() {
+        if (!staffRecordDB.login())
+            System.exit(0);
         displayMainMenu();
         Scanner s = new Scanner(System.in);
         int choice = s.nextInt();
@@ -56,16 +61,16 @@ public class StaffOperations {
                 updateMovieSchedule();
                 break;
             case 7:
-                deleteMovies();
+                deleteMovieSchedule();
                 break;
             case 8:
-                addMovieSchedule();
+                deleteMovies();
                 break;
             case 9:
-                updateMovieSchedule();
+                listCurrentTopBySales();
                 break;
             case 10:
-                updateMovieSchedule();
+                listCurrentTopByRating();
                 break;
             case 11:
                 System.out.println("Have a nice day! Good bye!");
@@ -95,30 +100,56 @@ public class StaffOperations {
     }
 
     private void addMovieSchedule() {
-        System.out.println("Which movie? Enter movie ID");
+        System.out.println("Add new schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
-        //TODO movieInfoDB.getMovieInfoByMovieID(movieID)
-
+        System.out.println("Add new schedule for which cineplex? Enter cineplex ID");
+        int cineplexID = s.nextInt();
+        System.out.println("Add new schedule for which cinema? Enter cinema ID");
+        int cinemaID = s.nextInt();
+        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord();
+        startOperations();
     }
 
     private void updateMovieSchedule() {
+        System.out.println("Add new schedule for which movie? Enter movie ID");
+        Scanner s = new Scanner(System.in);
+        int movieID = s.nextInt();
+        System.out.println("Add new schedule for which cineplex? Enter cineplex ID");
+        int cineplexID = s.nextInt();
+        System.out.println("Add new schedule for which cinema? Enter cinema ID");
+        int cinemaID = s.nextInt();
+        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord();
+        startOperations();
 
     }
 
     private void deleteMovieSchedule() {
+        System.out.println("Add new schedule for which movie? Enter movie ID");
+        Scanner s = new Scanner(System.in);
+        int movieID = s.nextInt();
+        System.out.println("Add new schedule for which cineplex? Enter cineplex ID");
+        int cineplexID = s.nextInt();
+        System.out.println("Add new schedule for which cinema? Enter cinema ID");
+        int cinemaID = s.nextInt();
+        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
+        startOperations();
 
     }
 
     private void deleteMovies() {
-
+        movieInfoDB.deleteRecord();
+        startOperations();
     }
 
     private void listCurrentTopBySales() {
+        movieInfoDB.listTopMovies("sales");
+        startOperations();
     }
 
     private void listCurrentTopByRating() {
-
+        movieInfoDB.listTopMovies("rating");
+        startOperations();
     }
 
 

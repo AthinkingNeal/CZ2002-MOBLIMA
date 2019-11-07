@@ -8,7 +8,6 @@ public class PriceTable {
     private String filename;
     private Map<String, Double> priceTableRecord = new HashMap<String, Double>();
     private MovieGoer movieGoer;
-    private Records movie;
 
     /*
      * initialise with a file containing all the detail price records
