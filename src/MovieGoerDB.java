@@ -3,7 +3,7 @@ import java.io.*;
 
 
 public class MovieGoerDB {
-    private Map<Integer, MovieGoer> MovieGoerMap = new HashMap<Integer, MovieGoer>();
+    private HashMap<Integer, MovieGoer> MovieGoerMap = new HashMap<Integer, MovieGoer>();
     private String filename;
 
 
@@ -13,7 +13,7 @@ public class MovieGoerDB {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
             System.out.print("reading data from " + filename + "...");
-            this.MovieGoerMap = (Map<Integer, MovieGoer>) ois.readObject();
+            this.MovieGoerMap = (HashMap<Integer, MovieGoer>) ois.readObject();
             ois.close();
         } catch (IOException e) {
             System.out.println("File input error");

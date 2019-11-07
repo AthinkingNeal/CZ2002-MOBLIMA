@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +9,7 @@ public class PriceTable {
     private String filename;
     private Map<String, Double> priceTableRecord = new HashMap<String, Double>();
     private MovieGoer movieGoer;
-    private Records movie;
+    private MovieSchedule movie;
 
     /*
      * initialise with a file containing all the detail price records

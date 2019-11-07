@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,7 +53,7 @@ public class Date {
     }
 
     public void saveToFile() {
-        try {
+        try{
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             System.out.print("saving data to " + filename + "...");
