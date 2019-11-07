@@ -90,12 +90,12 @@ public class StaffOperations {
     }
 
     private void enterNewMovieInfo() {
-        movieInfoDB.addRecord();
+        movieInfoDB.addRecord(cineplexDB);
         startOperations();
     }
 
     private void updateMovieInfo() {
-        movieInfoDB.updateRecord();
+        movieInfoDB.updateRecord(cineplexDB);
         startOperations();
     }
 
