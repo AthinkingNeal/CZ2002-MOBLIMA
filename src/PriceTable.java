@@ -94,7 +94,6 @@ public class PriceTable {
                 break;
             case 9:
                 utilUpdate("weekends");
-                break;
             case 10:
                 utilUpdate("holidays");
                 break;

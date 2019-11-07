@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class CineplexDB extends Database {
-
     private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
     private String filename;
 
@@ -85,9 +84,7 @@ public class CineplexDB extends Database {
             }
         }
 
-
     public boolean findCineplexByID(int cineplexID) {
-
         if (cineplexMap.containsKey(cineplexID))
             return true;
         else

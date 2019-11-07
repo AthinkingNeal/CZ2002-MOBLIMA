@@ -204,6 +204,5 @@ public class MovieInfo {
             System.out.println("Review:" + review);
             System.out.println("Rating: " + rating);
         }
-
     }
 }

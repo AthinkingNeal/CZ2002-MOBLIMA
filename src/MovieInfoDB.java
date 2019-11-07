@@ -437,6 +437,18 @@ public class MovieInfoDB extends Database {
         return movieInfoRecord.get(movieID);
     }
 
+    /**
+     * search movie by movie name
+     */
+
+    public MovieInfo getMovieInfoByName(String movieName) {
+        for (Map.Entry<Integer,MovieInfo> entry : movieInfoRecord.entrySet()) {
+            if (entry.getValue().getTitle().equals(movieName))
+                return entry.getValue();
+        }
+        return null;
+    }
+
     public void saveToFile() {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
