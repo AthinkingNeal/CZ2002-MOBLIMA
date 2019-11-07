@@ -93,7 +93,6 @@ public class UI {
             }
 
             // below is the Staff Operation
-
             System.out.println("Please enter your choices: ");
             System.out.println("1. Configure the system settings: (ticket prices, holidays,etc)");
             System.out.println("2. Enter information about forthcoming movies");

@@ -173,23 +173,6 @@ public class MovieInfo {
             reviewsAndRating.get(i).displayReviewRating();
 
 
-        // original
-//        String temp = "";
-//        temp += "Movie Title: " + getTitle();
-//        temp += "Movie ID: " + getMovieId();
-//        temp += "\nShowing Status: " + getShowingStatus();
-//        temp += "\nSynoposis: " + getSynopsis();
-//        temp += "\nAvailable types: " + "3D: " + isSupport3D() + " 2D: " + isSupport2D();
-//        temp += "\nBlockbuster: " + isBlockbluster();
-//        temp += "\nDirector: " + getDirector();
-//        temp += "\nCast: " + getCast(); //!!!
-//        temp += "\nNumber Of Sales: " + getNumOfSales();
-//        temp += "\nOverall Rating: " + getOverAllRating();
-//        temp += "\nReviews: ";
-//        System.out.println(temp);
-//        for (int i = 0; i < this.reviewsAndRating.size(); i++)
-//            reviewsAndRating.get(i).displayReviewRating();
-
 
     }
 
