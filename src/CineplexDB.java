@@ -1,10 +1,12 @@
 
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CineplexDB extends Database {
+
     private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
     private String filename;
 
@@ -31,7 +33,6 @@ public class CineplexDB extends Database {
         System.out.println("You have successfully added a new cineplex!");
     }
 
-
     public void addRecord() {
         Scanner sc = new Scanner(System.in);
         int cineplexID;
@@ -49,17 +50,21 @@ public class CineplexDB extends Database {
 
     }
 
-    public static void main(String args[]) {
-
-    }
-
     public void deleteRecord(int cineplexID){
-        if (!cineplexMap.containsKey(cineplexID)) {
+        if (cineplexMap.containsKey(cineplexID) == false) {
             System.out.println("You have entered an invalid cineplex ID");
         }
         else{
             cineplexMap.remove(cineplexID);
         }
+    }
+
+
+    public void deleteRecord() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the TID of the PaymentRecord you want to delete: ");
+        int cineplexID = sc.nextInt();
+        deleteRecord(cineplexID);
     }
 
 
@@ -80,12 +85,6 @@ public class CineplexDB extends Database {
             }
         }
 
-    public void deleteRecord() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please input the cineplex of the PaymentRecord you want to delete: ");
-        int cineplexID = sc.nextInt();
-        deleteRecord(cineplexID);
-    }
 
     public boolean findCineplexByID(int cineplexID) {
 

@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class Cinema {
@@ -8,7 +7,12 @@ public class Cinema {
     private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
     private int cinemaID;
     private String filename;
-    private CinemaClass CinemaType;
+    private CinemaClass cinemaClass;
+
+    public enum CinemaClass {
+        platinum, golden, normal
+    }
+
 
     public HashMap<String, MovieSchedule> getCinemaSchedule() {
         return cinemaSchedule;
@@ -38,13 +42,13 @@ public class Cinema {
      */
     public Cinema(int cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
-        this.CinemaType = cinemaClass;
-    }
 
+        this.cinemaClass = cinemaClass;
+    }
     /**
      * Allow staff to add a single record of movie schedule
      */
-    public void addRecord() {
+    public void addRecord(){
         Scanner s = new Scanner(System.in);
         String dateStartTime;
         int movieID;
@@ -80,7 +84,7 @@ public class Cinema {
         System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
         duration = Double.parseDouble(s.nextLine());
 
-        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, CinemaType));
+        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, cinemaClass));
         System.out.println("Successfully added!");
     }
 
@@ -181,11 +185,6 @@ public class Cinema {
 
     public void bookSeat(String dateStartTime, String[] seatID) {
         this.cinemaSchedule.get(dateStartTime).getLayout().bookSeat(seatID);
-    }
-
-
-    public enum CinemaClass {
-        platinum, golden, normal
     }
 
     /**

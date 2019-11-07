@@ -92,15 +92,15 @@ public class PaymentRecordDB extends Database{
         updateRecord(TID,canceled);
     }
 
-    public void deleteRecord(String TID){
+    public void deleteRecord(String TID) {
         // need to check valid input
         if (PaymentRecordMap.containsKey(TID) == false) {
             System.out.println("You have entered an invalid PaymentRecord ID");
-        }
-        else{
+        } else {
             PaymentRecordMap.remove(TID);
         }
     }
+
 
     public void deleteRecord(){
         Scanner sc = new Scanner(System.in);
