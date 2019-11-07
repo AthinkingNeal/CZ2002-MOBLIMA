@@ -92,6 +92,10 @@ public class Cineplex{
         this.location = location;
     }
 
+    public int getNoCinemas() {
+        return cinemaArrayList.size();
+    }
+
     public Cinema getCinemaByCinemaID(int cinemaID) {
         for (int i = 0; i < cinemaArrayList.size(); i++)
             if (cinemaArrayList.get(i).getCinemaID() == cinemaID)
