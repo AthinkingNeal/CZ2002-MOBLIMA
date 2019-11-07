@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class MovieInfoDB extends Database {
+public class MovieInfoDB {
     // key: movieID, value: MovieInfo object
     private HashMap<Integer, MovieInfo> movieInfoRecord = new HashMap<Integer, MovieInfo>();
     private String filename;
@@ -30,7 +30,7 @@ public class MovieInfoDB extends Database {
      * Enable adding of a new movieInfo record;
      * new movieID must be different than existing movieIDs;
      */
-    public void addRecord() {
+    public void addRecord(CineplexDB cineplexDB) {
         Scanner sc = new Scanner(System.in);
         Integer movieId = -1;
 
@@ -62,7 +62,7 @@ public class MovieInfoDB extends Database {
             do {
                 System.out.println("Please enter cineplex ID " + i + 1);
                 newCineplexID = sc.nextInt();
-                if (CineplexDB.findCineplexByID(newCineplexID)) {
+                if (cineplexDB.findCineplexByID(newCineplexID)) {
                     // cineplexes[i] = CineplexDB.CineplexMap.get(sc.nextInt());
                     cineplexes.add(newCineplexID);
                     break;
@@ -153,7 +153,7 @@ public class MovieInfoDB extends Database {
      * Enable update a record
      * allow staff to update
      * */
-    public void updateRecord() {
+    public void updateRecord(CineplexDB cineplexDB) {
         Scanner sc = new Scanner(System.in);
         Integer movieId;
         do {
@@ -265,7 +265,7 @@ public class MovieInfoDB extends Database {
                             }
                         }
                         if (i == cineplexes.size()) {
-                            if (CineplexDB.findCineplexByID(newCine)) {
+                            if (cineplexDB.findCineplexByID(newCine)) {
                                 cineplexes.add(newCine);
                                 System.out.println("Cineplex successfully added!");
                             } else System.out.println("No Cineplex with ID" + newCine);
@@ -289,7 +289,7 @@ public class MovieInfoDB extends Database {
                             System.out.println("Enter new cineplexID");
                             if (sc.hasNextInt()) {
                                 sub = sc.nextInt();
-                                if (CineplexDB.findCineplexByID(sub))
+                                if (cineplexDB.findCineplexByID(sub))
                                     cineplexes.set(i, sub);
                             } else System.out.println("Invalid input.");
                         }
@@ -349,7 +349,7 @@ public class MovieInfoDB extends Database {
                     System.out.println("Enter the cast member to be replaced");
                     name = sc.next();
                     for (i = 0; i < cast.size(); i++) {
-                        if (name == cast.get(i))
+                        if (name.equals(cast.get(i)))
                             break;
                     }
                     if (i == cast.size()) System.out.println("Cast does not exist");
@@ -449,6 +449,32 @@ public class MovieInfoDB extends Database {
         return null;
     }
 
+    public void listAllMovies() { // need to be listed by status
+        ArrayList<MovieInfo> currentMovies = new ArrayList<MovieInfo>();
+        ArrayList<MovieInfo> previewMovies = new ArrayList<MovieInfo>();
+        ArrayList<MovieInfo> forthcomingMovies = new ArrayList<MovieInfo>();
+        // System.out.println("Name: " + entry.getValue().getTitle() + " [MovieID: " + entry.getKey() + "]");
+        for (Map.Entry<Integer, MovieInfo> entry: movieInfoRecord.entrySet()) {
+            if (entry.getValue().getShowingStatus().equals("currentShowing"))
+                currentMovies.add(entry.getValue());
+            else if (entry.getValue().getShowingStatus().equals("preview"))
+                previewMovies.add(entry.getValue());
+            else
+                forthcomingMovies.add(entry.getValue());
+        }
+        int i;
+        System.out.println("Currently showing movies:");
+        for (i = 0; i < currentMovies.size(); i++)
+            System.out.println("Name: " + currentMovies.get(i).getTitle() + " [MovieID: " + currentMovies.get(i).getMovieId() + "]");
+        System.out.println("Movies for preview");
+        for (i = 0; i < previewMovies.size(); i++)
+            System.out.println("Name: " + previewMovies.get(i).getTitle() + " [MovieID: " + previewMovies.get(i).getMovieId() + "]");
+        System.out.println("Forthcoming movies:");
+        for (i = 0; i < forthcomingMovies.size(); i++)
+            System.out.println("Name: " + forthcomingMovies.get(i).getTitle() + " [MovieID: " + forthcomingMovies.get(i).getMovieId() + "]");
+
+    }
+
     public void saveToFile() {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
@@ -460,5 +486,4 @@ public class MovieInfoDB extends Database {
             System.out.println("File input error");
         }
     }
-
 }
