@@ -18,6 +18,7 @@ public class CineplexDB extends Database {
     }
 
 
+
     public void addRecord() {
         Scanner sc = new Scanner(System.in);
         int cineplexID;
