@@ -92,8 +92,8 @@ public class Cineplex{
         this.location = location;
     }
 
-    public int getNoCinemas() {
-        return cinemaArrayList.size();
+    public ArrayList<Cinema> getCinemas() {
+        return cinemaArrayList;
     }
 
     public Cinema getCinemaByCinemaID(int cinemaID) {
