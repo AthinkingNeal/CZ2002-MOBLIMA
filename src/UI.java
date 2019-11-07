@@ -1,6 +1,4 @@
 import java.util.Scanner;
-
-
 /*
 Methods to be implemented:
 movieInfoDB.configSystem(); 
@@ -24,7 +22,7 @@ public class UI {
     private Database staffRecordDB;
     private Database movieScheduleDB;
     private Date date;
-    private PriceTable priceTable;
+    private projectMe.PriceTableDB priceTable;
 
 
     public UI() {
