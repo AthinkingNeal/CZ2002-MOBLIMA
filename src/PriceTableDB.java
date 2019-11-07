@@ -8,7 +8,9 @@ public class PriceTableDB {
     private String filename;
     private Map<String, Double> priceTableRecord = new HashMap<String, Double>();
     private MovieGoer movieGoer;
-    private Records movie;
+    private MovieSchedule schedule;
+
+    // class of movie is saved in layout
 
     /*
      * initialise with a file containing all the detail price records
@@ -44,7 +46,6 @@ public class PriceTableDB {
     }
 
     public void updatePriceTable() {
-
         int choice;
         double price;
         Scanner sc = new Scanner(System.in);
@@ -100,7 +101,7 @@ public class PriceTableDB {
 
 
         // on special dates, no discount for all people
-        if (movie.date.getIsHoliday() || movie.date.getDayOfWeek() == "Saturday" || movie.date.getDayOfWeek() == "Sunday") {
+        if (schedule.getDateStartTime().getIsHoliday() || movie.date.getDayOfWeek() == "Saturday" || movie.date.getDayOfWeek() == "Sunday") {
             if (movie.isBlockbuster()) price += blockbuster_up;
             if (movie.is3D()) price += threeD_up;
             if (movie.isPlatinum()) price += platinum_up;
@@ -156,6 +157,4 @@ public class PriceTableDB {
             System.out.println("File input error");
         }
     }
-
-
 }
