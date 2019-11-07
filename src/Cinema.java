@@ -9,6 +9,11 @@ public class Cinema {
     private String filename;
     private CinemaClass cinemaClass;
 
+    public enum CinemaClass {
+        platinum, golden, normal
+    }
+
+
     public HashMap<String, MovieSchedule> getCinemaSchedule() {
         return cinemaSchedule;
     }
@@ -37,13 +42,13 @@ public class Cinema {
      */
     public Cinema(int cinemaID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
+
         this.cinemaClass = cinemaClass;
     }
-
     /**
      * Allow staff to add a single record of movie schedule
      */
-    public void addRecord() {
+    public void addRecord(){
         Scanner s = new Scanner(System.in);
         String dateStartTime;
         int movieID;
@@ -179,11 +184,6 @@ public class Cinema {
 
     public void bookSeat(String dateStartTime, String[] seatID) {
         this.cinemaSchedule.get(dateStartTime).getLayout().bookSeat(seatID);
-    }
-
-
-    public enum CinemaClass {
-        platinum, golden, normal
     }
 
     /**
