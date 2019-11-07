@@ -96,6 +96,7 @@ public class PriceTable {
                 utilUpdate("weekends");
             case 10:
                 utilUpdate("holidays");
+                break;
             default:
                 System.out.println("Please enter a valid choice");
         }

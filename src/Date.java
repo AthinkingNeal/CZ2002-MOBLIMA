@@ -1,3 +1,5 @@
+
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,7 +10,6 @@ import java.util.Calendar;
   day of week is retrieved from system
 
  */
-
 public class Date {
     private String filename;
     // the value of the hashmap is a boolean array, containing [isHoliday, isHolidayEve]
@@ -52,7 +53,7 @@ public class Date {
     }
 
     public void saveToFile() {
-        try {
+        try{
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             System.out.print("saving data to " + filename + "...");

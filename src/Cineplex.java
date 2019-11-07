@@ -92,13 +92,11 @@ public class Cineplex{
         this.location = location;
     }
 
-    public ArrayList<Cinema> getCinemaArrayList() {
-        return cinemaArrayList;
+    public Cinema getCinemaByCinemaID(int cinemaID) {
+        for (int i = 0; i < cinemaArrayList.size(); i++)
+            if (cinemaArrayList.get(i).getCinemaID() == cinemaID)
+                return cinemaArrayList.get(i);
+        return null;
     }
-
-    public void setCinemaArrayList(ArrayList<Cinema> cinemaArrayList) {
-        this.cinemaArrayList = cinemaArrayList;
-    }
-
 
 }

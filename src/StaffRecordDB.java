@@ -73,98 +73,49 @@ public class StaffRecordDB extends Database {
      * Enable staff to update their password after they have logged in;
      */
     public void updateRecord() {
-        // have to login first
-        int trial = 0;
-        boolean loggedIn = false;
-        String staffID = "";
-        while (!loggedIn && ++trial <= 3) {
-            Scanner s = new Scanner(System.in);
-            System.out.println("Please enter your staff ID:");
-            staffID = s.nextLine();
-            Console console = System.console();
-            char[] passwordArray = console.readPassword("Please enter your password: ");
-            String password = new String(passwordArray);
-            if (!this.staffIDPasswordRecord.containsKey(staffID)) {
-                if (!this.staffIDPasswordRecord.get(staffID).equals(password)) {
-                    System.out.println("Successful Login!");
-                    loggedIn = true;
-                } else {
-                    System.out.println("Wrong password! Try again!   ");
-                    loggedIn = false;
-                }
-            } else {
-                System.out.println("This staffID does not exists! Try again!   ");
-                loggedIn = false;
-            }
-        }
-        if (trial > 3) {
-            System.out.println("Too many trials! Program exiting!");
-            System.exit(0);
-        }
-
         // if successfully logged in
-        Console console = System.console();
-        int trial2 = 0;
-        char[] passwordArray = console.readPassword("Please update your password: ");
-        char[] passwordArray2 = console.readPassword("Please confirm your new password: ");
-        while (!passwordArray2.equals(passwordArray) && ++trial2 <= 3) {
-            System.out.println("The password does not match with the previous one! Try again!");
-            passwordArray = console.readPassword("Please update your password: ");
-            passwordArray2 = console.readPassword("Please confirm your new password: ");
+        if (login()) {
+            System.out.println("Enter your staff ID: ");
+            Scanner s = new Scanner(System.in);
+            String staffID = s.nextLine();
+            Console console = System.console();
+            int trial2 = 0;
+            char[] passwordArray = console.readPassword("Please type in your new password: ");
+            char[] passwordArray2 = console.readPassword("Please confirm your new password: ");
+            while (!passwordArray2.equals(passwordArray) && ++trial2 <= 3) {
+                System.out.println("The password does not match with the previous one! Try again!");
+                passwordArray = console.readPassword("Please update your password: ");
+                passwordArray2 = console.readPassword("Please confirm your new password: ");
+            }
+            if (trial2 > 3) {
+                System.out.println("Too many trials! Program exiting!");
+                System.exit(0);
+            }
+            String newPassword = new String(passwordArray);
+            // if successfully changed password
+            staffIDPasswordRecord.remove(staffID);
+            staffIDPasswordRecord.put(staffID, newPassword);
+            System.out.println("Successfully updated password!");
         }
-        if (trial2 > 3) {
-            System.out.println("Too many trials! Program exiting!");
-            System.exit(0);
-        }
-        String newPassword = new String(passwordArray);
-        // if successfully changed password
-        staffIDPasswordRecord.remove(staffID);
-        staffIDPasswordRecord.put(staffID, newPassword);
-        System.out.println("Successfully updated password!");
     }
 
     /**
      * Enable staff to delete their record after they have logged in;
      */
     public void deleteRecord() {
-        // have to login first
-        int trial = 0;
-        boolean loggedIn = false;
-        String staffID = "";
-        while (!loggedIn && ++trial <= 3) {
-            Scanner s = new Scanner(System.in);
-            System.out.println("Please enter your staff ID:");
-            staffID = s.nextLine();
-            Console console = System.console();
-            char[] passwordArray = console.readPassword("Please enter your password: ");
-            String password = new String(passwordArray);
-            if (!this.staffIDPasswordRecord.containsKey(staffID)) {
-                if (!this.staffIDPasswordRecord.get(staffID).equals(password)) {
-                    System.out.println("Successful Login!");
-                    loggedIn = true;
-                } else {
-                    System.out.println("Wrong password! Try again!   ");
-                    loggedIn = false;
-                }
-            } else {
-                System.out.println("This staffID does not exists! Try again!   ");
-                loggedIn = false;
-            }
-        }
-        if (trial > 3) {
-            System.out.println("Too many trials! Program exiting!");
-            System.exit(0);
-        }
-
         // if successfully logged in
-        System.out.println("Are you sure you would like to delete your record? you can no longer access the system after this!");
-        Scanner s = new Scanner(System.in);
-        String ans = s.nextLine();
+        if (login()) {
+            System.out.println("Enter your staff ID: ");
+            Scanner s = new Scanner(System.in);
+            String staffID = s.nextLine();
+            System.out.println("Are you sure you would like to delete your record? you can no longer access the system after this!");
+            String ans = s.nextLine();
 
-        if (ans.equals("Y") || ans.equals("y")) {
-            staffIDPasswordRecord.remove(staffID);
-            System.out.println("Successfully deleter!");
-            System.exit(0);
+            if (ans.equals("Y") || ans.equals("y")) {
+                staffIDPasswordRecord.remove(staffID);
+                System.out.println("Successfully deleter!");
+                System.exit(0);
+            }
         }
     }
 
@@ -177,32 +128,37 @@ public class StaffRecordDB extends Database {
      */
     public boolean login()
     {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Please enter your staff ID:");
-        String id = s.nextLine();
-        Console console = System.console();
-        char[] passwordArray = console.readPassword("Please enter your password: ");
-        String password = new String(passwordArray);
-        // if running in IDE:
-        //        System.out.println("Please enter your passward:");
-        //        String password = s.nextLine();
-        if(!this.staffIDPasswordRecord.containsKey(id))
-        {
-            if(!this.staffIDPasswordRecord.get(id).equals(password)) {
-                System.out.println("Successful Login!");
-                return true;
-            }
-            else
-            {
-                System.out.println( "Wrong password! Try again!   ");
-                return false;
+        System.out.println("Please log in first.");
+
+        int trial = 0;
+        boolean loggedIn = false;
+        String staffID = "";
+        while (!loggedIn && ++trial <= 3) {
+            Scanner s = new Scanner(System.in);
+            System.out.println("Please enter your staff ID:");
+            staffID = s.nextLine();
+            Console console = System.console();
+            char[] passwordArray = console.readPassword("Please enter your password: ");
+            String password = new String(passwordArray);
+            if (!this.staffIDPasswordRecord.containsKey(staffID)) {
+                if (!this.staffIDPasswordRecord.get(staffID).equals(password)) {
+                    System.out.println("Successful Login!");
+                    loggedIn = true;
+                } else {
+                    System.out.println("Wrong password! Try again!   ");
+                    loggedIn = false;
+                }
+            } else {
+                System.out.println("This staffID does not exists! Try again!   ");
+                loggedIn = false;
             }
         }
-        else
-        {
-            System.out.println( "This staffID does not exists! Try again!   ");
-            return false;
+        if (trial > 3) {
+            System.out.println("Too many trials! Program exiting!");
+            System.exit(0);
         }
+
+        return loggedIn;
     }
 
 
@@ -216,7 +172,6 @@ public class StaffRecordDB extends Database {
         } catch (IOException e) {
             System.out.println("File input error");
         }
-
     }
 
     /**
