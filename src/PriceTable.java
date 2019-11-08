@@ -94,6 +94,7 @@ public class PriceTable {
                 break;
             case 9:
                 utilUpdate("weekends");
+                break;
             case 10:
                 utilUpdate("holidays");
                 break;
@@ -169,5 +170,11 @@ public class PriceTable {
         } catch (IOException e) {
             System.out.println("File input error");
         }
+    }
+
+    public void displayContent() {
+        priceTableRecord.entrySet().forEach(entry->{
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        });
     }
 }
