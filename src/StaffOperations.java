@@ -84,7 +84,7 @@ public class StaffOperations {
     }
 
     private void configureHolidaySetting() {
-        this.date.addHoliday();
+        this.date.addHoliday("");
         startOperations();
 
     }

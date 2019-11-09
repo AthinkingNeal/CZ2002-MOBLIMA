@@ -5,6 +5,7 @@ public class Cinema {
     // hashmap: key: "dateStarttime", value: MovieSchedule
 
     private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
+    private int cineplexID;
     private int cinemaID;
     private String filename;
     private CinemaClass cinemaClass;
@@ -40,9 +41,9 @@ public class Cinema {
     /**
      * Initialise with a file containing all the moviescheduleinfo
      */
-    public Cinema(int cinemaID, CinemaClass cinemaClass) {
+    public Cinema(int cinemaID, int cineplexID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
-
+        this.cineplexID = cineplexID;
         this.cinemaClass = cinemaClass;
     }
     /**
@@ -84,13 +85,10 @@ public class Cinema {
         System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
         duration = Double.parseDouble(s.nextLine());
 
-        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, cinemaClass));
+        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, cineplexID, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, cinemaClass));
         System.out.println("Successfully added!");
     }
 
-    public void cancelBooking(String dateStartTime, String[] seatID) {
-        this.cinemaSchedule.get(dateStartTime).getLayout().cancelSeat(seatID);
-    }
 
     /**
      * Allow staff to delete a single record of movie schedule
@@ -170,7 +168,7 @@ public class Cinema {
      * Once user has selected movie, location and date, display all available times of this movie in this cinema and return selected scheduels
      *Assumption: in one cineplex, a movie cannot start at the same time!
      */
-    public HashMap<String, MovieSchedule> getAvailableTime(int movieID, String date) {
+    public HashMap<String, MovieSchedule> getAndDisplayAvailableTime(int movieID, String date) {
         HashMap<String, MovieSchedule> rst = new HashMap<String, MovieSchedule>();
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)
@@ -183,9 +181,6 @@ public class Cinema {
         return rst;
     }
 
-    public void bookSeat(String dateStartTime, String[] seatID) {
-        this.cinemaSchedule.get(dateStartTime).getLayout().bookSeat(seatID);
-    }
 
     /**
      * Save all MovieSchedule objects into the file
