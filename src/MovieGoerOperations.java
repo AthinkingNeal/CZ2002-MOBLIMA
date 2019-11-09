@@ -1,16 +1,20 @@
+import java.awt.desktop.SystemSleepEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class MovieGoerOperations {
     private MovieInfoDB movieInfoDB;  // You can not declare this DB as Database because of Static binding
-    private CineplexDB cinePlexDB;    // If that is the case, you can only use the methods declared in Database.
-    private PaymentRecordDB PaymentRecordDB;
+    private CineplexDB cineplexDB;    // If that is the case, you can only use the methods declared in Database.
+    private PaymentRecordDB paymentRecordDB;
     private PriceTable priceTable;
     private MovieGoerDB movieGoerDB;
     private MovieGoer movieGoer;
+    private Date todayDate;
 
     public MovieGoerOperations() {
         //TODO database initialization;
+
 
     }
 
@@ -26,6 +30,7 @@ public class MovieGoerOperations {
         System.out.println("1. Search movies."); // Check sear availability, selection of seats and Booking tickets are inside this option
         System.out.println("2. List movies"); // when listing movies, we list all movies at one time but organize them in different groups by their type
         System.out.println("3. Check Seat Availability and Book tickets"); // as long as you know the movie name you can book seats, user check the seat availability in this.
+        //TODO cancel booking?
         System.out.println("4. List the Top 5 ranking movies by ticket sales");
         System.out.println("5. List the Top 5 ranking movies by overall reviewers' ratings");
     }
@@ -67,13 +72,13 @@ public class MovieGoerOperations {
         String movieName = sc.nextLine();
         MovieInfo movieInfo = movieInfoDB.getMovieInfoByName(movieName);
         // return a MovieInfo object or a null pointer
-        if (movieInfo == null):
-        System.out.println("This movie does not exist yet ");
-        else if (movieInfo.status == "Currently Showing" || movieInfo.status == "Preview") {
+        if (movieInfo == null)
+            System.out.println("This movie does not exist yet ");
+        else if (movieInfo.getShowingStatus() == "Currently Showing" || movieInfo.getShowingStatus() == "Preview") {
             System.out.println("Do you want to view more details about this movie? Enter Y to view more details; Enter N to return to main menu.")
-            char choice = s.nextLine().charAt(0);
+            char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')
-                viewMovieDetails(movieInfo.getMovieID);
+                viewMovieDetails(movieInfo.getMovieId());
             else
                 displayMainMenu();
         }
@@ -100,7 +105,7 @@ public class MovieGoerOperations {
         System.out.println("Do you want to check the seat availability for this movie? Enter Y/N")
         char choice = s.nextLine().charAt(0);
         if (choice == 'Y' || choice == 'y')
-            checkSeatAvailablity(movieID);
+            checkSeatAvailability(movieID);
         else
             displayMainMenu();
     }
@@ -117,42 +122,102 @@ public class MovieGoerOperations {
         MovieInfo m = movieInfoDB.getMovieInfoByMovieID(movieID);
         m.displayCineplexes();
         System.out.println("Please select the cineplexID: ");
+        Scanner sc = new Scanner(System.in);
         int cineplexID = sc.nextInt();
 
-        ArrayList<Cinema> c = cineplexDB.getCinemas();
+        ArrayList<Cinema> c = cineplexDB.getCineplexByID(cineplexID).getCinemas();
         for (int i = 0; i < c.size(); i++) {
             c.get(i).showAvailableDates(movieID);
         }
 
-        System.out.println("Please select the date: ");
+        System.out.println("Please select the date in this format yyyy-mm-dd:  ");
         String date = sc.nextLine();
+        HashMap<String, MovieSchedule> movieSchedules = new HashMap<>(); // movieSchedules contain all schedules of the movie in this cineplex on this date
         for (int i = 0; i < c.size(); i++) {
-            c.get(i).getAvailableTime(movieID, date);
+            movieSchedules.putAll(c.get(i).getAndDisplayAvailableTime(movieID, date));
         }
 
+        System.out.println("Please select the start time of the movie session in this format hh-mm: ");
+        String dateStarttime = date + '-' + sc.nextLine();
+        MovieSchedule selectedSchedule = movieSchedules.get(dateStarttime);
 
-        System.out.println("Please enter all the seatID, such as 'a1 a2': ");
-        String input = sc.nextLine();
-        StringTokenizer str_arr = new StringTokenizer(input);
-        while (str_arr.hasMoreTokens()) {
-            seatID.add(str_arr.nextToken());
-        }
-
+        // display the seat layout
+        System.out.println("Please check the seat availability below:");
+        selectedSchedule.getLayout().displayLayout(); //TODO: add seat ID in display!
+        float price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(""), todayDate.IsWeekend(""));
+        System.out.println("The price of this movie session is:" + price + " per seat");
+        System.out.println("Do you want to proceed to book a seat? Enter Y/N");
+        char choice = sc.nextLine().charAt(0);
+        if (choice == 'Y' || choice == 'y')
+            bookTickets(selectedSchedule, price);
+        else
+            displayMainMenu();
     }
 
 
-    public void bookTickets(int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost) {
+    private void bookTickets(MovieSchedule ms, float price) {
+        System.out.println("How many tickets you would like to book?");
+        Scanner s = new Scanner(System.in);
+        int numTickets = s.nextInt();
+        ArrayList<String> seatIDs = new ArrayList<>();
+        for (int i = 0; i < numTickets; i++) {
+            System.out.println("This is the " + (i + 1) + "th ticket you are booking");
+            System.out.println("Please enter the seat ID you would like to book: ");
+            String seatID = s.nextLine();
+            seatIDs.add(seatID);
+            ms.bookSeat(seatID);
+            System.out.println("This seat is successfully booked!");
+        }
+
+        addToPaymentRecordDB(ms, seatIDs, price); // add to record
+        System.out.println("Booking complete! You will be returned to main menu!");
+        displayMainMenu();
+
+
+    }
+
+    private void printReceipt(MovieSchedule ms, ArrayList<String> seatIDs, float price) {
+        System.out.println("Here is your receipt!");
+        String seatIDString = "";
+        for (int i = 0; i < seatIDs.size(); i++)
+            seatIDString += seatIDs.get(i) + ' ';
+
+        String receipt = "Moviegoer ID: " + movieGoer.movieGoerID + "\n"
+                + "Movie Booked: " + movieInfoDB.getMovieInfoByMovieID(ms.getMovieID()).getTitle() + "\n"
+                + "Cineplex ID: " + ms.getCineplexID() + "\n"
+                + "Cinema ID: " + ms.getCinemaID() + "\n"
+                + "Movie Date and Start time: " + ms.getDateStartTime() + "\n"
+                + "Seats booked: " + seatIDString + "\n"
+                + "Date of payment: " + todayDate.getDate() + "\n"
+                + "Total price: " + price * seatIDs.size() + "\n";
+        System.out.println(receipt);
+    }
+
+    /**
+     * @param ms
+     * @param seatIDs
+     * @param price   price of a single ticket
+     */
+    private void addToPaymentRecordDB(MovieSchedule ms, ArrayList<String> seatIDs, float price) {
         // need to check valid input
-        String TID = "Temporary TID"; // TID needs to be updated based on added time stamp, find a way to do this.
+        String dateStartTime = ms.getDateStartTime();
+
+        String TID = ms.getCinemaID() + dateStartTime.substring(0, 4) + dateStartTime.substring(5, 7) + dateStartTime.substring(8, 10) + dateStartTime.substring(11, 13) + dateStartTime.substring(14, 16); // TID needs to be updated based on added time stamp, find a way to do this.
         //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
-        Boolean canceled = false;
-        PaymentRecord temp = new PaymentRecord(TID, movieGoerID, movieID, cinemaID, cineplexID, amountOfTickets, seatID, totalCost, canceled);
-        PaymentRecordMap.put(TID, temp);
+
+        Boolean canceled = false; //TODO why need canceled?
+        PaymentRecord temp = new PaymentRecord(TID, movieGoer.getMovieGoerID(), ms.getMovieID(), ms.getCinemaID(),
+                ms.getCineplexID(), seatIDs.size(), seatIDs, price * seatIDs.size(), canceled);
+
+        paymentRecordDB.addRecord(TID, temp);
+        System.out.println("Your booking is successful! You can cancel your booking or check payment history in the main menu!");
+        printReceipt(ms, seatIDs, price);
     }
+
 
     public void viewBookingHistory() {
         ArrayList<PaymentRecord> paymentRecordArrayList = new ArrayList<PaymentRecord>;
-        paymentRecordArrayList = paymentRecordDB.findRecordByMovieGoerID(movieGoerID);
+        paymentRecordArrayList = paymentRecordDB.findRecordByMovieGoerID(movieGoer.getMovieGoerID());
         int len = paymentRecordArrayList.size();
         if (len == 0) {
             System.out.println("The PaymentRecord you are looking for does not exist.");

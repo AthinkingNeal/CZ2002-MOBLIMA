@@ -6,8 +6,13 @@ public class MovieSchedule {
     private boolean isBlockbuster;
     private double duration;
     private Layout layout;
+    private int cinemaID;
+    private int cineplexID;
+    private Cinema.CinemaClass cinemaClass;
 
-    public MovieSchedule(String dateStartTime, int movieID, String movieName, boolean is3D, boolean isBlockbuster, double duration, int cinemaID, Cinema.CinemaClass cinemaClass) {
+    public MovieSchedule(String dateStartTime, int cineplexID, int movieID, String movieName, boolean is3D, boolean isBlockbuster, double duration, int cinemaID, Cinema.CinemaClass cinemaClass) {
+        this.cineplexID = cineplexID;
+        this.cinemaID = cinemaID;
         this.dateStartTime = dateStartTime;
         this.movieID = movieID;
         this.movieName = movieName;
@@ -15,6 +20,19 @@ public class MovieSchedule {
         this.isBlockbuster = isBlockbuster;
         this.duration = duration;
         this.layout = new Layout(cinemaID,cinemaClass);
+        this.cinemaClass = cinemaClass;
+    }
+
+    public int getCineplexID() {
+        return cineplexID;
+    }
+
+    public int getCinemaID() {
+        return cinemaID;
+    }
+
+    public Cinema.CinemaClass getCinemaClass() {
+        return cinemaClass;
     }
 
     public String getDateStartTime() {
@@ -60,6 +78,14 @@ public class MovieSchedule {
     public void displayMovieRecord()
     {
         System.out.println(dateStartTime + ": (" + movieID + ")" + movieName + " 3D: " + is3D + " Blockbuster: " + isBlockbuster + " Duration: " + duration);
+    }
+
+    public void cancelBooking(String seatID) {
+        this.getLayout().cancelSeat(seatID);
+    }
+
+    public void bookSeat(String seatID) {
+        this.getLayout().bookSeat(seatID);
     }
 
 }

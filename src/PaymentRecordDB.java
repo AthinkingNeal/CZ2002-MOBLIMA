@@ -36,6 +36,10 @@ public class PaymentRecordDB extends Database{
 
     }
 
+    public void addRecord(String TID, PaymentRecord r) {
+        this.PaymentRecordMap.put(TID, r);
+    }
+
     public void addRecord(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Please input the movieGoerID: ");

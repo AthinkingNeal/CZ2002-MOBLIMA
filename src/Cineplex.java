@@ -60,7 +60,7 @@ public class Cineplex{
             System.out.println("You have entered an invalid class");
         }
 
-        Cinema cinemaAdded = new Cinema(cinemaID = cinemaID, cinemaClass = cinemaClass);
+        Cinema cinemaAdded = new Cinema(cinemaID = cinemaID, cineplexID, cinemaClass = cinemaClass);
         cinemaArrayList.add(cinemaAdded);
         System.out.println("You have successfully ");
     }
