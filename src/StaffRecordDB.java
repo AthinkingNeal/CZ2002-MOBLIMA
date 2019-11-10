@@ -6,12 +6,35 @@ import java.util.Scanner;
 
 public class StaffRecordDB extends Database {
     // key: StaffID, value: password
-    private Map<String, String> staffIDPasswordRecord = new HashMap<String, String>();
+    private HashMap<String, String> staffIDPasswordRecord = new HashMap<String, String>();
     private String filename;
 
     /**
      Initiate the class using a txt file to populate userPasswordRecord
      */
+
+    public StaffRecordDB(String fileName, boolean toInitialiseObject) {
+        try {
+            FileReader frStream = new FileReader(fileName);
+            BufferedReader brStream = new BufferedReader(frStream);
+            String inputLine;
+            while ((inputLine = brStream.readLine()) != null) {
+
+                String delims = "[ ]+";
+                String[] tokens = inputLine.split(delims);
+                this.staffIDPasswordRecord.put(tokens[0], tokens[1]);
+            }
+            brStream.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error opening the input file!");
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("IO Error!");
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
     public StaffRecordDB(String fileName)
     {
         this.filename = filename;
@@ -20,7 +43,7 @@ public class StaffRecordDB extends Database {
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             System.out.print("reading data from " + filename + "...");
-            this.staffIDPasswordRecord = (Map<String, String>) ois.readObject();
+            this.staffIDPasswordRecord = (HashMap<String, String>) ois.readObject();
             ois.close();
         } catch (IOException e) {
             System.out.println("File input error");
