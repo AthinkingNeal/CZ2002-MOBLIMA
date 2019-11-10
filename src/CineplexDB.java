@@ -98,7 +98,12 @@ public class CineplexDB implements Database {
     }
 
     public static void main(String args[]) {
-        CineplexDB cineplexDB = new CineplexDB()
+        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+        for (int i = 0; i < 3; i++) {
+            cineplexDB.addRecord();
+        }
+
+        cineplexDB.saveToFile();
     }
 
 }
