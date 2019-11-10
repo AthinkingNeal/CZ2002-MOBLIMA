@@ -34,6 +34,21 @@ public class StaffRecordDB implements Database {
 
 
     /**
+     * Unit testing
+     */
+    public static void main(String args[]) {
+        StaffRecordDB record = new StaffRecordDB(MoblimaApp.staffRecordDBFile);
+//        for(int i = 0; i < 3; i++)
+//        {
+//            record.addRecord();
+//        }
+//        record.saveToFile();
+        //record.printAllRecords();
+        record.updateRecord();
+
+    }
+
+    /**
      Enable adding of a new staff record;
      new staffID must be different than existing usernames;
      */
@@ -42,25 +57,39 @@ public class StaffRecordDB implements Database {
         int trial = 0;
         Scanner s = new Scanner(System.in);
         System.out.println("Please input a new staffID ");
-        String staffID = s.nextLine();
+        String staffID = s.next();
+        String dummy = s.nextLine();
         while (staffIDPasswordRecord.containsKey(staffID) && ++trial <= 3) {
             System.out.println("This staffID already exists! Try again!");
             System.out.println("Please input a new staffID ");
-            staffID = s.nextLine();
+            staffID = s.next();
+            dummy = s.nextLine();
         }
         if (trial > 3) {
             System.out.println("Too many trials! Program exiting!");
             System.exit(0);
         }
         // if does not exist:
-        Console console = System.console();
+//        Console console = System.console();
         int trial2 = 0;
-        char[] passwordArray = console.readPassword("Please create your password: ");
-        char[] passwordArray2 = console.readPassword("Please confirm your password: ");
+//        char[] passwordArray = console.readPassword("Please create your password: ");
+//        char[] passwordArray2 = console.readPassword("Please confirm your password: ");
+        System.out.println("Please create your password:");
+        String passwordArray = s.next();
+        dummy = s.nextLine();
+        System.out.println("Please reenter your password:");
+        String passwordArray2 = s.next();
+        dummy = s.nextLine();
         while (!passwordArray2.equals(passwordArray) && ++trial2 <= 3) {
             System.out.println("The password does not match with the previous one! Try again!");
-            passwordArray = console.readPassword("Please create your password: ");
-            passwordArray2 = console.readPassword("Please confirm your password: ");
+//            passwordArray = console.readPassword("Please create your password: ");
+//            passwordArray2 = console.readPassword("Please confirm your password: ");
+            System.out.println("Please create your password:");
+            passwordArray = s.next();
+            dummy = s.nextLine();
+            System.out.println("Please reenter your password:");
+            passwordArray2 = s.next();
+            dummy = s.nextLine();
         }
         if (trial2 > 3) {
             System.out.println("Too many trials! Program exiting!");
@@ -80,7 +109,8 @@ public class StaffRecordDB implements Database {
         if (login()) {
             System.out.println("Enter your staff ID: ");
             Scanner s = new Scanner(System.in);
-            String staffID = s.nextLine();
+            String staffID = s.next();
+            String dummy = s.nextLine();
             Console console = System.console();
             int trial2 = 0;
             char[] passwordArray = console.readPassword("Please type in your new password: ");
@@ -110,7 +140,8 @@ public class StaffRecordDB implements Database {
         if (login()) {
             System.out.println("Enter your staff ID: ");
             Scanner s = new Scanner(System.in);
-            String staffID = s.nextLine();
+            String staffID = s.next();
+            String dummy = s.nextLine();
             System.out.println("Are you sure you would like to delete your record? you can no longer access the system after this!");
             String ans = s.nextLine();
 
@@ -122,6 +153,19 @@ public class StaffRecordDB implements Database {
         }
     }
 
+
+    public void saveToFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(this.filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.print("saving data to " + filename + "...");
+            oos.writeObject(staffIDPasswordRecord);
+            oos.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        }
+    }
+    
     /**
      Prompts staff to enter staffID and username;
      If all inputs are correct, login is successful;
@@ -138,14 +182,16 @@ public class StaffRecordDB implements Database {
         while (!loggedIn && ++trial <= 3) {
             Scanner s = new Scanner(System.in);
             System.out.println("Please enter your staff ID:");
-            String staffID = s.nextLine();
+            String staffID = s.next();
+            String dummy = s.nextLine();
             System.out.println("Please enter your password:");
-            String password = s.nextLine();
+            String password = s.next();
+            dummy = s.nextLine();
 //            Console console = System.console();
 //            char[] passwordArray = console.readPassword("Please enter your password: ");
 //            String password = new String(passwordArray);
-            if (!this.staffIDPasswordRecord.containsKey(staffID)) {
-                if (!this.staffIDPasswordRecord.get(staffID).equals(password)) {
+            if (this.staffIDPasswordRecord.containsKey(staffID)) {
+                if (this.staffIDPasswordRecord.get(staffID).equals(password)) {
                     System.out.println("Successful Login!");
                     loggedIn = true;
                 } else {
@@ -165,29 +211,11 @@ public class StaffRecordDB implements Database {
         return loggedIn;
     }
 
+    private void printAllRecords() {
+        for (String ID : staffIDPasswordRecord.keySet()) {
+            System.out.print(ID);
 
-    public void saveToFile() {
-        try {
-            FileOutputStream fos = new FileOutputStream(this.filename);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
-            oos.writeObject(staffIDPasswordRecord);
-            oos.close();
-        } catch (IOException e) {
-            System.out.println("File input error");
         }
-    }
-
-    /**
-     Unit testing
-     */
-    public static void main(String args[])
-    {
-
-        //StaffRecordDB record = new StaffRecordDB("sazt", "123456");
-        StaffRecordDB record = new StaffRecordDB("staffRecords.txt");
-        record.login();
-
     }
 
 
