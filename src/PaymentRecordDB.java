@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class PaymentRecordDB implements Database {
-    private HashMap<String, PaymentRecord> PaymentRecordMap = new HashMap<String, PaymentRecord>();
+    private HashMap<String, PaymentRecord> PaymentRecordMap;
     private String filename;
 
     /**
@@ -22,16 +22,18 @@ public class PaymentRecordDB implements Database {
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
+        if (PaymentRecordMap == null)
+            PaymentRecordMap = new HashMap<String, PaymentRecord>();
     }
 
 
-    public void addRecord(int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, Boolean canceled){
+    public void addRecord(int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, String dateStarttime, Boolean canceled) {
         // need to check valid input
 
         String TID = "Temporary TID"; // TID needs to be updated based on added time stamp, find a way to do this.
         //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
         canceled = false;
-        PaymentRecord temp = new PaymentRecord(TID,movieGoerID,movieID,cinemaID,cineplexID,amountOfTickets,seatID,totalCost,canceled);
+        PaymentRecord temp = new PaymentRecord(TID, movieGoerID, movieID, cinemaID, cineplexID, amountOfTickets, seatID, totalCost, dateStarttime, canceled);
         PaymentRecordMap.put(TID,temp);
 
     }
@@ -61,8 +63,10 @@ public class PaymentRecordDB implements Database {
         }
         System.out.println("Please input the total cost: ");
         int totalCost = sc.nextInt();
-        Boolean canceled = false; // when adding a new Record, the defaulf value of canceled is false;
-        addRecord(movieGoerID,movieID,cinemaID,cineplexID,amountOfTickets,seatID,totalCost,canceled);
+        System.out.println("Please input the movieStartTime: YYYY-MM-DD-HH-MM");
+        String dateStarttime = sc.next();
+        Boolean canceled = false; // when adding a new Record, the default value of canceled is false;
+        addRecord(movieGoerID, movieID, cinemaID, cineplexID, amountOfTickets, seatID, totalCost, dateStarttime, canceled);
     }
 
 
