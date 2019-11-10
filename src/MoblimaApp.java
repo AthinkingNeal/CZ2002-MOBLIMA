@@ -2,13 +2,13 @@ import java.util.Scanner;
 
 public class MoblimaApp {
     private boolean isStaff;
-    public static String cineplexDBFile = "";
-    public static String movieInfoDBFile = "";
-    public static String dateFile = "";
-    public static String priceTableFile = "";
-    public static String staffRecordDBFile = "";
-    public static String paymentRecordDBFile = "";
-    public static String movieGoerDBFile = "";
+    public static String cineplexDBFile = "cineplexDB.ser";
+    public static String movieInfoDBFile = "movieInfoDB.ser";
+    public static String dateDBFile = "dateDB.ser";
+    public static String priceTableFile = "priceTable.ser";
+    public static String staffRecordDBFile = "staffRecordDB.ser";
+    public static String paymentRecordDBFile = "paymentRecordDB.ser";
+    public static String movieGoerDBFile = "movieGoer.ser";
 
 
     public static void main(String args[]) {
@@ -22,9 +22,9 @@ public class MoblimaApp {
         else isStaff = false;
 
         if (isStaff) {
-            StaffOperations staffOperations = new StaffOperations(cineplexDBFile, movieInfoDBFile, dateFile, priceTableFile, staffRecordDBFile);
+            StaffOperations staffOperations = new StaffOperations(cineplexDBFile, movieInfoDBFile, dateDBFile, priceTableFile, staffRecordDBFile);
         } else {
-            MovieGoerOperations movieGoerOperations = new MovieGoerOperations(movieInfoDBFile, cineplexDBFile, paymentRecordDBFile, priceTableFile, movieGoerDBFile, dateFile);
+            MovieGoerOperations movieGoerOperations = new MovieGoerOperations(movieInfoDBFile, cineplexDBFile, paymentRecordDBFile, priceTableFile, movieGoerDBFile, dateDBFile);
         }
 
     }
