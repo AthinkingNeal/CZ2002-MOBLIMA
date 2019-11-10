@@ -8,9 +8,9 @@ public class PaymentRecordDB implements Database {
     /**
      Initiate the class using a txt file to populate userPasswordRecord
      */
-    public PaymentRecordDB(String fileName)
+    public PaymentRecordDB(String filename)
     {
-        this.filename = fileName;
+        this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);

@@ -9,7 +9,7 @@ public class CineplexDB implements Database {
     private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
     private String filename;
 
-    public CineplexDB(String fileName) {
+    public CineplexDB(String filename) {
         this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
@@ -32,21 +32,16 @@ public class CineplexDB implements Database {
         System.out.println("You have successfully added a new cineplex!");
     }
 
-    public void addRecord() {
-        Scanner sc = new Scanner(System.in);
-        int cineplexID;
-        String name;
-        String location;
-        System.out.println("Please enter the cineplexID: ");
-        cineplexID = sc.nextInt();
-        System.out.println("Please enter the name of the cineplex: ");
-        name = sc.next();
-        System.out.println("Please enter the location of the cineplex: ");
-        location = sc.nextLine();
+    public static void main(String args[]) {
+        String filename = "cineplexDB.ser";
+        CineplexDB cineplexDB = new CineplexDB(filename);
+//        for (int i = 0; i < 3; i++) {
+//            cineplexDB.addRecord();
+//        }
+//
+//        cineplexDB.saveToFile();
 
-        addRecord(cineplexID,name,location);
-
-
+        System.out.println(cineplexDB.getCineplexByID(1).getLocation());
     }
 
     public void deleteRecord(int cineplexID){
@@ -97,13 +92,22 @@ public class CineplexDB implements Database {
         else return null;
     }
 
-    public static void main(String args[]) {
-        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-        for (int i = 0; i < 3; i++) {
-            cineplexDB.addRecord();
-        }
+    public void addRecord() {
+        Scanner sc = new Scanner(System.in);
+        int cineplexID;
+        String name;
+        String location;
+        System.out.println("Please enter the cineplexID: ");
+        cineplexID = sc.nextInt();
+        String dummy = sc.nextLine();
+        System.out.println("Please enter the name of the cineplex: ");
+        name = sc.nextLine();
+        System.out.println("Please enter the location of the cineplex: ");
+        location = sc.nextLine();
 
-        cineplexDB.saveToFile();
+        addRecord(cineplexID, name, location);
+
+
     }
 
 }

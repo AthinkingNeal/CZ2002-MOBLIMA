@@ -34,8 +34,7 @@ public class StaffRecordDB implements Database {
 //            System.exit(0);
 //        }
 //    }
-
-    public StaffRecordDB(String fileName)
+    public StaffRecordDB(String filename)
     {
         this.filename = filename;
         try {
