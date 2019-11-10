@@ -14,7 +14,6 @@ public class MovieGoerOperations {
 
     public MovieGoerOperations() {
         //TODO database initialization;
-
     }
 
     public int getID() {
@@ -203,7 +202,7 @@ public class MovieGoerOperations {
         //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
 
 
-        Boolean canceled = false; //TODO why need canceled? Answer: Becauase in case we want to allow the user to cancel his/her booking
+        Boolean canceled = false; //TODO why need canceled? Answer: Because in case we want to allow the user to cancel his/her booking
 
         PaymentRecord temp = new PaymentRecord(TID, movieGoer.getMovieGoerID(), ms.getMovieID(), ms.getCinemaID(),
                 ms.getCineplexID(), seatIDs.size(), seatIDs, price * seatIDs.size(), canceled);
