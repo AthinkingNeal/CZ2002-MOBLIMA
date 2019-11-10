@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -157,7 +158,7 @@ public class PriceTable {
         price = sc.nextDouble();
         priceTableRecord.remove(type);
         priceTableRecord.put(type, price);
-        System.out.println("Price adjustment for" + type + "successfully updated!");
+        System.out.println("Price adjustment for " + type + "successfully updated!");
     }
 
     public void saveToFile() {
@@ -173,8 +174,24 @@ public class PriceTable {
     }
 
     public void displayContent() {
-        priceTableRecord.entrySet().forEach(entry -> {
+        priceTableRecord.entrySet().forEach(entry->{
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
+    }
+
+    public static void main(String args[]) throws ParseException {
+
+        String filename = "priceTable.ser";
+        PriceTable priceTable = new PriceTable(filename);
+
+        //      priceTable.saveToFile();
+        priceTable.displayContent();
+
+//        // priceTable.initialiseTable();
+//        priceTable.updatePriceTable();
+//
+//        priceTable.displayContent();
+        priceTable.saveToFile();
+
     }
 }
