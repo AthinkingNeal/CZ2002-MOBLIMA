@@ -113,15 +113,22 @@ public class PaymentRecordDB extends Database{
         deleteRecord(TID);
     }
 //
-    public PaymentRecord findRecordByMovieGoerID(int movieGoerID){
+    public ArrayList <PaymentRecord> findRecordByMovieGoerID(int movieGoerID){
+        ArrayList <PaymentRecord> temp = new ArrayList<PaymentRecord>();
         for (Map.Entry<String, PaymentRecord> entry : PaymentRecordMap.entrySet()){
             if (entry.getValue().getMovieGoerID() == movieGoerID) {
-                System.out.println("Your PaymentRecord is found!");
-                return entry.getValue();
+                //System.out.println("Your PaymentRecord is found!");
+                temp.add(entry.getValue());
             }
         }
-        System.out.println("The PaymentRecord you are looking for does not exist.");
-        return null;
+        if (temp.size() != 0) {
+            System.out.println("Your PaymentRecords is found!");
+            return temp;
+        }
+        else {
+            System.out.println("The PaymentRecord you are looking for does not exist.");
+            return null;
+        }
     }
 
 
