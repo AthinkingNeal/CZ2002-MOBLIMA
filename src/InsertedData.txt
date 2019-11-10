@@ -1,0 +1,14 @@
+CineplexDB:
+
+1. Jurong Point Cineplex (4 cinams, 2 normal, 1 golden, 1 platinum)
+2. Suntec City Cineplex
+3. Vivocity Cineplex
+
+MovieGoerDB:
+
+11 MovieGoers (MoviegoerID:  1-11)
+
+StaffRecordDB:
+ID: xchen032 password: singapore
+ID: 123456 password: 123456
+ID: Andy056 password: 123456
