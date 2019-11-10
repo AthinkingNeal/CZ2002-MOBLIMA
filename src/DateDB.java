@@ -92,8 +92,6 @@ public class DateDB {
 
        date.addHoliday();
 
-       date.displayContent();
-
        date.addHoliday();
 
        date.saveToFile();

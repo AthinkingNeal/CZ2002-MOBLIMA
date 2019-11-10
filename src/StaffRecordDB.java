@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 
-public class StaffRecordDB extends Database {
+public class StaffRecordDB implements Database {
     // key: StaffID, value: password
     private HashMap<String, String> staffIDPasswordRecord = new HashMap<String, String>();
     private String filename;
