@@ -6,34 +6,13 @@ import java.util.Scanner;
 
 public class StaffRecordDB implements Database {
     // key: StaffID, value: password
-    private HashMap<String, String> staffIDPasswordRecord = new HashMap<String, String>();
+    private HashMap<String, String> staffIDPasswordRecord;
     private String filename;
 
     /**
      Initiate the class using a txt file to populate userPasswordRecord
      */
-//
-//    public StaffRecordDB(String fileName, boolean toInitialiseObject) {
-//        try {
-//            FileReader frStream = new FileReader(fileName);
-//            BufferedReader brStream = new BufferedReader(frStream);
-//            String inputLine;
-//            while ((inputLine = brStream.readLine()) != null) {
-//
-//                String delims = "[ ]+";
-//                String[] tokens = inputLine.split(delims);
-//                this.staffIDPasswordRecord.put(tokens[0], tokens[1]);
-//            }
-//            brStream.close();
-//        } catch (FileNotFoundException e) {
-//            System.out.println("Error opening the input file!");
-//            System.exit(0);
-//        } catch (IOException e) {
-//            System.out.println("IO Error!");
-//            e.printStackTrace();
-//            System.exit(0);
-//        }
-//    }
+
     public StaffRecordDB(String filename)
     {
         this.filename = filename;
@@ -49,6 +28,8 @@ public class StaffRecordDB implements Database {
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
+        if (staffIDPasswordRecord == null)
+            staffIDPasswordRecord = new HashMap<String, String>();
     }
 
 
@@ -154,14 +135,15 @@ public class StaffRecordDB implements Database {
 
         int trial = 0;
         boolean loggedIn = false;
-        String staffID = "";
         while (!loggedIn && ++trial <= 3) {
             Scanner s = new Scanner(System.in);
             System.out.println("Please enter your staff ID:");
-            staffID = s.nextLine();
-            Console console = System.console();
-            char[] passwordArray = console.readPassword("Please enter your password: ");
-            String password = new String(passwordArray);
+            String staffID = s.nextLine();
+            System.out.println("Please enter your password:");
+            String password = s.nextLine();
+//            Console console = System.console();
+//            char[] passwordArray = console.readPassword("Please enter your password: ");
+//            String password = new String(passwordArray);
             if (!this.staffIDPasswordRecord.containsKey(staffID)) {
                 if (!this.staffIDPasswordRecord.get(staffID).equals(password)) {
                     System.out.println("Successful Login!");
