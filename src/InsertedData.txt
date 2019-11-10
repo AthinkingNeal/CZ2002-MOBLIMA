@@ -1,14 +1,30 @@
 CineplexDB:
-
 1. Jurong Point Cineplex (4 cinams, 2 normal, 1 golden, 1 platinum)
 2. Suntec City Cineplex
 3. Vivocity Cineplex
 
 MovieGoerDB:
-
 11 MovieGoers (MoviegoerID:  1-11)
 
 StaffRecordDB:
 ID: xchen032 password: singapore
 ID: 123456 password: 123456
 ID: Andy056 password: 123456
+
+MovieInfoDB:
+movie ID: 10001
+movie title: Joker
+number of cineplexes for this movie: 2
+cineplex ID 1: 1
+cineplex ID 2: 2
+Please enter showing status for the new movie: Currently Showing
+Please enter synopsis for the movie: Scary
+Please indicate whether this movie is available in 2D (Y/N): Y
+Please indicate whether this movie is available in 3D (Y/N): Y
+Please indicate whether this movie is a blockbuster (Y/N): Y
+Enter the name of the director for this movie: Todd Philip
+Please enter the number of cast for this movie: 2
+Enter the name of cast1: cast1
+Enter the name of cast2 :cast2
+
+
