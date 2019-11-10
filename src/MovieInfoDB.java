@@ -7,6 +7,8 @@ public class MovieInfoDB implements Database {
     private HashMap<Integer, MovieInfo> movieInfoRecord = new HashMap<Integer, MovieInfo>();
     private String filename;
 
+
+
     /**
      * Initiate the class using a txt file to populate movieInfo
      */
