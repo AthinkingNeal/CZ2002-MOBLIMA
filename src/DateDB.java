@@ -45,12 +45,20 @@ public class DateDB {
         return now.format(formatter);
     }
 
-    public boolean getIsWeekend(String yourDate) throws ParseException {
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(yourDate);
-        calendar.setTime(date);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        return dayOfWeek == 6 || dayOfWeek == 7;
+    public boolean getIsWeekend(String yourDate){
+        try{
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(yourDate);
+            calendar.setTime(date);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            return dayOfWeek == 7 || dayOfWeek == 1;
+        }
+        catch (ParseException e)
+        {
+            System.out.println("Invalid date format!");
+            return false;
+        }
+
     }
 
     public boolean IsHoliday(String date) { // input date should be in the format of yyyy-mm-dd

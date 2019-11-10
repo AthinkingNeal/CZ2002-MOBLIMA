@@ -55,9 +55,20 @@ public class MovieGoerDB {
                 return entry.getValue();
             }
         }
-        System.out.println("The movieGoer you are looking for does not exist");
+        System.out.println("The movieGoer you are looking for does not exist, we are assigning you to this new ID");
+        addRecord();
+
+        for (Map.Entry<Integer,MovieGoer> entry : MovieGoerMap.entrySet()){
+            if(entry.getValue().getMovieGoerID() == movieGoerID){
+                System.out.println("The movie goer is found!");
+                return entry.getValue();
+            }
+        }
+        System.out.println("The movieGoer is not found!");
         return null;
     }
+
+
 
 
 

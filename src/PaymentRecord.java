@@ -100,6 +100,8 @@ public class PaymentRecord {
 
 
     public void printRecord() {
+        if (canceled == true)
+            return;
         String temp = "Following are your record information: ";
         temp += "\nTransaction ID: " + getTID();
         temp += "\nmovieGoerID: " + getMovieGoerID();
