@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Cinema {
+public class Cinema implements Serializable {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
 
@@ -36,8 +37,6 @@ public class Cinema {
     }
 
 
-
-
     /**
      * Initialise with a file containing all the moviescheduleinfo
      */
@@ -46,6 +45,7 @@ public class Cinema {
         this.cineplexID = cineplexID;
         this.cinemaClass = cinemaClass;
     }
+
     /**
      * Allow staff to add a single record of movie schedule
      */

@@ -2,6 +2,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.Serializable;
 
 public class PriceTable {
 

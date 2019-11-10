@@ -1,4 +1,5 @@
 import java.awt.desktop.SystemSleepEvent;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;

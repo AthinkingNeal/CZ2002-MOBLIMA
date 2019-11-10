@@ -1,8 +1,9 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MovieInfo {
+public class MovieInfo implements Serializable {
     private int movieId;
     private String title;
     // private Cineplex[] cineplexes;

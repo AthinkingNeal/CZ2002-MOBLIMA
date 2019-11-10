@@ -3,13 +3,13 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
-public class Cineplex implements java.io.Serializable {
+public class Cineplex implements Serializable {
     private int cineplexID;
     private String name;
     private String location;
-    private ArrayList<Cinema> cinemaArrayList = new ArrayList<Cinema>(); // Will this also initialize all the cinemas inside? Double Check
+    private HashMap<Integer, Cinema> cinemaHashMap = new HashMap<Integer, Cinema>();
 
     public Cineplex(int cineplexID, String name, String location){
         this.cineplexID = cineplexID;
@@ -22,9 +22,9 @@ public class Cineplex implements java.io.Serializable {
     // we assume that one movie will only exist in one MovieSchedule at a specific time.
     public ArrayList <MovieSchedule> getMovieScheduleByID(int movieID, String dateStartTime){
         ArrayList <MovieSchedule> scheduleArrayList = new ArrayList<MovieSchedule>();
-        int len = cinemaArrayList.size();
+        int len = cinemaHashMap.size();
         for(int i = 0; i < len; i++){
-            Cinema currentCinema = cinemaArrayList.get(i);
+            Cinema currentCinema = cinemaHashMap.get(i);
             HashMap<String,MovieSchedule> currentScheduleMap = currentCinema.getCinemaSchedule();
             MovieSchedule currentSchedule = currentScheduleMap.get(dateStartTime);
             if (currentSchedule == null) {
@@ -61,11 +61,9 @@ public class Cineplex implements java.io.Serializable {
         }
 
         Cinema cinemaAdded = new Cinema(cinemaID = cinemaID, cineplexID, cinemaClass = cinemaClass);
-        cinemaArrayList.add(cinemaAdded);
-        System.out.println("You have successfully ");
+        cinemaHashMap.put(cinemaID, cinemaAdded);
+        System.out.println("You have successfully added this cinema to this cineplex");
     }
-
-
 
 
     public int getCineplexID() {
@@ -93,14 +91,14 @@ public class Cineplex implements java.io.Serializable {
     }
 
     public ArrayList<Cinema> getCinemas() {
-        return cinemaArrayList;
+        return new ArrayList<>(cinemaHashMap.values());
     }
 
     public Cinema getCinemaByCinemaID(int cinemaID) {
-        for (int i = 0; i < cinemaArrayList.size(); i++)
-            if (cinemaArrayList.get(i).getCinemaID() == cinemaID)
-                return cinemaArrayList.get(i);
-        return null;
+        if (cinemaHashMap.containsKey(cinemaID))
+            return cinemaHashMap.get(cinemaID);
+        else
+            return null;
     }
 
 }

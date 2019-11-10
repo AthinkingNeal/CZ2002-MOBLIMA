@@ -1,12 +1,13 @@
 
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.io.Serializable;
 
-public class CineplexDB implements Database {
-    private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
+public class CineplexDB implements Database, Serializable {
+    private HashMap<Integer, Cineplex> cineplexMap;
     private String filename;
 
     public CineplexDB(String filename) {
@@ -18,20 +19,15 @@ public class CineplexDB implements Database {
             System.out.print("reading data from " + filename + "...");
             this.cineplexMap = (HashMap<Integer, Cineplex>) ois.readObject();
             ois.close();
+            fis.close();
         } catch (IOException e) {
             System.out.println("File input error");
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
+        if (this.cineplexMap == null)
+            this.cineplexMap = new HashMap<Integer, Cineplex>();
     }
-
-
-    public void addRecord(int cineplexID, String name, String location){
-        Cineplex temp = new Cineplex(cineplexID,name,location);
-        cineplexMap.put(cineplexID,temp);
-        System.out.println("You have successfully added a new cineplex!");
-    }
-
 
 
     public void deleteRecord(int cineplexID){
@@ -57,17 +53,19 @@ public class CineplexDB implements Database {
 
     }
 
-    public void saveToFile() {
-            try{
-                FileOutputStream fos = new FileOutputStream(this.filename);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                System.out.print("saving data to " + filename + "...");
-                oos.writeObject(cineplexMap);
-                oos.close();
-            } catch (IOException e) {
-                System.out.println("File input error");
-            }
+    public static void main(String args[]) {
+        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+//        for (int i = 0; i < 3; i++) {
+//            cineplexDB.addRecord();
+//        }
+//
+//        cineplexDB.saveToFile();
+
+        ArrayList<Cinema> c = cineplexDB.getCineplexByID(2).getCinemas();
+        for (int i = 0; i < c.size(); i++) {
+            System.out.println(c.get(i).getCinemaID());
         }
+    }
 
     public boolean findCineplexByID(int cineplexID) {
         if (cineplexMap.containsKey(cineplexID))
@@ -87,6 +85,7 @@ public class CineplexDB implements Database {
         int cineplexID;
         String name;
         String location;
+        System.out.println("Creating a new cineplex: ");
         System.out.println("Please enter the cineplexID: ");
         cineplexID = sc.nextInt();
         String dummy = sc.nextLine();
@@ -94,21 +93,31 @@ public class CineplexDB implements Database {
         name = sc.nextLine();
         System.out.println("Please enter the location of the cineplex: ");
         location = sc.nextLine();
+        Cineplex temp = new Cineplex(cineplexID, name, location);
+        cineplexMap.put(cineplexID, temp);
+        System.out.println("You have successfully added a new cineplex!");
+        System.out.println("Now let's add cinemas to this cineplex!");
+        System.out.println("How many cinemas you want to add at this cineplex?");
+        int noCinemas = Integer.parseInt(sc.nextLine());
+        for (int i = 0; i < noCinemas; i++) {
+            temp.addCinema();
+        }
 
-        addRecord(cineplexID, name, location);
-
+        System.out.println(noCinemas + " cinemas have been created in this cineplex!");
 
     }
 
-    public static void main(String args[]) {
-        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-//        for (int i = 0; i < 3; i++) {
-//            cineplexDB.addRecord();
-//        }
-//
-//        cineplexDB.saveToFile();
-
-        System.out.println(cineplexDB.getCineplexByID(1).getLocation());
+    public void saveToFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(this.filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.print("saving data to " + filename + "...");
+            oos.writeObject(cineplexMap);
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        }
     }
 
 }
