@@ -299,7 +299,7 @@ public class MovieInfoDB implements Database, Serializable {
     /**
      * list top movies
      */
-    public ArrayList<MovieInfo> listTopMovies(String priority) {
+    public void listTopMovies(String priority) {
         ArrayList<MovieInfo> result = new ArrayList<>();
 
         List<Map.Entry<Integer, MovieInfo>> list = new LinkedList<>(movieInfoRecord.entrySet());
@@ -326,7 +326,10 @@ public class MovieInfoDB implements Database, Serializable {
         for (Map.Entry<Integer, MovieInfo> aa : list) {
             result.add(aa.getValue());
         }
-        return result;
+
+        for (MovieInfo m : result)
+            System.out.println(m.getTitle());
+        //return result;
     }
 
     /**
