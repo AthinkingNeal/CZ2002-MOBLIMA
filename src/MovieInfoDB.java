@@ -42,9 +42,11 @@ public class MovieInfoDB implements Database, Serializable {
         String filename = MoblimaApp.movieInfoDBFile;
         CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
         MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-//        movieInfoDB.addRecord(cineplexDB);
+        movieInfoDB.updateRecord(cineplexDB);
 //        movieInfoDB.saveToFile();
-        System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
+        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
+        // System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
+        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getShowingStatus());
 
 
     }
@@ -299,7 +301,7 @@ public class MovieInfoDB implements Database, Serializable {
     /**
      * list top movies
      */
-    public ArrayList<MovieInfo> listTopMovies(String priority) {
+    public void listTopMovies(String priority) {
         ArrayList<MovieInfo> result = new ArrayList<>();
 
         List<Map.Entry<Integer, MovieInfo>> list = new LinkedList<>(movieInfoRecord.entrySet());
@@ -326,7 +328,10 @@ public class MovieInfoDB implements Database, Serializable {
         for (Map.Entry<Integer, MovieInfo> aa : list) {
             result.add(aa.getValue());
         }
-        return result;
+
+        for (MovieInfo m : result)
+            System.out.println(m.getTitle());
+        //return result;
     }
 
     /**
@@ -342,9 +347,9 @@ public class MovieInfoDB implements Database, Serializable {
      */
 
     public MovieInfo getMovieInfoByName(String movieName) {
-        for (Map.Entry<Integer,MovieInfo> entry : movieInfoRecord.entrySet()) {
-            if (entry.getValue().getTitle().equals(movieName))
-                return entry.getValue();
+        for (MovieInfo m : movieInfoRecord.values()) {
+            if (m.getTitle().equals(movieName))
+                return m;
         }
         return null;
     }

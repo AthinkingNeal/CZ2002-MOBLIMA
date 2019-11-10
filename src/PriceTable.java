@@ -65,6 +65,7 @@ public class PriceTable {
         System.out.println("8. Update price increased for platinum class");
         System.out.println("9. Update price increased for weekends");
         System.out.println("10. Update price increased for holidays");
+        System.out.println("11. Check Current price settings");
 
         choice = sc.nextInt();
 
@@ -98,6 +99,11 @@ public class PriceTable {
                 break;
             case 10:
                 utilUpdate("holidays");
+                break;
+            case 11:
+                for (String type : priceTableRecord.keySet()) {
+                    System.out.println(type + ": " + priceTableRecord.get(type));
+                }
                 break;
             default:
                 System.out.println("Please enter a valid choice");

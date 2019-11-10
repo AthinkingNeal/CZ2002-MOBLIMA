@@ -98,6 +98,7 @@ public class StaffOperations {
     }
 
     private void configureHolidaySetting() {
+        this.date.displayContent();
         this.date.addHoliday();
         startOperations();
 
@@ -126,12 +127,12 @@ public class StaffOperations {
     }
 
     private void updateMovieSchedule() {
-        System.out.println("Add new schedule for which movie? Enter movie ID");
+        System.out.println("Update schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
-        System.out.println("Add new schedule for which cineplex? Enter cineplex ID");
+        System.out.println("which cineplex? Enter cineplex ID");
         int cineplexID = s.nextInt();
-        System.out.println("Add new schedule for which cinema? Enter cinema ID");
+        System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord();
         startOperations();
@@ -139,12 +140,12 @@ public class StaffOperations {
     }
 
     private void deleteMovieSchedule() {
-        System.out.println("Add new schedule for which movie? Enter movie ID");
+        System.out.println("delete schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
-        System.out.println("Add new schedule for which cineplex? Enter cineplex ID");
+        System.out.println("which cineplex? Enter cineplex ID");
         int cineplexID = s.nextInt();
-        System.out.println("Add new schedule for which cinema? Enter cinema ID");
+        System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
         startOperations();
