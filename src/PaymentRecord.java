@@ -9,11 +9,12 @@ public class PaymentRecord implements Serializable {
     private int cinemaID;
     private int cineplexID;
     private int amountOfTickets;
+    private String movieDateStartTime;
     private ArrayList<String> seatID;
     private float totalCost;
     private Boolean canceled;
 
-    public PaymentRecord(String TID, int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, Boolean canceled) {
+    public PaymentRecord(String TID, int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, String movieDateStartTime, Boolean canceled) {
         this.TID = TID;
         this.movieGoerID = movieGoerID;
         this.movieID = movieID;
@@ -23,8 +24,16 @@ public class PaymentRecord implements Serializable {
         this.seatID = seatID;
         this.totalCost = totalCost;
         this.canceled = canceled;
+        this.movieDateStartTime = movieDateStartTime;
     }
 
+    public String getMovieDateStartTime() {
+        return movieDateStartTime;
+    }
+
+    public void setMovieDateStartTime(String movieDateStartTime) {
+        this.movieDateStartTime = movieDateStartTime;
+    }
 
     public int getCineplexID() {
         return cineplexID;

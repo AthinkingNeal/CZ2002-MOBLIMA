@@ -50,7 +50,8 @@ public class MovieGoerOperations {
         System.out.println("5. Check Seat Availability and Book tickets"); // as long as you know the movie name you can book seats, user check the seat availability in this.
         System.out.println("6. View booking history");
         System.out.println("7. Cancel Booking");
-        System.out.println("8. Exit");
+        System.out.println("8. Update your profile(Email, mobile no, age)");
+        System.out.println("9. Exit");
 
     }
 
@@ -84,6 +85,9 @@ public class MovieGoerOperations {
                 cancelBooking();
                 break;
             case 8:
+                updateProfile();
+                break;
+            case 9:
                 System.out.println("Good Bye! Have a good day!");
                 saveToFile();
                 System.exit(0);
@@ -254,15 +258,17 @@ public class MovieGoerOperations {
     private void addToPaymentRecordDB(MovieSchedule ms, ArrayList<String> seatIDs, double price) {
         // need to check valid input
         String dateStartTime = ms.getDateStartTime();
+        String currentDate = todayDate.getCurrentDate();
+        String currentTime = todayDate.getCurrentTime();
 
-        String TID = ms.getCinemaID() + dateStartTime.substring(0, 4) + dateStartTime.substring(5, 7) + dateStartTime.substring(8, 10) + dateStartTime.substring(11, 13) + dateStartTime.substring(14, 16); // TID needs to be updated based on added time stamp, find a way to do this.
+        String TID = ms.getCinemaID() + currentDate.substring(0, 4) + currentDate.substring(5, 7) + currentDate.substring(8, 10) + currentTime.substring(0, 2) + currentTime.substring(3, 5); // TID needs to be updated based on added time stamp, find a way to do this.
         //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
 
 
-        Boolean canceled = false; //TODO why need canceled? Answer: Because in case we want to allow the user to cancel his/her booking
+        Boolean canceled = false;
 
         PaymentRecord temp = new PaymentRecord(TID, movieGoer.getMovieGoerID(), ms.getMovieID(), ms.getCinemaID(),
-                ms.getCineplexID(), seatIDs.size(), seatIDs, (float)price * seatIDs.size(), canceled);
+                ms.getCineplexID(), seatIDs.size(), seatIDs, (float) price * seatIDs.size(), dateStartTime, canceled);
 
         paymentRecordDB.addRecord(TID, temp);
         System.out.println("Your booking is successful! You can cancel your booking or check payment history in the main menu!");
@@ -292,6 +298,11 @@ public class MovieGoerOperations {
         paymentRecordDB.updateRecord(TID,true);
         System.out.println("You have successfully canceled your booking!");
 
+    }
+
+    public void updateProfile() {
+        movieGoerDB.updateRecord(movieGoer.getMovieGoerID());
+        startOperations();
     }
 
     private void listCurrentTopBySales() {
