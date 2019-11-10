@@ -121,4 +121,12 @@ public class MovieGoerDB implements Database {
         }
     }
 
+
+    // used to populate data in movieGoerDB
+    public static void main(String args[]){
+        MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
+        for (int i = 0 ; i < 5; i++)
+            test.addRecord();
+        test.saveToFile();
+    }
 }

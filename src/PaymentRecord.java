@@ -10,7 +10,7 @@ public class PaymentRecord {
     private int amountOfTickets;
     private ArrayList<String> seatID;
     private float totalCost;
-    private Boolean canceled;
+    private boolean canceled;
 
     public PaymentRecord(String TID, int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, Boolean canceled) {
         this.TID = TID;

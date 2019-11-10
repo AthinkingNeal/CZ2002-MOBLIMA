@@ -97,8 +97,8 @@ public class CineplexDB implements Database {
         else return null;
     }
 
-    public static void main(String args[]) {
-        CineplexDB cineplexDB = new CineplexDB()
-    }
+//    public static void main(String args[]) {
+//        CineplexDB cineplexDB = new CineplexDB();
+//    }
 
 }
