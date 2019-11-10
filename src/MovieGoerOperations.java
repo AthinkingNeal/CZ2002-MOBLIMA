@@ -29,7 +29,7 @@ public class MovieGoerOperations {
         System.out.println("1. Search movies."); // Check sear availability, selection of seats and Booking tickets are inside this option
         System.out.println("2. List movies"); // when listing movies, we list all movies at one time but organize them in different groups by their type
         System.out.println("3. Check Seat Availability and Book tickets"); // as long as you know the movie name you can book seats, user check the seat availability in this.
-        //TODO cancel booking?
+
         System.out.println("4. List the Top 5 ranking movies by ticket sales");
         System.out.println("5. List the Top 5 ranking movies by overall reviewers' ratings");
     }
