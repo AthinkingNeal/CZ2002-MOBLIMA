@@ -7,8 +7,8 @@ public class MovieGoerDB implements Database {
     private String filename;
 
 
-    public MovieGoerDB(String fileName) {
-        this.filename = fileName;
+    public MovieGoerDB(String filename) {
+        this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);

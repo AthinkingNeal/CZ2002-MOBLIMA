@@ -12,7 +12,7 @@ public class MovieInfoDB implements Database {
     /**
      * Initiate the class using a txt file to populate movieInfo
      */
-    public MovieInfoDB(String fileName) {
+    public MovieInfoDB(String filename) {
         this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
@@ -495,5 +495,13 @@ public class MovieInfoDB implements Database {
         } catch (IOException e) {
             System.out.println("File input error");
         }
+    }
+
+    public static void main(String args[]) {
+        String filename = MoblimaApp.movieInfoDBFile;
+        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
+        movieInfoDB.addRecord();
+        movieInfoDB.saveToFile();
+
     }
 }
