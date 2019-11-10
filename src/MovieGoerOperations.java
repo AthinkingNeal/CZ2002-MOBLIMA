@@ -1,10 +1,11 @@
 import java.awt.desktop.SystemSleepEvent;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class MovieGoerOperations {
+public class MovieGoerOperations implements Serializable {
     private MovieInfoDB movieInfoDB;  // You can not declare this DB as Database because of Static binding
     private CineplexDB cineplexDB;    // If that is the case, you can only use the methods declared in Database.
     private PaymentRecordDB paymentRecordDB;

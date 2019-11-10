@@ -3,9 +3,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
-public class Cineplex implements java.io.Serializable {
+public class Cineplex implements Serializable {
     private int cineplexID;
     private String name;
     private String location;

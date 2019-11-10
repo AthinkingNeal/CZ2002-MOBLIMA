@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Cinema {
+public class Cinema implements Serializable {
 
     // hashmap: key: "dateStarttime", value: MovieSchedule
 
@@ -36,8 +37,6 @@ public class Cinema {
     }
 
 
-
-
     /**
      * Initialise with a file containing all the moviescheduleinfo
      */
@@ -46,6 +45,7 @@ public class Cinema {
         this.cineplexID = cineplexID;
         this.cinemaClass = cinemaClass;
     }
+
     /**
      * Allow staff to add a single record of movie schedule
      */
@@ -185,25 +185,25 @@ public class Cinema {
     /**
      * Save all MovieSchedule objects into the file
      */
-//    public void saveToFile() {
-//        try {
-//            FileOutputStream fos = new FileOutputStream(this.filename);
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            System.out.print("saving data to " + filename + "...");
-//
-//
-////            for(String key : cinemaSchedule.keySet())
-////            {
-////                oos.writeObject(cinemaSchedule.get(key));
-////            }
-//
-////            oos.writeObject(null);
-//            oos.writeObject(cinemaSchedule);
-//            oos.close();
-//        } catch (IOException e) {
-//            System.out.println("File input error");
-//        }
-//    }
+    public void saveToFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(this.filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.print("saving data to " + filename + "...");
+
+
+//            for(String key : cinemaSchedule.keySet())
+//            {
+//                oos.writeObject(cinemaSchedule.get(key));
+//            }
+
+//            oos.writeObject(null);
+            oos.writeObject(cinemaSchedule);
+            oos.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        }
+    }
 
 }
 

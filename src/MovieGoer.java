@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class MovieGoer {
+public class MovieGoer implements Serializable {
     protected String name;
     protected int movieGoerID;
     protected int mobileNumber;

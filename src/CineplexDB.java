@@ -2,10 +2,10 @@
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.io.Serializable;
 
-public class CineplexDB implements Database {
+public class CineplexDB implements Database, Serializable {
     private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
     private String filename;
 
@@ -16,8 +16,9 @@ public class CineplexDB implements Database {
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             System.out.print("reading data from " + filename + "...");
-            this.cineplexMap = (HashMap<Integer, Cineplex>) ois.readObject();
+            this.cineplexMap = (HashMap) ois.readObject();
             ois.close();
+            fis.close();
         } catch (IOException e) {
             System.out.println("File input error");
         } catch (ClassNotFoundException e) {
@@ -57,17 +58,18 @@ public class CineplexDB implements Database {
 
     }
 
-    public void saveToFile() {
-            try{
-                FileOutputStream fos = new FileOutputStream(this.filename);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                System.out.print("saving data to " + filename + "...");
-                oos.writeObject(cineplexMap);
-                oos.close();
-            } catch (IOException e) {
-                System.out.println("File input error");
-            }
+    public static void main(String args[]) {
+        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+        for (int i = 0; i < 3; i++) {
+            cineplexDB.addRecord();
         }
+
+        for (int i = 0; )
+
+            cineplexDB.saveToFile();
+
+        System.out.println(cineplexDB.getCineplexByID(1).getLocation());
+    }
 
     public boolean findCineplexByID(int cineplexID) {
         if (cineplexMap.containsKey(cineplexID))
@@ -100,15 +102,17 @@ public class CineplexDB implements Database {
 
     }
 
-    public static void main(String args[]) {
-        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-//        for (int i = 0; i < 3; i++) {
-//            cineplexDB.addRecord();
-//        }
-//
-//        cineplexDB.saveToFile();
-
-        System.out.println(cineplexDB.getCineplexByID(1).getLocation());
+    public void saveToFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(this.filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.print("saving data to " + filename + "...");
+            oos.writeObject(cineplexMap);
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        }
     }
 
 }

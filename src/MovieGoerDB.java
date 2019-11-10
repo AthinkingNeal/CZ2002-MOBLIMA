@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class MovieGoerDB implements Database {
+public class MovieGoerDB implements Database, Serializable {
     private HashMap<Integer, MovieGoer> MovieGoerMap = new HashMap<Integer, MovieGoer>();
     private String filename;
 

@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PaymentRecord {
+public class PaymentRecord implements Serializable {
     private String TID;
     //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
     private int movieGoerID;

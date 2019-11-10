@@ -1,6 +1,6 @@
+import java.io.Serializable;
 
-
-public class Layout{
+public class Layout implements Serializable {
     //    enum Movieclass{
 //        platinum,golden,normal
 //    }
@@ -9,18 +9,18 @@ public class Layout{
     private String seatIDAlphabets = "ABCDEFGHIJ";
 
     public Layout(int cid, Cinema.CinemaClass cinemaClass) {
-    int dimension;
-    if (cinemaClass == Cinema.CinemaClass.platinum)
-        dimension = 3; // if it's platinum, cinema has 3*3 seats;
-    else if (cinemaClass == Cinema.CinemaClass.golden)
-        dimension = 6;
-    else
-        dimension = 10;
-    layout = new Seat[dimension][dimension];
-    for(int i = 0; i< 10; i++)
-        for(int j = 0; j < 10; j++)
-            layout[i][j] = new Seat(i, j, false);
-    movieclass=cinemaClass;
+        int dimension;
+        if (cinemaClass == Cinema.CinemaClass.platinum)
+            dimension = 3; // if it's platinum, cinema has 3*3 seats;
+        else if (cinemaClass == Cinema.CinemaClass.golden)
+            dimension = 6;
+        else
+            dimension = 10;
+        layout = new Seat[dimension][dimension];
+        for(int i = 0; i< 10; i++)
+            for(int j = 0; j < 10; j++)
+                layout[i][j] = new Seat(i, j, false);
+        movieclass=cinemaClass;
 
     }
 
@@ -107,7 +107,7 @@ public class Layout{
     public void bookSeat(String seatID) {
         int x = seatIDAlphabets.indexOf(seatID.charAt(0));
         int y = Integer.parseInt(String.valueOf(seatID.charAt(1)));
-            layout[x][y].bookSeat();
+        layout[x][y].bookSeat();
     }
 
 }
