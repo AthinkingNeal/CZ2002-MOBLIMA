@@ -5,7 +5,7 @@ public class StaffOperations {
 
     private CineplexDB cineplexDB;
     private MovieInfoDB movieInfoDB; //!! if use Database,
-    private Date date;
+    private DateDB date;
     private PriceTable priceTable;
     private StaffRecordDB staffRecordDB;
 
@@ -13,7 +13,7 @@ public class StaffOperations {
 
         this.cineplexDB = new CineplexDB(cineplexDBFile);
         this.movieInfoDB = new MovieInfoDB(movieInfoDBFile);
-        this.date = new Date(dateFile);
+        this.date = new DateDB(dateFile);
         this.priceTable = new PriceTable(priceTableFile);
         this.staffRecordDB = new StaffRecordDB(staffRecordDBFile);
         if (!staffRecordDB.login())
@@ -93,7 +93,7 @@ public class StaffOperations {
     }
 
     private void configureHolidaySetting() {
-        this.date.addHoliday("");
+        this.date.addHoliday();
         startOperations();
 
     }
