@@ -42,31 +42,10 @@ public class PaymentRecordDB implements Database {
         this.PaymentRecordMap.put(TID, r);
     }
 
-    public void addRecord(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please input the movieGoerID: ");
-        int movieGoerID = sc.nextInt();
-        System.out.println("Please input the movieID: ");
-        int movieID = sc.nextInt();
-        System.out.println("Please input the cinemaID: ");
-        int cinemaID = sc.nextInt();
-        System.out.println("Please input the cineplexID: ");
-        int cineplexID = sc.nextInt();
-        System.out.println("Please input the amount of tickets bought: ");
-        int amountOfTickets = sc.nextInt();
-        ArrayList <String> seatID = new ArrayList<>();
-        System.out.println("Please enter all the seatID, such as 'a1 a2': ");
-        String input = sc.nextLine();
-        StringTokenizer str_arr = new StringTokenizer(input);
-        while(str_arr.hasMoreTokens()){
-            seatID.add(str_arr.nextToken());
-        }
-        System.out.println("Please input the total cost: ");
-        int totalCost = sc.nextInt();
-        System.out.println("Please input the movieStartTime: YYYY-MM-DD-HH-MM");
-        String dateStarttime = sc.next();
-        Boolean canceled = false; // when adding a new Record, the default value of canceled is false;
-        addRecord(movieGoerID, movieID, cinemaID, cineplexID, amountOfTickets, seatID, totalCost, dateStarttime, canceled);
+    public static void main(String args[]) {
+        PaymentRecordDB paymentRecordDB = new PaymentRecordDB(MoblimaApp.paymentRecordDBFile);
+        paymentRecordDB.addRecord();
+        paymentRecordDB.saveToFile();
     }
 
 
@@ -146,6 +125,34 @@ public class PaymentRecordDB implements Database {
         } catch (IOException e) {
             System.out.println("File input error");
         }
+    }
+
+    public void addRecord() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the movieGoerID: ");
+        int movieGoerID = sc.nextInt();
+        System.out.println("Please input the movieID: ");
+        int movieID = sc.nextInt();
+        System.out.println("Please input the cinemaID: ");
+        int cinemaID = sc.nextInt();
+        System.out.println("Please input the cineplexID: ");
+        int cineplexID = sc.nextInt();
+        System.out.println("Please input the amount of tickets bought: ");
+        int amountOfTickets = sc.nextInt();
+        ArrayList<String> seatID = new ArrayList<>();
+        System.out.println("Please enter all the seatID, such as 'a1 a2': ");
+        String dummy = sc.nextLine();
+        String input = sc.nextLine();
+        StringTokenizer str_arr = new StringTokenizer(input);
+        while (str_arr.hasMoreTokens()) {
+            seatID.add(str_arr.nextToken());
+        }
+        System.out.println("Please input the total cost: ");
+        int totalCost = sc.nextInt();
+        System.out.println("Please input the movieStartTime: YYYY-MM-DD-HH-MM");
+        String dateStarttime = sc.next();
+        Boolean canceled = false; // when adding a new Record, the default value of canceled is false;
+        addRecord(movieGoerID, movieID, cinemaID, cineplexID, amountOfTickets, seatID, totalCost, dateStarttime, canceled);
     }
 
 }
