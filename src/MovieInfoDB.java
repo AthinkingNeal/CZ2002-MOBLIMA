@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class MovieInfoDB {
+public class MovieInfoDB implements Database {
     // key: movieID, value: MovieInfo object
     private HashMap<Integer, MovieInfo> movieInfoRecord = new HashMap<Integer, MovieInfo>();
     private String filename;
@@ -24,6 +24,14 @@ public class MovieInfoDB {
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
+    }
+
+    public void addRecord() {
+        System.out.println("Add record");
+    }
+
+    public void updateRecord() {
+        System.out.println("Update record");
     }
 
     /**
