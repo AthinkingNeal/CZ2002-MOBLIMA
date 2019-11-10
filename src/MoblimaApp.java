@@ -9,7 +9,7 @@ public class MoblimaApp {
     public static String priceTableFile = "priceTable.ser";
     public static String staffRecordDBFile = "staffRecordDB.ser";
     public static String paymentRecordDBFile = "paymentRecordDB.ser";
-    public static String movieGoerDBFile = "movieGoer.ser";
+    public static String movieGoerDBFile = "movieGoerDB.ser";
 
 
     public static void main(String args[]) {
