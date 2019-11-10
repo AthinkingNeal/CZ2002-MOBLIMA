@@ -81,23 +81,23 @@ public class DateDB {
         }
     }
 
-    //    public static void main(String args[]) throws ParseException {
-//
-//        String filename = "DateDB.ser";
-//        DateDB date = new DateDB(filename);
+
+ public static void main(String args[]) throws ParseException {
+       String filename = "DateDB.ser";
+       DateDB date = new DateDB(filename);
 
 
-//        if (date.IsHoliday("2019-01-01")) System.out.println("1");
-//        else System.out.println("0");
+       if (date.IsHoliday("2019-01-01")) System.out.println("1");
+       else System.out.println("0");
 
-//        date.addHoliday();
-//
-//        date.displayContent();
+       date.addHoliday();
 
-//        date.addHoliday();
-//
-//        date.saveToFile();
+       date.displayContent();
 
-//    }
+       date.addHoliday();
+
+       date.saveToFile();
+
+ }
 
 }

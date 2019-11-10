@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class PaymentRecordDB extends Database{
+public class PaymentRecordDB implements Database {
     private HashMap<String, PaymentRecord> PaymentRecordMap = new HashMap<String, PaymentRecord>();
     private String filename;
 

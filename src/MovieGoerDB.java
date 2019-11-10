@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class MovieGoerDB {
+public class MovieGoerDB implements Database {
     private HashMap<Integer, MovieGoer> MovieGoerMap = new HashMap<Integer, MovieGoer>();
     private String filename;
 
@@ -44,7 +44,6 @@ public class MovieGoerDB {
          addRecord(name,movieGoerID,mobileNumber,emailAddress,age);
     }
 
-    // We assume that MovieGoer does not need to update his/her own record.
 
     // We assume that Movie Goer does not need to delete his/her own record
 
@@ -68,9 +67,47 @@ public class MovieGoerDB {
         return null;
     }
 
+    public void deleteRecord() {
+        System.out.println("delete record");
+    }
+
+    public void updateRecord() {
+        System.out.println("Update record");
+    }
+
+    public void updateRecord(int movieGoerID) {
+        MovieGoer m = findRecordByMovieGoerID(movieGoerID);
+        System.out.println("Which attribute would you like to update?");
+        System.out.println("1. Update name");
+        System.out.println("2. Update mobile number");
+        System.out.println("3. Update email address");
+        System.out.println("4. Update age");
+        System.out.println("5. Exit");
+
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+        while (choice != 5) {
+            switch (choice) {
+                case 1:
+                    System.out.println("Please input your new name: ");
+                    m.setName(sc.nextLine());
+                case 2:
+                    System.out.println("Please input your new mobile number: ");
+                    m.setMobileNumber(sc.nextInt());
+                case 3:
+                    System.out.println("Please input your new email address: ");
+                    m.setEmailAddress(sc.nextLine());
+                case 4:
+                    System.out.println("Please input your new age: ");
+                    m.setAge(sc.nextInt());
+            }
+            choice = sc.nextInt();
+        }
 
 
-
+        System.out.println("Please input your age: ");
+        int age = sc.nextInt();
+    }
 
     public void saveToFile() {
         try{
