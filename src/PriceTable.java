@@ -173,7 +173,7 @@ public class PriceTable {
     }
 
     public void displayContent() {
-        priceTableRecord.entrySet().forEach(entry->{
+        priceTableRecord.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
     }
