@@ -3,13 +3,13 @@ import java.util.Scanner;
 
 public class MoblimaApp {
     private boolean isStaff;
-    public static String cineplexDBFile = "cineplexDB.ser";
-    public static String movieInfoDBFile = "movieInfoDB.ser";
-    public static String dateDBFile = "dateDB.ser";
-    public static String priceTableFile = "priceTable.ser";
-    public static String staffRecordDBFile = "staffRecordDB.ser";
-    public static String paymentRecordDBFile = "paymentRecordDB.ser";
-    public static String movieGoerDBFile = "movieGoerDB.ser";
+    public static String cineplexDBFile = "bin/cineplexDB.ser";
+    public static String movieInfoDBFile = "bin/movieInfoDB.ser";
+    public static String dateDBFile = "bin/dateDB.ser";
+    public static String priceTableFile = "bin/priceTable.ser";
+    public static String staffRecordDBFile = "bin/staffRecordDB.ser";
+    public static String paymentRecordDBFile = "bin/paymentRecordDB.ser";
+    public static String movieGoerDBFile = "bin/movieGoerDB.ser";
 
 
     public static void main(String args[]) {

@@ -44,8 +44,9 @@ public class PaymentRecordDB implements Database {
 
     public static void main(String args[]) {
         PaymentRecordDB paymentRecordDB = new PaymentRecordDB(MoblimaApp.paymentRecordDBFile);
-        paymentRecordDB.addRecord();
-        paymentRecordDB.saveToFile();
+//        paymentRecordDB.addRecord();
+//        paymentRecordDB.saveToFile();
+        paymentRecordDB.updateRecord();
     }
 
 
