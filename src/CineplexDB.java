@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.io.Serializable;
 
 public class CineplexDB implements Database, Serializable {
-    private HashMap<Integer, Cineplex> cineplexMap = new HashMap<Integer, Cineplex>();
+    private HashMap<Integer, Cineplex> cineplexMap;
     private String filename;
 
     public CineplexDB(String filename) {
@@ -16,7 +16,7 @@ public class CineplexDB implements Database, Serializable {
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             System.out.print("reading data from " + filename + "...");
-            this.cineplexMap = (HashMap) ois.readObject();
+            this.cineplexMap = (HashMap<Integer, Cineplex>) ois.readObject();
             ois.close();
             fis.close();
         } catch (IOException e) {
@@ -24,6 +24,8 @@ public class CineplexDB implements Database, Serializable {
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
+        if (this.cineplexMap == null)
+            this.cineplexMap = new HashMap<Integer, Cineplex>();
     }
 
 
@@ -60,15 +62,13 @@ public class CineplexDB implements Database, Serializable {
 
     public static void main(String args[]) {
         CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-        for (int i = 0; i < 3; i++) {
-            cineplexDB.addRecord();
-        }
+//        for (int i = 0; i < 3; i++) {
+//            cineplexDB.addRecord();
+//        }
+//
+//            cineplexDB.saveToFile();
 
-        for (int i = 0; )
-
-            cineplexDB.saveToFile();
-
-        System.out.println(cineplexDB.getCineplexByID(1).getLocation());
+        System.out.println(cineplexDB.getCineplexByID(2).getLocation());
     }
 
     public boolean findCineplexByID(int cineplexID) {

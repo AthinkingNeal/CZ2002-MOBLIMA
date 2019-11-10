@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class MoblimaApp implements Serializable {
+public class MoblimaApp {
     private boolean isStaff;
     public static String cineplexDBFile = "cineplexDB.ser";
     public static String movieInfoDBFile = "movieInfoDB.ser";

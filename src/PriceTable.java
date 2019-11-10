@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.Serializable;
 
-public class PriceTable implements Serializable {
+public class PriceTable {
 
     private String filename;
     private HashMap<String, Double> priceTableRecord = new HashMap<String, Double>();

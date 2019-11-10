@@ -2,7 +2,7 @@ import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class StaffOperations implements Serializable {
+public class StaffOperations {
 
     private CineplexDB cineplexDB;
     private MovieInfoDB movieInfoDB; //!! if use Database,

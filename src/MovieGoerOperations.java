@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class MovieGoerOperations implements Serializable {
+public class MovieGoerOperations {
     private MovieInfoDB movieInfoDB;  // You can not declare this DB as Database because of Static binding
     private CineplexDB cineplexDB;    // If that is the case, you can only use the methods declared in Database.
     private PaymentRecordDB paymentRecordDB;
