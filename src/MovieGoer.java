@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class MovieGoer {
     protected String name;
     protected int movieGoerID;
@@ -30,18 +32,19 @@ public class MovieGoer {
     }
 
     // The method below is not complete
+    // cancelBooking is moved to MovieGoerOperations class
 
     /*
     update PaymentRecord, flag as refunded
     update MovieSale, sale - 1
     update Seat, flag as available
     */
-    public void cancelBooking(String recordID){
-        String id="id mock";
-        int CineplexId=1;
-        int cinemaId=1;
-        int movieId=1;
-        String startTime="2018-10-09-13-30";
+//    public void cancelBooking(){
+//        String id="id mock";
+//        int CineplexId=1;
+//        int cinemaId=1;
+//        int movieId=1;
+//        String startTime="2018-10-09-13-30";
 
 
 
