@@ -19,6 +19,10 @@ public class DateDB {
     // the value of the hashmap is a boolean array, containing [isHoliday, isHolidayEve]
     private ArrayList<String> dateList = new ArrayList<String>();
 
+    public DateDB() {
+        this.filename = MoblimaApp.dateDBFile;
+    }
+
     public DateDB(String filename) {
         this.filename = filename;
         try {

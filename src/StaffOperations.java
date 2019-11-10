@@ -161,5 +161,8 @@ public class StaffOperations {
         startOperations();
     }
 
+    public static void main(String args[]) {
+    }
+
 
 }
