@@ -32,17 +32,7 @@ public class CineplexDB implements Database {
         System.out.println("You have successfully added a new cineplex!");
     }
 
-    public static void main(String args[]) {
-        String filename = "cineplexDB.ser";
-        CineplexDB cineplexDB = new CineplexDB(filename);
-//        for (int i = 0; i < 3; i++) {
-//            cineplexDB.addRecord();
-//        }
-//
-//        cineplexDB.saveToFile();
 
-        System.out.println(cineplexDB.getCineplexByID(1).getLocation());
-    }
 
     public void deleteRecord(int cineplexID){
         if (cineplexMap.containsKey(cineplexID) == false) {
@@ -108,6 +98,17 @@ public class CineplexDB implements Database {
         addRecord(cineplexID, name, location);
 
 
+    }
+
+    public static void main(String args[]) {
+        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+//        for (int i = 0; i < 3; i++) {
+//            cineplexDB.addRecord();
+//        }
+//
+//        cineplexDB.saveToFile();
+
+        System.out.println(cineplexDB.getCineplexByID(1).getLocation());
     }
 
 }

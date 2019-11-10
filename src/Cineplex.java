@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cineplex{
+public class Cineplex implements java.io.Serializable {
     private int cineplexID;
     private String name;
     private String location;
