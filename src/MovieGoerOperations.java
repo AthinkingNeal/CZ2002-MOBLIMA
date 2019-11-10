@@ -10,7 +10,8 @@ public class MovieGoerOperations {
     private PriceTable priceTable;
     private MovieGoerDB movieGoerDB;
     private MovieGoer movieGoer;
-    private Date todayDate;
+    private DateDB todayDate;
+
 
     public MovieGoerOperations(String movieInfoDBFile, String cineplexDBFile, String paymentRecordDBFile, String priceTableFile, String movieGoerDBFile, String dateFile) {
 
@@ -25,7 +26,7 @@ public class MovieGoerOperations {
         paymentRecordDB = new PaymentRecordDB(paymentRecordDBFile);
         priceTable = new PriceTable(priceTableFile);
         movieGoerDB = new MovieGoerDB(movieGoerDBFile);
-        todayDate = new Date(dateFile);
+        todayDate = new DateDB(dateFile);
 
     }
 
@@ -168,7 +169,7 @@ public class MovieGoerOperations {
         // display the seat layout
         System.out.println("Please check the seat availability below:");
         selectedSchedule.getLayout().displayLayout(); //TODO: add seat ID in display!
-        float price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(date), todayDate.IsWeekend(date)); //TODO isWeekend to be implemented
+        double price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(date), todayDate.getIsWeekend(date)); //TODO isWeekend to be implemented
         System.out.println("The price of this movie session is:" + price + " per seat");
         System.out.println("Do you want to proceed to book a seat? Enter Y/N");
         char choice = sc.nextLine().charAt(0);
@@ -181,7 +182,7 @@ public class MovieGoerOperations {
     }
 
 
-    private void bookTickets(MovieSchedule ms, float price) {
+    private void bookTickets(MovieSchedule ms, double price) {
         System.out.println("How many tickets you would like to book?");
         Scanner s = new Scanner(System.in);
         int numTickets = s.nextInt();
@@ -203,7 +204,7 @@ public class MovieGoerOperations {
 
     }
 
-    private void printReceipt(MovieSchedule ms, ArrayList<String> seatIDs, float price) {
+    private void printReceipt(MovieSchedule ms, ArrayList<String> seatIDs, double price) {
         System.out.println("Here is your receipt!");
         String seatIDString = "";
         for (int i = 0; i < seatIDs.size(); i++)
@@ -215,7 +216,7 @@ public class MovieGoerOperations {
                 + "Cinema ID: " + ms.getCinemaID() + "\n"
                 + "Movie Date and Start time: " + ms.getDateStartTime() + "\n"
                 + "Seats booked: " + seatIDString + "\n"
-                + "Date of payment: " + todayDate.getDate() + "\n"
+                + "Date of payment: " + todayDate.getCurrentDate() + "\n"
                 + "Total price: " + price * seatIDs.size() + "\n";
         System.out.println(receipt);
     }
@@ -225,7 +226,7 @@ public class MovieGoerOperations {
      * @param seatIDs
      * @param price   price of a single ticket
      */
-    private void addToPaymentRecordDB(MovieSchedule ms, ArrayList<String> seatIDs, float price) {
+    private void addToPaymentRecordDB(MovieSchedule ms, ArrayList<String> seatIDs, double price) {
         // need to check valid input
         String dateStartTime = ms.getDateStartTime();
 
@@ -236,7 +237,7 @@ public class MovieGoerOperations {
         Boolean canceled = false; //TODO why need canceled? Answer: Because in case we want to allow the user to cancel his/her booking
 
         PaymentRecord temp = new PaymentRecord(TID, movieGoer.getMovieGoerID(), ms.getMovieID(), ms.getCinemaID(),
-                ms.getCineplexID(), seatIDs.size(), seatIDs, price * seatIDs.size(), canceled);
+                ms.getCineplexID(), seatIDs.size(), seatIDs, (float)price * seatIDs.size(), canceled);
 
         paymentRecordDB.addRecord(TID, temp);
         System.out.println("Your booking is successful! You can cancel your booking or check payment history in the main menu!");
@@ -245,7 +246,7 @@ public class MovieGoerOperations {
 
 
     public void viewBookingHistory() {
-        ArrayList<PaymentRecord> paymentRecordArrayList = new ArrayList<PaymentRecord>;
+        ArrayList<PaymentRecord> paymentRecordArrayList = new ArrayList<PaymentRecord>();
         paymentRecordArrayList = paymentRecordDB.findRecordByMovieGoerID(movieGoer.getMovieGoerID());
         int len = paymentRecordArrayList.size();
         if (len == 0) {

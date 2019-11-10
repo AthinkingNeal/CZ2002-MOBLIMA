@@ -5,19 +5,20 @@ public class StaffOperations {
 
     private CineplexDB cineplexDB;
     private MovieInfoDB movieInfoDB; //!! if use Database,
-    private Date date;
+    private DateDB date;
     private PriceTable priceTable;
     private StaffRecordDB staffRecordDB;
 
-    public StaffOperations() {
+    public StaffOperations(String cineplexDBFile, String movieInfoDBFile, String dateFile, String priceTableFile, String staffRecordDBFile) {
 
-        this.cineplexDB = new CineplexDB("");
-        this.movieInfoDB = new MovieInfoDB("");
-        this.date = new Date("");
-        this.priceTable = new PriceTable("");
-        this.staffRecordDB = new StaffRecordDB("");
+        this.cineplexDB = new CineplexDB(cineplexDBFile);
+        this.movieInfoDB = new MovieInfoDB(movieInfoDBFile);
+        this.date = new DateDB(dateFile);
+        this.priceTable = new PriceTable(priceTableFile);
+        this.staffRecordDB = new StaffRecordDB(staffRecordDBFile);
+        if (!staffRecordDB.login())
+            System.exit(0);
         startOperations();
-
     }
 
     private void displayMainMenu() {
@@ -36,8 +37,7 @@ public class StaffOperations {
     }
 
     private void startOperations() {
-        if (!staffRecordDB.login())
-            System.exit(0);
+
         displayMainMenu();
         Scanner s = new Scanner(System.in);
         int choice = s.nextInt();
@@ -74,8 +74,17 @@ public class StaffOperations {
                 break;
             case 11:
                 System.out.println("Have a nice day! Good bye!");
+                saveToFile();
                 System.exit(0);
         }
+    }
+
+    private void saveToFile() {
+        cineplexDB.saveToFile();
+        movieInfoDB.saveToFile();
+        date.saveToFile();
+        priceTable.saveToFile();
+        staffRecordDB.saveToFile();
     }
 
     private void configureTicketPrice() {
@@ -84,7 +93,7 @@ public class StaffOperations {
     }
 
     private void configureHolidaySetting() {
-        this.date.addHoliday("");
+        this.date.addHoliday();
         startOperations();
 
     }
