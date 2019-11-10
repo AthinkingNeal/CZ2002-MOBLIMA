@@ -19,17 +19,13 @@ public class DateDB {
     // the value of the hashmap is a boolean array, containing [isHoliday, isHolidayEve]
     private ArrayList<String> dateList = new ArrayList<String>();
 
-    public DateDB() {
-        this.filename = MoblimaApp.dateDBFile;
-    }
-
     public DateDB(String filename) {
         this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.dateList = (ArrayList<String>) ois.readObject();
             ois.close();
         } catch (IOException e) {
@@ -49,20 +45,12 @@ public class DateDB {
         return now.format(formatter);
     }
 
-    public boolean getIsWeekend(String yourDate){
-        try{
-            Calendar calendar = Calendar.getInstance();
-            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(yourDate);
-            calendar.setTime(date);
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            return dayOfWeek == 7 || dayOfWeek == 1;
-        }
-        catch (ParseException e)
-        {
-            System.out.println("Invalid date format!");
-            return false;
-        }
-
+    public boolean getIsWeekend(String yourDate) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(yourDate);
+        calendar.setTime(date);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        return dayOfWeek == 6 || dayOfWeek == 7;
     }
 
     public boolean IsHoliday(String date) { // input date should be in the format of yyyy-mm-dd
@@ -92,5 +80,24 @@ public class DateDB {
             System.out.println("File input error");
         }
     }
+
+    //    public static void main(String args[]) throws ParseException {
+//
+//        String filename = "DateDB.ser";
+//        DateDB date = new DateDB(filename);
+
+
+//        if (date.IsHoliday("2019-01-01")) System.out.println("1");
+//        else System.out.println("0");
+
+//        date.addHoliday();
+//
+//        date.displayContent();
+
+//        date.addHoliday();
+//
+//        date.saveToFile();
+
+//    }
 
 }
