@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class PaymentRecord {
@@ -23,6 +26,7 @@ public class PaymentRecord {
         this.totalCost = totalCost;
         this.canceled = canceled;
     }
+
 
 
     public int getCineplexID() {

@@ -34,12 +34,15 @@ public class MovieGoerDB implements Database {
          String name = sc.nextLine();
          System.out.println("Please input your movieGoerID");
          int movieGoerID = sc.nextInt();
+         String dummy = sc.nextLine();
          System.out.println("Please input your mobile number: ");
          int mobileNumber = sc.nextInt();
+         dummy = sc.nextLine();
          System.out.println("Please input your email address: ");
          String emailAddress = sc.nextLine();
          System.out.println("Please input your age: ");
          int age = sc.nextInt();
+         dummy = sc.nextLine();
 
          addRecord(name,movieGoerID,mobileNumber,emailAddress,age);
     }
@@ -121,12 +124,15 @@ public class MovieGoerDB implements Database {
         }
     }
 
-
     // used to populate data in movieGoerDB
     public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
         MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
-        for (int i = 0 ; i < 5; i++)
+        int numOfTrials = 1;
+        int movieGoerID = sc.nextInt();
+        for (int i = 0 ; i < numOfTrials; i++)
             test.addRecord();
+        test.findRecordByMovieGoerID(movieGoerID);
         test.saveToFile();
     }
 }
