@@ -87,6 +87,18 @@ public class MovieInfo {
         return support2D;
     }
 
+    public void setNumOfSales(int numOfSales) {
+        this.numOfSales = numOfSales;
+    }
+
+    public void setOverAllRating(float overAllRating) {
+        this.overAllRating = overAllRating;
+    }
+
+    public void setReviewsAndRating(ArrayList<RevNRat> reviewsAndRating) {
+        this.reviewsAndRating = reviewsAndRating;
+    }
+
     public void setSupport2D(boolean support2D) {
         this.support2D = support2D;
     }

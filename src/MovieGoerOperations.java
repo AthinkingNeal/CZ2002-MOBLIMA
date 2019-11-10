@@ -14,7 +14,6 @@ public class MovieGoerOperations {
 
 
     public MovieGoerOperations(String movieInfoDBFile, String cineplexDBFile, String paymentRecordDBFile, String priceTableFile, String movieGoerDBFile, String dateFile) {
-
         // Login process, we assume that the MovieGoerID
         Scanner sc = new Scanner(System.in);
         int movieGoerID = getID();
@@ -27,7 +26,6 @@ public class MovieGoerOperations {
         priceTable = new PriceTable(priceTableFile);
         movieGoerDB = new MovieGoerDB(movieGoerDBFile);
         todayDate = new DateDB(dateFile);
-
     }
 
     private void saveToFile(){
@@ -210,14 +208,20 @@ public class MovieGoerOperations {
             ms.bookSeat(seatID);
             System.out.println("This seat is successfully booked!");
         }
-
         addToPaymentRecordDB(ms, seatIDs, price); // add to record
+
+        // add sales to the corresponded movie info
+        MovieInfo temp = movieInfoDB.getMovieInfoByMovieID(ms.getMovieID());
+        int newNumberOfSales = temp.getNumOfSales() + numTickets;
+        temp.setNumOfSales(newNumberOfSales);
+
         System.out.println("Booking complete! You will be returned to main menu!");
         displayMainMenu();
         startOperations();
-
-
     }
+
+
+
 
     private void printReceipt(MovieSchedule ms, ArrayList<String> seatIDs, double price) {
         System.out.println("Here is your receipt!");
