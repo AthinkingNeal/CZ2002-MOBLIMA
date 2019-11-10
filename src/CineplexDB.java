@@ -1,6 +1,7 @@
 
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.Serializable;
@@ -54,14 +55,16 @@ public class CineplexDB implements Database, Serializable {
 
     public static void main(String args[]) {
         CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-        for (int i = 0; i < 3; i++) {
-            cineplexDB.addRecord();
+//        for (int i = 0; i < 3; i++) {
+//            cineplexDB.addRecord();
+//        }
+//
+//        cineplexDB.saveToFile();
+
+        ArrayList<Cinema> c = cineplexDB.getCineplexByID(2).getCinemas();
+        for (int i = 0; i < c.size(); i++) {
+            System.out.println(c.get(i).getCinemaID());
         }
-
-
-        cineplexDB.saveToFile();
-
-        //System.out.println(cineplexDB.getCineplexByID(2).getLocation());
     }
 
     public boolean findCineplexByID(int cineplexID) {
