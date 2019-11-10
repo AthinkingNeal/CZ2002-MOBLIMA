@@ -17,17 +17,17 @@ public class MovieGoerOperations {
 
     public MovieGoerOperations(String movieInfoDBFile, String cineplexDBFile, String paymentRecordDBFile, String priceTableFile, String movieGoerDBFile, String dateFile) {
         // Login process, we assume that the MovieGoerID
-        Scanner sc = new Scanner(System.in);
-        int movieGoerID = getID();
-        // we assume this ID already exists, or we create a new movieGoer for this new ID.
-        movieGoer = movieGoerDB.findRecordByMovieGoerID(movieGoerID);
-
-        movieInfoDB = new MovieInfoDB(movieGoerDBFile);
+        movieInfoDB = new MovieInfoDB(movieInfoDBFile);
         cineplexDB = new CineplexDB(cineplexDBFile);
         paymentRecordDB = new PaymentRecordDB(paymentRecordDBFile);
         priceTable = new PriceTable(priceTableFile);
         movieGoerDB = new MovieGoerDB(movieGoerDBFile);
         todayDate = new DateDB(dateFile);
+        Scanner sc = new Scanner(System.in);
+        int movieGoerID = getID();
+        // we assume this ID already exists, or we create a new movieGoer for this new ID.
+        movieGoer = movieGoerDB.findRecordByMovieGoerID(movieGoerID);
+        startOperations();
     }
 
     private void saveToFile(){
@@ -113,7 +113,7 @@ public class MovieGoerOperations {
         // return a MovieInfo object or a null pointer
         if (movieInfo == null)
             System.out.println("This movie does not exist yet ");
-        else if (movieInfo.getShowingStatus() == "Currently Showing" || movieInfo.getShowingStatus() == "Preview") {
+        else if (movieInfo.getShowingStatus() == "CurrentlyShowing" || movieInfo.getShowingStatus() == "Preview") {
             System.out.println("Do you want to view more details about this movie? Enter Y to view more details; Enter N to return to main menu.");
             char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')

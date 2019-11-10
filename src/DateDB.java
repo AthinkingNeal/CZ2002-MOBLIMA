@@ -98,6 +98,7 @@ public class DateDB {
  }
 
     public void displayContent() {
+        System.out.println("These are the current holidays:");
         for (int i = 0; i < dateList.size(); i++) {
             System.out.println(dateList.get(i));
         }
