@@ -140,7 +140,7 @@ public class MovieGoerOperations {
         // display the seat layout
         System.out.println("Please check the seat availability below:");
         selectedSchedule.getLayout().displayLayout(); //TODO: add seat ID in display!
-        float price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(""), todayDate.IsWeekend("")); //TODO isWeekend to be implemented
+        float price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(date), todayDate.IsWeekend(date)); //TODO isWeekend to be implemented
         System.out.println("The price of this movie session is:" + price + " per seat");
         System.out.println("Do you want to proceed to book a seat? Enter Y/N");
         char choice = sc.nextLine().charAt(0);
