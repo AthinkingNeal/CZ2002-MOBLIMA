@@ -29,14 +29,6 @@ public class CineplexDB implements Database, Serializable {
     }
 
 
-    public void addRecord(int cineplexID, String name, String location){
-        Cineplex temp = new Cineplex(cineplexID,name,location);
-        cineplexMap.put(cineplexID,temp);
-        System.out.println("You have successfully added a new cineplex!");
-    }
-
-
-
     public void deleteRecord(int cineplexID){
         if (cineplexMap.containsKey(cineplexID) == false) {
             System.out.println("You have entered an invalid cineplex ID");
@@ -62,13 +54,14 @@ public class CineplexDB implements Database, Serializable {
 
     public static void main(String args[]) {
         CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-//        for (int i = 0; i < 3; i++) {
-//            cineplexDB.addRecord();
-//        }
-//
-//            cineplexDB.saveToFile();
+        for (int i = 0; i < 3; i++) {
+            cineplexDB.addRecord();
+        }
 
-        System.out.println(cineplexDB.getCineplexByID(2).getLocation());
+
+        cineplexDB.saveToFile();
+
+        //System.out.println(cineplexDB.getCineplexByID(2).getLocation());
     }
 
     public boolean findCineplexByID(int cineplexID) {
@@ -89,6 +82,7 @@ public class CineplexDB implements Database, Serializable {
         int cineplexID;
         String name;
         String location;
+        System.out.println("Creating a new cineplex: ");
         System.out.println("Please enter the cineplexID: ");
         cineplexID = sc.nextInt();
         String dummy = sc.nextLine();
@@ -96,9 +90,17 @@ public class CineplexDB implements Database, Serializable {
         name = sc.nextLine();
         System.out.println("Please enter the location of the cineplex: ");
         location = sc.nextLine();
+        Cineplex temp = new Cineplex(cineplexID, name, location);
+        cineplexMap.put(cineplexID, temp);
+        System.out.println("You have successfully added a new cineplex!");
+        System.out.println("Now let's add cinemas to this cineplex!");
+        System.out.println("How many cinemas you want to add at this cineplex?");
+        int noCinemas = Integer.parseInt(sc.nextLine());
+        for (int i = 0; i < noCinemas; i++) {
+            temp.addCinema();
+        }
 
-        addRecord(cineplexID, name, location);
-
+        System.out.println(noCinemas + " cinemas have been created in this cineplex!");
 
     }
 
