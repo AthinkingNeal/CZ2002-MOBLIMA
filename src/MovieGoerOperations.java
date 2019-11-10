@@ -15,7 +15,6 @@ public class MovieGoerOperations {
     public MovieGoerOperations() {
         //TODO database initialization;
 
-
     }
 
     public int getID() {
@@ -52,9 +51,8 @@ public class MovieGoerOperations {
             case 2:
                 listMovies();
                 break;
-            ;
             case 3:
-                bookTickets();
+                checkSeatAvailability();
                 break;
             case 4:
                 listCurrentTopBySales();
@@ -75,7 +73,7 @@ public class MovieGoerOperations {
         if (movieInfo == null)
             System.out.println("This movie does not exist yet ");
         else if (movieInfo.getShowingStatus() == "Currently Showing" || movieInfo.getShowingStatus() == "Preview") {
-            System.out.println("Do you want to view more details about this movie? Enter Y to view more details; Enter N to return to main menu.")
+            System.out.println("Do you want to view more details about this movie? Enter Y to view more details; Enter N to return to main menu.");
             char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')
                 viewMovieDetails(movieInfo.getMovieId());
@@ -87,11 +85,10 @@ public class MovieGoerOperations {
     public void listMovies() { // display all the movie's name, user can query further details from here
         movieInfoDB.listAllMovies();
         Scanner s = new Scanner(System.in);
-        System.out.println("Do you want to view more details? Enter Y to view more details; Enter N to return to main menu.")
+        System.out.println("Do you want to view more details? Enter Y to view more details; Enter N to return to main menu.");
         char choice = s.nextLine().charAt(0);
         if (choice == 'Y' || choice == 'y') {
-            System.out.println("Which movie detail do you want to view? Enter movie ID.")
-            Scanner s = new Scanner(System.in);
+            System.out.println("Which movie detail do you want to view? Enter movie ID.");
             int movieID = s.nextInt();
             viewMovieDetails(movieID);
         } else
@@ -100,10 +97,10 @@ public class MovieGoerOperations {
 
 
     public void viewMovieDetails(int movieID) { // inside searchMovies and listMovies
-
+        Scanner sc = new Scanner(System.in);
         movieInfoDB.getMovieInfoByMovieID(movieID).displayMovieInfo();
-        System.out.println("Do you want to check the seat availability for this movie? Enter Y/N")
-        char choice = s.nextLine().charAt(0);
+        System.out.println("Do you want to check the seat availability for this movie? Enter Y/N");
+        char choice = sc.nextLine().charAt(0);
         if (choice == 'Y' || choice == 'y')
             checkSeatAvailability(movieID);
         else
@@ -113,7 +110,7 @@ public class MovieGoerOperations {
     public void checkSeatAvailability() {
         listMovies();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the movieID you want to book: ")
+        System.out.println("Please enter the movieID you want to book: ");
         int movieID = sc.nextInt();
         checkSeatAvailability(movieID);
     }
@@ -144,7 +141,7 @@ public class MovieGoerOperations {
         // display the seat layout
         System.out.println("Please check the seat availability below:");
         selectedSchedule.getLayout().displayLayout(); //TODO: add seat ID in display!
-        float price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(""), todayDate.IsWeekend(""));
+        float price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(""), todayDate.IsWeekend("")); //TODO isWeekend to be implemented
         System.out.println("The price of this movie session is:" + price + " per seat");
         System.out.println("Do you want to proceed to book a seat? Enter Y/N");
         char choice = sc.nextLine().charAt(0);
@@ -205,7 +202,9 @@ public class MovieGoerOperations {
         String TID = ms.getCinemaID() + dateStartTime.substring(0, 4) + dateStartTime.substring(5, 7) + dateStartTime.substring(8, 10) + dateStartTime.substring(11, 13) + dateStartTime.substring(14, 16); // TID needs to be updated based on added time stamp, find a way to do this.
         //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
 
-        Boolean canceled = false; //TODO why need canceled?
+
+        Boolean canceled = false; //TODO why need canceled? Answer: Becauase in case we want to allow the user to cancel his/her booking
+
         PaymentRecord temp = new PaymentRecord(TID, movieGoer.getMovieGoerID(), ms.getMovieID(), ms.getCinemaID(),
                 ms.getCineplexID(), seatIDs.size(), seatIDs, price * seatIDs.size(), canceled);
 
@@ -224,7 +223,7 @@ public class MovieGoerOperations {
             return;
         }
         for (int i = 0; i < len; i++) {
-            paymenRecordArrayList.get(i).printRecord();
+            paymentRecordArrayList.get(i).printRecord();
         }
     }
 
