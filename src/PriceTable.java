@@ -187,7 +187,7 @@ public class PriceTable {
         });
     }
 
-    public static void main(String args[]) throws ParseException {
+    public static void main(String args[]) {
 
         String filename = "priceTable.ser";
         PriceTable priceTable = new PriceTable(filename);
