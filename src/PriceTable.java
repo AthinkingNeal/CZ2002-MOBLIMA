@@ -21,7 +21,7 @@ public class PriceTable {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.priceTableRecord = (HashMap<String, Double>) ois.readObject();
             ois.close();
         } catch (IOException e) {

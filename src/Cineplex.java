@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.io.Serializable;
 
 public class Cineplex implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int cineplexID;
     private String name;
     private String location;

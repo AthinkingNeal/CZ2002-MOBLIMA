@@ -5,6 +5,7 @@ public class Layout implements Serializable {
 //        platinum,golden,normal
 //    }
     private Seat[][] layout;
+    private static final long serialVersionUID = 1L;
     private Cinema.CinemaClass movieclass = Cinema.CinemaClass.normal;
     private String seatIDAlphabets = "ABCDEFGHIJ";
 
@@ -17,8 +18,8 @@ public class Layout implements Serializable {
         else
             dimension = 10;
         layout = new Seat[dimension][dimension];
-        for(int i = 0; i< 10; i++)
-            for(int j = 0; j < 10; j++)
+        for (int i = 0; i < dimension; i++)
+            for (int j = 0; j < dimension; j++)
                 layout[i][j] = new Seat(i, j, false);
         movieclass=cinemaClass;
 

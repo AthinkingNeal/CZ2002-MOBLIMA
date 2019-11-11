@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int movieId;
     private String title;
     // private Cineplex[] cineplexes;
@@ -21,8 +22,11 @@ public class MovieInfo implements Serializable {
     private int numOfSales;
     private float overAllRating;
     private ArrayList<RevNRat> reviewsAndRating;
+    private String ageLimit;
+    private String movieCategory;
 
-    public MovieInfo(int movieid, String title, String showingStatus, String synopsis, ArrayList<Integer> cineplexes, boolean support2D, boolean support3D, boolean isBlockbluster, String director, ArrayList<String> cast) {
+    public MovieInfo(int movieid, String title, String showingStatus, String synopsis, ArrayList<Integer> cineplexes, boolean support2D,
+                     boolean support3D, boolean isBlockbluster, String director, ArrayList<String> cast, String ageLimit, String movieCategory) {
         this.movieId = movieid;
         this.title = title;
         this.showingStatus = showingStatus;
@@ -36,6 +40,24 @@ public class MovieInfo implements Serializable {
         this.overAllRating = 0;
         this.numOfSales = 0;
         reviewsAndRating = new ArrayList<>();
+        this.ageLimit = ageLimit;
+        this.movieCategory = movieCategory;
+    }
+
+    public String getAgeLimit() {
+        return ageLimit;
+    }
+
+    public void setAgeLimit(String agelimit) {
+        this.ageLimit = agelimit;
+    }
+
+    public String getMovieCategory() {
+        return movieCategory;
+    }
+
+    public void setMovieCategory(String movieCategory) {
+        this.movieCategory = movieCategory;
     }
 
     public int getMovieId() {
@@ -141,7 +163,9 @@ public class MovieInfo implements Serializable {
     }
 
     public float getOverAllRating() {
-        return overAllRating;
+
+        if (this.getReviewsAndRating().size() > 1) return overAllRating;
+        else return -1;
     }
 
     public ArrayList<RevNRat> getReviewsAndRating() {
@@ -169,6 +193,8 @@ public class MovieInfo implements Serializable {
         StringBuilder temp = new StringBuilder();
         temp.append("Movie Title: ").append(getTitle());
         temp.append("Movie ID: ").append(getMovieId());
+        temp.append("Movie Category: ").append(getMovieCategory());
+        temp.append("Movie Age Limit: ").append(getAgeLimit());
         temp.append("\nShowing Status: ").append(getShowingStatus());
         temp.append("\nSynoposis: ").append(getSynopsis());
         temp.append("\nAvailable types: " + "3D: ").append(isSupport3D()).append(" 2D: ").append(isSupport2D());
@@ -179,13 +205,14 @@ public class MovieInfo implements Serializable {
             temp.append(getCast().get(i));
 
         temp.append("\nNumber Of Sales: ").append(getNumOfSales());
-        temp.append("\nOverall Rating: ").append(getOverAllRating());
+        if (getOverAllRating() != -1)
+            temp.append("\nOverall Rating: ").append(getOverAllRating());
+        else
+            temp.append("\nOverall Rating: N.A");
         temp.append("\nReviews: ");
         System.out.println(temp);
         for (int i = 0; i < this.reviewsAndRating.size(); i++)
             reviewsAndRating.get(i).displayReviewRating();
-
-
 
     }
 
