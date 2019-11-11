@@ -122,7 +122,7 @@ public class StaffOperations {
         int cineplexID = s.nextInt();
         System.out.println("Add new schedule for which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
-        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord();
+        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord(movieID);
         startOperations();
     }
 
