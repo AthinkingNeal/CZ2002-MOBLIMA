@@ -1,8 +1,7 @@
 import java.io.*;
-import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-import java.io.Serializable;
 
 public class PriceTable {
 
@@ -157,6 +156,8 @@ public class PriceTable {
         return price;
     }
 
+
+        
     // assume staff would enter price adjustment with +/-
     private void utilUpdate(String type) {
         Scanner sc = new Scanner(System.in);
