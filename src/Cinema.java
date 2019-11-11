@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Cinema implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     // hashmap: key: "dateStarttime", value: MovieSchedule
 
     private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
@@ -148,6 +148,15 @@ public class Cinema implements Serializable {
     /**
      * Once user has selected movie, location, display all available dates of this movie in this cinema
      */
+
+    public void displayAllSchedulesOfMovie(int movieID) {
+        for (String key : cinemaSchedule.keySet()) {
+            if (cinemaSchedule.get(key).getMovieID() == movieID)
+                System.out.println(movieID + cinemaSchedule.get(key).getDateStartTime()); // print out date in "YYYY-mm-dd"
+        }
+    }
+
+
     public void showAvailableDates(int movieID) {
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)

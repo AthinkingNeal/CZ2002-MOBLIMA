@@ -12,7 +12,7 @@ public class MovieGoerDB implements Database {
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.MovieGoerMap = (HashMap<Integer, MovieGoer>) ois.readObject();
             ois.close();
         } catch (IOException e) {
@@ -32,11 +32,11 @@ public class MovieGoerDB implements Database {
 
     public static void main(String args[]) {
         MovieGoerDB movieGoerDB = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
-//        for(int i = 0; i < 10; i++)
+//        for(int i = 0; i < 5; i++)
 //            movieGoerDB.addRecord();
 //        movieGoerDB.saveToFile();
-        for (int i = 0; i < 10; i++) {
-            System.out.println(movieGoerDB.findRecordByMovieGoerID(i + 1).getName());
+        for (int i = 10; i < 15; i++) {
+            System.out.println(movieGoerDB.findRecordByMovieGoerID(i).getName());
         }
 
         movieGoerDB.findRecordByMovieGoerID(11);

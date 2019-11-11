@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.io.Serializable;
 
 public class CineplexDB implements Database, Serializable {
+    private static final long serialVersionUID = 1L;
     private HashMap<Integer, Cineplex> cineplexMap;
     private String filename;
 
@@ -16,7 +17,7 @@ public class CineplexDB implements Database, Serializable {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.cineplexMap = (HashMap<Integer, Cineplex>) ois.readObject();
             ois.close();
             fis.close();
@@ -65,7 +66,8 @@ public class CineplexDB implements Database, Serializable {
         for (int i = 0; i < c.size(); i++) {
             System.out.println(c.get(i).getCinemaID());
         }
-    }
+        }
+
 
     public boolean findCineplexByID(int cineplexID) {
         if (cineplexMap.containsKey(cineplexID))

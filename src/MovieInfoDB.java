@@ -4,6 +4,7 @@ import java.util.*;
 
 public class MovieInfoDB implements Database, Serializable {
     // key: movieID, value: MovieInfo object
+    private static final long serialVersionUID = 1L;
     private HashMap<Integer, MovieInfo> movieInfoRecord;
     private String filename;
 
@@ -18,7 +19,7 @@ public class MovieInfoDB implements Database, Serializable {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.movieInfoRecord = (HashMap<Integer, MovieInfo>) ois.readObject();
             ois.close();
         } catch (IOException e) {
@@ -42,7 +43,10 @@ public class MovieInfoDB implements Database, Serializable {
         String filename = MoblimaApp.movieInfoDBFile;
         CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
         MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-        movieInfoDB.addRecord(cineplexDB);
+        movieInfoDB.listPermittedCineplex(10004);
+//        movieInfoDB.addRecord(cineplexDB);
+//        movieInfoDB.addRecord(cineplexDB);
+//        movieInfoDB.addRecord(cineplexDB);
         movieInfoDB.saveToFile();
         //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
         // System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
@@ -77,7 +81,9 @@ public class MovieInfoDB implements Database, Serializable {
         System.out.println("8. Update synopsis for the movie");
         System.out.println("9. Update director for the movie");
         System.out.println("10. Update cast for the movie");
-        System.out.println("11. Go back to Main Menu");
+        System.out.println("11. Update movie age limit");
+        System.out.println("12. Update movie Category");
+        System.out.println("13. Go back to Main Menu");
 
         int choice = Integer.parseInt(sc.nextLine());
 //        String dummy = sc.nextLine();
@@ -275,6 +281,41 @@ public class MovieInfoDB implements Database, Serializable {
                     movieInfoRecord.get(movieId).setCast(cast);
                     break;
                 case 11:
+
+
+                    do {
+                        System.out.println("Enter new age limit for the movie (PG/PG13/M18/NC21/R): ");
+                        String newAgeLimit = sc.nextLine();
+                        if (!newAgeLimit.equals("PG") && !newAgeLimit.equals("PG13") && !newAgeLimit.equals("M18") && !newAgeLimit.equals("NC21") && !newAgeLimit.equals("R"))
+                            System.out.println("Invalid input, please try again. ");
+                        else {
+                            movieInfoRecord.get(movieId).setAgeLimit(newAgeLimit);
+                            break;
+                        }
+                    } while (true);
+                    break;
+                case 12:
+                    ArrayList<String> categories = new ArrayList<>();
+                    categories.add("Comedy");
+                    categories.add("Thriller");
+                    categories.add("Science Fiction");
+                    categories.add("Adventure");
+                    categories.add("Love");
+                    categories.add("War");
+
+                    do {
+                        System.out.println("Please enter new movie category for this movie: (Comedy/Thriller/Science Fiction/Adventure/Love/War)");
+                        String newMovieCategory = sc.nextLine();
+                        if (!categories.contains(newMovieCategory))
+                            System.out.println("Invalid input, please try again. ");
+                        else {
+                            movieInfoRecord.get(movieId).setAgeLimit(newMovieCategory);
+                            break;
+                        }
+                    } while (true);
+                    break;
+
+                case 13:
                     return;
             }
 
@@ -289,7 +330,9 @@ public class MovieInfoDB implements Database, Serializable {
             System.out.println("8. Update synopsis for the movie");
             System.out.println("9. Update director for the movie");
             System.out.println("10. Update cast for the movie");
-            System.out.println("11. Go back to Main Menu");
+            System.out.println("11. Update movie age limit");
+            System.out.println("12. Update movie Category");
+            System.out.println("13. Go back to Main Menu");
 
             choice = Integer.parseInt(sc.nextLine());
 //            dummy = sc.nextLine();
@@ -310,7 +353,7 @@ public class MovieInfoDB implements Database, Serializable {
             else
                 break;
         } while (true);
-        movieInfoRecord.remove(movieId);
+        movieInfoRecord.get(movieId).setShowingStatus("End of Showing");
     }
 
     /**
@@ -399,12 +442,35 @@ public class MovieInfoDB implements Database, Serializable {
         System.out.println("Currently showing movies:");
         for (int i = 0; i < currentMovies.size(); i++)
             System.out.println("Name: " + currentMovies.get(i).getTitle() + " [MovieID: " + currentMovies.get(i).getMovieId() + "]");
+        System.out.println("\n");
         System.out.println("Movies for preview");
         for (int i = 0; i < previewMovies.size(); i++)
             System.out.println("Name: " + previewMovies.get(i).getTitle() + " [MovieID: " + previewMovies.get(i).getMovieId() + "]");
+        System.out.println("\n");
         System.out.println("Forthcoming movies:");
         for (int i = 0; i < forthcomingMovies.size(); i++)
             System.out.println("Name: " + forthcomingMovies.get(i).getTitle() + " [MovieID: " + forthcomingMovies.get(i).getMovieId() + "]");
+        System.out.println("\n");
+    }
+
+    public void listPermittedCineplex(int movieID) {
+        for (int i : movieInfoRecord.get(movieID).getCineplexes())
+            System.out.println("Cineplex " + i);
+    }
+
+    public void listAllSchedulesOfMovie(CineplexDB cineplexDB) {
+        System.out.println("Please enter movie ID");
+        Scanner s = new Scanner(System.in);
+        int mid = Integer.parseInt(s.nextLine());
+        MovieInfo info = movieInfoRecord.get(mid);
+        for (int cid : info.getCineplexes()) {
+            System.out.println("In Cineplex " + cid + " :");
+            for (Cinema cinema : cineplexDB.getCineplexByID(cid).getCinemas()) {
+                System.out.println("In cinema " + cinema.getCinemaID() + " :");
+                cinema.displayAllSchedulesOfMovie(mid);
+            }
+        }
+
 
     }
 
@@ -542,9 +608,38 @@ public class MovieInfoDB implements Database, Serializable {
             break;
         } while (true);
 
+        // add ageLimit
+        String ageLimit;
+        do {
+            System.out.println("Please indicate the age limit for this movie: PG/PG13/M18/NC21/R");
+            ageLimit = sc.nextLine();
+            if (!ageLimit.equals("PG") && !ageLimit.equals("PG13") && !ageLimit.equals("M18") && !ageLimit.equals("NC21") && !ageLimit.equals("R"))
+                System.out.println("Invalid input, please try again. ");
+            else
+                break;
+        } while (true);
+
+        // add type
+        String movieCategory;
+        ArrayList<String> categories = new ArrayList<>();
+        categories.add("Comedy");
+        categories.add("Thriller");
+        categories.add("Science Fiction");
+        categories.add("Adventure");
+        categories.add("Love");
+        categories.add("War");
+        do {
+            System.out.println("Please enter movie category for this movie: (Comedy/Thriller/Science Fiction/Adventure/Love/War)");
+            movieCategory = sc.nextLine();
+            if (!categories.contains(movieCategory))
+                System.out.println("Invalid input, please try again. ");
+            else
+                break;
+        } while (true);
+
         // note better change cast to type of String[] rather than String
         MovieInfo newMovie = new MovieInfo(movieId, movieTitle, showingStatus, synopsis, cineplexes, support2D, support3D,
-                isBlockbuster, director, cast);
+                isBlockbuster, director, cast, ageLimit, movieCategory);
         movieInfoRecord.put(movieId, newMovie);
         System.out.println("New movie info successfully added! ");
     }

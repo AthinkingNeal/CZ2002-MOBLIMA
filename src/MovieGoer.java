@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public class MovieGoer implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String name;
     protected int movieGoerID;
     protected int mobileNumber;

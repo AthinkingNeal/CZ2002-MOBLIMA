@@ -20,7 +20,7 @@ public class StaffRecordDB implements Database {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.staffIDPasswordRecord = (HashMap<String, String>) ois.readObject();
             ois.close();
         } catch (IOException e) {
