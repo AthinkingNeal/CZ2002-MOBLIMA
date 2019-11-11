@@ -1,4 +1,6 @@
-public class MovieSchedule {
+import java.io.Serializable;
+
+public class MovieSchedule implements Serializable {
     private String dateStartTime;
     private int movieID;
     private String movieName;

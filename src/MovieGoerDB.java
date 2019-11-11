@@ -3,7 +3,7 @@ import java.io.*;
 
 
 public class MovieGoerDB implements Database {
-    private HashMap<Integer, MovieGoer> MovieGoerMap = new HashMap<Integer, MovieGoer>();
+    private HashMap<Integer, MovieGoer> MovieGoerMap;
     private String filename;
 
 
@@ -20,6 +20,8 @@ public class MovieGoerDB implements Database {
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
+        if (MovieGoerMap == null)
+            MovieGoerMap = new HashMap<Integer, MovieGoer>();
     }
 
     public void addRecord(String name, int movieGoerID, int mobileNumber, String emailAddress,int age){
@@ -28,25 +30,25 @@ public class MovieGoerDB implements Database {
         System.out.println("MovieGoer Record update success.");
     }
 
-    public void addRecord(){
-         Scanner sc = new Scanner(System.in);
-         System.out.println("Please input your name: ");
-         String name = sc.nextLine();
-         System.out.println("Please input your movieGoerID");
-         int movieGoerID = sc.nextInt();
-         String dummy = sc.nextLine();
-         System.out.println("Please input your mobile number: ");
-         int mobileNumber = sc.nextInt();
-         dummy = sc.nextLine();
-         System.out.println("Please input your email address: ");
-         String emailAddress = sc.nextLine();
-         System.out.println("Please input your age: ");
-         int age = sc.nextInt();
-         dummy = sc.nextLine();
 
-         addRecord(name,movieGoerID,mobileNumber,emailAddress,age);
+    public void addRecord() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input your name: ");
+        String name = sc.nextLine();
+        System.out.println("Please input your movieGoerID");
+        int movieGoerID = sc.nextInt();
+        String dummy = sc.nextLine();
+        System.out.println("Please input your mobile number: ");
+        int mobileNumber = sc.nextInt();
+        dummy = sc.nextLine();
+        System.out.println("Please input your email address: ");
+        String emailAddress = sc.nextLine();
+        System.out.println("Please input your age: ");
+        int age = sc.nextInt();
+        dummy = sc.nextLine();
+
+        addRecord(name, movieGoerID, mobileNumber, emailAddress, age);
     }
-
 
     // We assume that Movie Goer does not need to delete his/her own record
 
@@ -78,6 +80,7 @@ public class MovieGoerDB implements Database {
         System.out.println("Update record");
     }
 
+
     public void updateRecord(int movieGoerID) {
         MovieGoer m = findRecordByMovieGoerID(movieGoerID);
         System.out.println("Which attribute would you like to update?");
@@ -96,21 +99,22 @@ public class MovieGoerDB implements Database {
                     m.setName(sc.nextLine());
                 case 2:
                     System.out.println("Please input your new mobile number: ");
-                    m.setMobileNumber(sc.nextInt());
+                    m.setMobileNumber(Integer.parseInt(sc.nextLine()));
                 case 3:
                     System.out.println("Please input your new email address: ");
                     m.setEmailAddress(sc.nextLine());
                 case 4:
                     System.out.println("Please input your new age: ");
-                    m.setAge(sc.nextInt());
+                    m.setAge(Integer.parseInt(sc.nextLine()));
             }
-            choice = sc.nextInt();
+            choice = Integer.parseInt(sc.nextLine());
         }
 
 
         System.out.println("Please input your age: ");
         int age = sc.nextInt();
     }
+
 
     public void saveToFile() {
         try{
@@ -135,4 +139,5 @@ public class MovieGoerDB implements Database {
         test.findRecordByMovieGoerID(movieGoerID);
         test.saveToFile();
     }
+
 }

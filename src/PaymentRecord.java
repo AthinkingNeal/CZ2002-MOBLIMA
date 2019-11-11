@@ -1,9 +1,8 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PaymentRecord implements java.io.Serializable {
+public class PaymentRecord implements Serializable {
     private String TID;
     //XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
     private int movieGoerID;
@@ -11,11 +10,12 @@ public class PaymentRecord implements java.io.Serializable {
     private int cinemaID;
     private int cineplexID;
     private int amountOfTickets;
+    private String movieDateStartTime;
     private ArrayList<String> seatID;
     private float totalCost;
     private boolean canceled;
 
-    public PaymentRecord(String TID, int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, Boolean canceled) {
+    public PaymentRecord(String TID, int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, String movieDateStartTime, Boolean canceled) {
         this.TID = TID;
         this.movieGoerID = movieGoerID;
         this.movieID = movieID;
@@ -25,8 +25,16 @@ public class PaymentRecord implements java.io.Serializable {
         this.seatID = seatID;
         this.totalCost = totalCost;
         this.canceled = canceled;
+        this.movieDateStartTime = movieDateStartTime;
     }
 
+    public String getMovieDateStartTime() {
+        return movieDateStartTime;
+    }
+
+    public void setMovieDateStartTime(String movieDateStartTime) {
+        this.movieDateStartTime = movieDateStartTime;
+    }
 
 
     public int getCineplexID() {
