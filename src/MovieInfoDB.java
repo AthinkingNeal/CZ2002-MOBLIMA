@@ -245,11 +245,11 @@ public class MovieInfoDB implements Database, Serializable {
                         if (i == sizeCast) System.out.println("Cast to be removed does not exist");
 
                         // add a cast member for this movie
-                    } else if (choice == 1) {
+                    } else if (choice == 2) {
                         System.out.println("Enter the cast name to be added: ");
                         name = sc.nextLine();
                         for (i = 0; i < cast.size(); i++) {
-                            if (name == cast.get(i)) {
+                            if (name.equals(cast.get(i))) {
                                 System.out.println("Cast already exists!");
                                 break;
                             }
@@ -316,10 +316,10 @@ public class MovieInfoDB implements Database, Serializable {
     /**
      * get movie by status
      */
-    public ArrayList<MovieInfo> getByStatus(String status) {
+    private ArrayList<MovieInfo> getByStatus(String status) {
         ArrayList<MovieInfo> result = new ArrayList<MovieInfo>();
         for (Map.Entry<Integer, MovieInfo> entry : movieInfoRecord.entrySet()) {
-            if (entry.getValue().getShowingStatus() == status) {
+            if (entry.getValue().getShowingStatus().equals(status)) {
                 result.add(entry.getValue());
             }
         }
@@ -384,27 +384,26 @@ public class MovieInfoDB implements Database, Serializable {
     }
 
     public void listAllMovies() { // need to be listed by status
-        ArrayList<MovieInfo> currentMovies = new ArrayList<MovieInfo>();
-        ArrayList<MovieInfo> previewMovies = new ArrayList<MovieInfo>();
-        ArrayList<MovieInfo> forthcomingMovies = new ArrayList<MovieInfo>();
+        ArrayList<MovieInfo> currentMovies = getByStatus("Currently Showing");
+        ArrayList<MovieInfo> previewMovies = getByStatus("Preview");
+        ArrayList<MovieInfo> forthcomingMovies = getByStatus("Forthcoming");
         // System.out.println("Name: " + entry.getValue().getTitle() + " [MovieID: " + entry.getKey() + "]");
-        for (Map.Entry<Integer, MovieInfo> entry: movieInfoRecord.entrySet()) {
-            if (entry.getValue().getShowingStatus().equals("currentShowing"))
-                currentMovies.add(entry.getValue());
-            else if (entry.getValue().getShowingStatus().equals("preview"))
-                previewMovies.add(entry.getValue());
-            else
-                forthcomingMovies.add(entry.getValue());
-        }
-        int i;
+//        for (Map.Entry<Integer, MovieInfo> entry: movieInfoRecord.entrySet()) {
+//            if (entry.getValue().getShowingStatus().equals("currentShowing"))
+//                currentMovies.add(entry.getValue());
+//            else if (entry.getValue().getShowingStatus().equals("preview"))
+//                previewMovies.add(entry.getValue());
+//            else
+//                forthcomingMovies.add(entry.getValue());
+
         System.out.println("Currently showing movies:");
-        for (i = 0; i < currentMovies.size(); i++)
+        for (int i = 0; i < currentMovies.size(); i++)
             System.out.println("Name: " + currentMovies.get(i).getTitle() + " [MovieID: " + currentMovies.get(i).getMovieId() + "]");
         System.out.println("Movies for preview");
-        for (i = 0; i < previewMovies.size(); i++)
+        for (int i = 0; i < previewMovies.size(); i++)
             System.out.println("Name: " + previewMovies.get(i).getTitle() + " [MovieID: " + previewMovies.get(i).getMovieId() + "]");
         System.out.println("Forthcoming movies:");
-        for (i = 0; i < forthcomingMovies.size(); i++)
+        for (int i = 0; i < forthcomingMovies.size(); i++)
             System.out.println("Name: " + forthcomingMovies.get(i).getTitle() + " [MovieID: " + forthcomingMovies.get(i).getMovieId() + "]");
 
     }

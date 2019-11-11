@@ -50,24 +50,21 @@ public class Cinema implements Serializable {
      * Allow staff to add a single record of movie schedule
      */
     public void addRecord(){
+        System.out.println("Added");
+    }
+
+    public void addRecord(MovieInfo m) {
         Scanner s = new Scanner(System.in);
         String dateStartTime;
-        int movieID;
-        String movieName;
-        boolean is3D;
-        boolean isBlockbuster;
         double duration;
         System.out.println("Please enter the date in this format: yyyy-mm-dd.");
         dateStartTime = s.nextLine();
         System.out.println("Please enter the start time of the movie in this format: hh-mm.");
         dateStartTime += "-" + s.nextLine();
 
-        System.out.println("Please input the movie ID");
-        movieID = Integer.parseInt(s.nextLine());
-        System.out.println("Please input the movie name");
-        movieName = s.nextLine();
-
-
+        String movieName = m.getTitle();
+        System.out.println("This movie supports 3D: " + m.isSupport3D());
+        System.out.println("This movie supports 2D: " + m.isSupport2D());
         System.out.println("Is this movie 3D? Y/N");
         String ans = s.nextLine();
         if (ans == "Y" || ans == "y")

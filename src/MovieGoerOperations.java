@@ -113,7 +113,7 @@ public class MovieGoerOperations {
         // return a MovieInfo object or a null pointer
         if (movieInfo == null)
             System.out.println("This movie does not exist yet ");
-        else if (movieInfo.getShowingStatus() == "CurrentlyShowing" || movieInfo.getShowingStatus() == "Preview") {
+        else if (movieInfo.getShowingStatus().equals("CurrentlyShowing") || movieInfo.getShowingStatus().equals("Preview")) {
             System.out.println("Do you want to view more details about this movie? Enter Y to view more details; Enter N to return to main menu.");
             char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')
