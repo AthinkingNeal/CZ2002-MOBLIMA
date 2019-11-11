@@ -466,7 +466,7 @@ public class MovieInfoDB implements Database, Serializable {
         for (int cid : info.getCineplexes()) {
             System.out.println("In Cineplex " + cid + " :");
             for (Cinema cinema : cineplexDB.getCineplexByID(cid).getCinemas()) {
-                System.out.println("In cinema " + cinema.getCinemaID() + " :");
+                System.out.println("   In cinema " + cinema.getCinemaID() + " :");
                 cinema.displayAllSchedulesOfMovie(mid);
             }
         }

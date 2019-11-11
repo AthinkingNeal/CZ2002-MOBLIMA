@@ -103,35 +103,11 @@ public class Cinema implements Serializable {
         String key = s.nextLine();
         MovieSchedule newRecord = cinemaSchedule.get(key);
         this.cinemaSchedule.remove(key); // delete original record
-        System.out.println("Which attribute in the record would you like to change?\n"
-                + "1. Change is3D\n" + "2. Change isBlockbluster\n" + "3. Change duration\n" + "4. Quit\n" + "Please key in your option");
-        int choice = Integer.parseInt(s.nextLine());
-        while (choice != 4) {
-            switch (choice) {
-                case 1:
-                    System.out.println("The current is3D is:" + newRecord.getIs3D());
-                    System.out.println("Please key in the new is3D");
-                    newRecord.setIs3D(Boolean.parseBoolean(s.nextLine()));
-                    System.out.println("Changed!");
-                    break;
-                case 2:
-                    System.out.println("The current isBlockbuster is:" + newRecord.getIsBlockbuster());
-                    System.out.println("Please key in the new isBlockbuster");
-                    newRecord.setIsBlockbuster(Boolean.parseBoolean(s.nextLine()));
-                    System.out.println("Changed!");
-                    break;
-                case 3:
-                    System.out.println("The current duration is:" + newRecord.getDuration());
-                    System.out.println("Please key in the new duration");
-                    newRecord.setDuration(Double.parseDouble(s.nextLine()));
-                    System.out.println("Changed!");
-                    break;
-                default:
-                    break;
-            }
-            System.out.println("Please key in your option:");
-            choice = s.nextInt();
-        }
+        System.out.println("Please input the new date YYYY-mm-dd:");
+        String date = s.nextLine();
+        System.out.println("Please input the new time HH-MM:");
+        String dateStartTime = date + '-' + s.nextLine();
+        newRecord.setDateStartTime(dateStartTime);
         this.cinemaSchedule.put(newRecord.getDateStartTime(), newRecord);
         System.out.println("Successfully updated!");
     }
@@ -152,7 +128,7 @@ public class Cinema implements Serializable {
     public void displayAllSchedulesOfMovie(int movieID) {
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)
-                System.out.println(movieID + cinemaSchedule.get(key).getDateStartTime()); // print out date in "YYYY-mm-dd"
+                System.out.println("Movie ID: " + movieID + ' ' + cinemaSchedule.get(key).getDateStartTime()); // print out date in "YYYY-mm-dd"
         }
     }
 
