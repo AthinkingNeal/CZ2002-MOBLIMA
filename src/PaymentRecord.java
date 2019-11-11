@@ -1,3 +1,4 @@
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class PaymentRecord implements Serializable {
     private String movieDateStartTime;
     private ArrayList<String> seatID;
     private float totalCost;
-    private Boolean canceled;
+    private boolean canceled;
 
     public PaymentRecord(String TID, int movieGoerID, int movieID, int cinemaID, int cineplexID, int amountOfTickets, ArrayList<String> seatID, float totalCost, String movieDateStartTime, Boolean canceled) {
         this.TID = TID;
@@ -35,6 +36,7 @@ public class PaymentRecord implements Serializable {
     public void setMovieDateStartTime(String movieDateStartTime) {
         this.movieDateStartTime = movieDateStartTime;
     }
+
 
     public int getCineplexID() {
         return cineplexID;

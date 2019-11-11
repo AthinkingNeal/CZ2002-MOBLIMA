@@ -127,7 +127,7 @@ public class PriceTable {
             if (is3D) price += threeD_up;
             if (cClass == Cinema.CinemaClass.golden) price += golden_up;
             if (cClass == Cinema.CinemaClass.platinum) price += platinum_up;
-        // normal days, discount apply
+            // normal days, discount apply
         } else {
             // senior
             if (age > 60) {
@@ -157,7 +157,6 @@ public class PriceTable {
     }
 
 
-        
     // assume staff would enter price adjustment with +/-
     private void utilUpdate(String type) {
         Scanner sc = new Scanner(System.in);
@@ -182,7 +181,7 @@ public class PriceTable {
     }
 
     public void displayContent() {
-        priceTableRecord.entrySet().forEach(entry->{
+        priceTableRecord.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
     }
@@ -197,9 +196,6 @@ public class PriceTable {
 
 //        // priceTable.initialiseTable();
         priceTable.updatePriceTable();
-//
-//        priceTable.displayContent();
-        priceTable.saveToFile();
 
     }
 }
