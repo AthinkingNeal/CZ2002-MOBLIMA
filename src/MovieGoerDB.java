@@ -76,11 +76,6 @@ public class MovieGoerDB implements Database {
         System.out.println("delete record");
     }
 
-    public void updateRecord() {
-        System.out.println("Update record");
-    }
-
-
     public void updateRecord(int movieGoerID) {
         MovieGoer m = findRecordByMovieGoerID(movieGoerID);
         System.out.println("Which attribute would you like to update?");
@@ -97,16 +92,26 @@ public class MovieGoerDB implements Database {
                 case 1:
                     System.out.println("Please input your new name: ");
                     m.setName(sc.nextLine());
+                    break;
                 case 2:
                     System.out.println("Please input your new mobile number: ");
                     m.setMobileNumber(Integer.parseInt(sc.nextLine()));
+                    break;
                 case 3:
                     System.out.println("Please input your new email address: ");
                     m.setEmailAddress(sc.nextLine());
+                    break;
                 case 4:
                     System.out.println("Please input your new age: ");
                     m.setAge(Integer.parseInt(sc.nextLine()));
+                    break;
             }
+            System.out.println("Which attribute would you like to update?");
+            System.out.println("1. Update name");
+            System.out.println("2. Update mobile number");
+            System.out.println("3. Update email address");
+            System.out.println("4. Update age");
+            System.out.println("5. Exit");
             choice = Integer.parseInt(sc.nextLine());
         }
 

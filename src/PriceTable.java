@@ -186,20 +186,20 @@ public class PriceTable {
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
     }
-
-    public static void main(String args[]) throws ParseException {
-
-        String filename = "priceTable.ser";
-        PriceTable priceTable = new PriceTable(filename);
-
-        //      priceTable.saveToFile();
-        priceTable.displayContent();
-
-//        // priceTable.initialiseTable();
-        priceTable.updatePriceTable();
 //
+//    public static void main(String args[]) throws ParseException {
+//
+//        String filename = "priceTable.ser";
+//        PriceTable priceTable = new PriceTable(filename);
+//
+//        //      priceTable.saveToFile();
 //        priceTable.displayContent();
-        priceTable.saveToFile();
-
-    }
+//
+////        // priceTable.initialiseTable();
+//        priceTable.updatePriceTable();
+////
+////        priceTable.displayContent();
+//        priceTable.saveToFile();
+//
+//    }
 }
