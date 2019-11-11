@@ -2,15 +2,17 @@ import java.io.*;
 import java.util.*;
 
 
-public class MovieInfoDB extends Database {
+public class MovieInfoDB implements Database, Serializable {
     // key: movieID, value: MovieInfo object
-    private HashMap<Integer, MovieInfo> movieInfoRecord = new HashMap<Integer, MovieInfo>();
+    private HashMap<Integer, MovieInfo> movieInfoRecord;
     private String filename;
+
+
 
     /**
      * Initiate the class using a txt file to populate movieInfo
      */
-    public MovieInfoDB(String fileName) {
+    public MovieInfoDB(String filename) {
         this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
@@ -24,136 +26,36 @@ public class MovieInfoDB extends Database {
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
+        if (this.movieInfoRecord == null)
+            this.movieInfoRecord = new HashMap<Integer, MovieInfo>();
     }
 
-    /**
-     * Enable adding of a new movieInfo record;
-     * new movieID must be different than existing movieIDs;
-     */
     public void addRecord() {
-        Scanner sc = new Scanner(System.in);
-        Integer movieId = -1;
+        System.out.println("Add record");
+    }
 
-        // add movie ID
-        System.out.println("Please enter a new movie ID: ");
-        do {
-            if (sc.hasNextInt()) {
-                if (movieInfoRecord.containsKey(sc.nextInt()))
-                    System.out.println("Movie ID already exists! Please enter a new movie ID");
-                else {
-                    movieId = sc.nextInt();
-                    break;
-                }
-            } else
-                System.out.println("Invalid movie ID. Please try again.");
-        } while (true);
+    public void updateRecord() {
+        System.out.println("Update record");
+    }
 
-        // add movie title
-        System.out.println("Please enter movie title: ");
-        String movieTitle = sc.next();
+    public static void main(String args[]) {
+        String filename = MoblimaApp.movieInfoDBFile;
+        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
+        movieInfoDB.updateRecord(cineplexDB);
+//        movieInfoDB.saveToFile();
+        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
+        // System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
+        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getShowingStatus());
 
-        // add cineplexes showing the movie
-        System.out.println("Please enter the number of cineplexes for this movie: ");
-        int noCine = sc.nextInt();
-        // Cineplex[] cineplexes = new Cineplex[noCine];
-        ArrayList<Integer> cineplexes = new ArrayList<Integer>();
-        Integer newCineplexID;
-        for (int i = 0; i < noCine; i++) {
-            do {
-                System.out.println("Please enter cineplex ID " + i + 1);
-                newCineplexID = sc.nextInt();
-                if (CineplexDB.findCineplexByID(newCineplexID)) {
-                    // cineplexes[i] = CineplexDB.CineplexMap.get(sc.nextInt());
-                    cineplexes.add(newCineplexID);
-                    break;
-                } else
-                    System.out.println("Cinexplex ID does not exist");
-            } while (true);
-        }
 
-        // add showing status for the movie
-        System.out.println("Please enter showing status for the new movie: ");
-        String showingStatus = sc.next();
-
-        // add synopsis for the movie
-        System.out.println("Please enter synopsis for the movie: ");
-        String synopsis = sc.next();
-
-        // check whether 2d supported
-        boolean support2D;
-        do {
-            System.out.println("Please indicate whether this movie is available in 2D (Y/N): ");
-            if (sc.next().charAt(0) == 'Y' || sc.next().charAt(0) == 'y') {
-                support2D = true;
-                break;
-            } else if (sc.next().charAt(0) == 'N' || sc.next().charAt(0) == 'n') {
-                support2D = false;
-                break;
-            } else
-                System.out.println("Invalid input, please try again. ");
-        } while (true);
-
-        // check whether 2d supported
-        boolean support3D;
-        do {
-            System.out.println("Please indicate whether this movie is available in 3D (Y/N): ");
-            if (sc.next().charAt(0) == 'Y' || sc.next().charAt(0) == 'y') {
-                support3D = true;
-                break;
-            } else if (sc.next().charAt(0) == 'N' || sc.next().charAt(0) == 'n') {
-                support3D = false;
-                break;
-            } else
-                System.out.println("Invalid input, please try again. ");
-        } while (true);
-
-        // check if the movie is a blockbuster
-        boolean isBlockbuster;
-        do {
-            System.out.println("Please indicate whether this movie is a blockbuster (Y/N): ");
-            if (sc.next().charAt(0) == 'Y' || sc.next().charAt(0) == 'y') {
-                isBlockbuster = true;
-                break;
-            } else if (sc.next().charAt(0) == 'N' || sc.next().charAt(0) == 'n') {
-                isBlockbuster = false;
-                break;
-            } else
-                System.out.println("Invalid input, please try again. ");
-        } while (true);
-
-        // add director for the movie
-        System.out.println("Enter the name of the director for this movie: ");
-        String director = sc.next();
-
-        // add cast for the movie
-        ArrayList<String> cast = new ArrayList<String>();
-        do {
-            System.out.println("Please enter the number of cast for this movie");
-            if (sc.nextInt() < 3) {
-                System.out.println("You must enter at least 3 cast for the movie");
-                continue;
-            }
-            int noCast = sc.nextInt();
-            // String[] cast = new String[noCast];
-            for (int i = 0; i < noCast; i++) {
-                System.out.println("Enter the name of cast" + i + 1);
-                cast.add(sc.next());
-            }
-            break;
-        } while (true);
-
-        // note better change cast to type of String[] rather than String
-        MovieInfo newMovie = new MovieInfo(movieId, movieTitle, showingStatus, synopsis, cineplexes, support2D, support3D,
-                isBlockbuster, director, cast);
-        movieInfoRecord.put(movieId, newMovie);
-        System.out.println("New movie info successfully added! ");
     }
 
     /*
      * Enable update a record
      * allow staff to update
      * */
-    public void updateRecord() {
+    public void updateRecord(CineplexDB cineplexDB) {
         Scanner sc = new Scanner(System.in);
         Integer movieId;
         do {
@@ -265,7 +167,7 @@ public class MovieInfoDB extends Database {
                             }
                         }
                         if (i == cineplexes.size()) {
-                            if (CineplexDB.findCineplexByID(newCine)) {
+                            if (cineplexDB.findCineplexByID(newCine)) {
                                 cineplexes.add(newCine);
                                 System.out.println("Cineplex successfully added!");
                             } else System.out.println("No Cineplex with ID" + newCine);
@@ -289,7 +191,7 @@ public class MovieInfoDB extends Database {
                             System.out.println("Enter new cineplexID");
                             if (sc.hasNextInt()) {
                                 sub = sc.nextInt();
-                                if (CineplexDB.findCineplexByID(sub))
+                                if (cineplexDB.findCineplexByID(sub))
                                     cineplexes.set(i, sub);
                             } else System.out.println("Invalid input.");
                         }
@@ -349,7 +251,7 @@ public class MovieInfoDB extends Database {
                     System.out.println("Enter the cast member to be replaced");
                     name = sc.next();
                     for (i = 0; i < cast.size(); i++) {
-                        if (name == cast.get(i))
+                        if (name.equals(cast.get(i)))
                             break;
                     }
                     if (i == cast.size()) System.out.println("Cast does not exist");
@@ -399,7 +301,7 @@ public class MovieInfoDB extends Database {
     /**
      * list top movies
      */
-    public ArrayList<MovieInfo> listTopMovies(String priority) {
+    public void listTopMovies(String priority) {
         ArrayList<MovieInfo> result = new ArrayList<>();
 
         List<Map.Entry<Integer, MovieInfo>> list = new LinkedList<>(movieInfoRecord.entrySet());
@@ -426,7 +328,10 @@ public class MovieInfoDB extends Database {
         for (Map.Entry<Integer, MovieInfo> aa : list) {
             result.add(aa.getValue());
         }
-        return result;
+
+        for (MovieInfo m : result)
+            System.out.println(m.getTitle());
+        //return result;
     }
 
     /**
@@ -442,11 +347,37 @@ public class MovieInfoDB extends Database {
      */
 
     public MovieInfo getMovieInfoByName(String movieName) {
-        for (Map.Entry<Integer,MovieInfo> entry : movieInfoRecord.entrySet()) {
-            if (entry.getValue().getTitle().equals(movieName))
-                return entry.getValue();
+        for (MovieInfo m : movieInfoRecord.values()) {
+            if (m.getTitle().equals(movieName))
+                return m;
         }
         return null;
+    }
+
+    public void listAllMovies() { // need to be listed by status
+        ArrayList<MovieInfo> currentMovies = new ArrayList<MovieInfo>();
+        ArrayList<MovieInfo> previewMovies = new ArrayList<MovieInfo>();
+        ArrayList<MovieInfo> forthcomingMovies = new ArrayList<MovieInfo>();
+        // System.out.println("Name: " + entry.getValue().getTitle() + " [MovieID: " + entry.getKey() + "]");
+        for (Map.Entry<Integer, MovieInfo> entry: movieInfoRecord.entrySet()) {
+            if (entry.getValue().getShowingStatus().equals("currentShowing"))
+                currentMovies.add(entry.getValue());
+            else if (entry.getValue().getShowingStatus().equals("preview"))
+                previewMovies.add(entry.getValue());
+            else
+                forthcomingMovies.add(entry.getValue());
+        }
+        int i;
+        System.out.println("Currently showing movies:");
+        for (i = 0; i < currentMovies.size(); i++)
+            System.out.println("Name: " + currentMovies.get(i).getTitle() + " [MovieID: " + currentMovies.get(i).getMovieId() + "]");
+        System.out.println("Movies for preview");
+        for (i = 0; i < previewMovies.size(); i++)
+            System.out.println("Name: " + previewMovies.get(i).getTitle() + " [MovieID: " + previewMovies.get(i).getMovieId() + "]");
+        System.out.println("Forthcoming movies:");
+        for (i = 0; i < forthcomingMovies.size(); i++)
+            System.out.println("Name: " + forthcomingMovies.get(i).getTitle() + " [MovieID: " + forthcomingMovies.get(i).getMovieId() + "]");
+
     }
 
     public void saveToFile() {
@@ -461,4 +392,129 @@ public class MovieInfoDB extends Database {
         }
     }
 
+    /**
+     * Enable adding of a new movieInfo record;
+     * new movieID must be different than existing movieIDs;
+     */
+    public void addRecord(CineplexDB cineplexDB) {
+        Scanner sc = new Scanner(System.in);
+        Integer movieId = -1;
+
+        // add movie ID
+        System.out.println("Please enter a new movie ID: ");
+        do {
+            if (sc.hasNextInt()) {
+                movieId = sc.nextInt();
+                if (movieInfoRecord.containsKey(movieId))
+                    System.out.println("Movie ID already exists! Please enter a new movie ID");
+                else {
+                    break;
+                }
+            } else
+                System.out.println("Invalid movie ID. Please try again.");
+        } while (true);
+
+        // add movie title
+        System.out.println("Please enter movie title: ");
+        String movieTitle = sc.next();
+
+        // add cineplexes showing the movie
+        System.out.println("Please enter the number of cineplexes for this movie: ");
+        int noCine = sc.nextInt();
+        // Cineplex[] cineplexes = new Cineplex[noCine];
+        ArrayList<Integer> cineplexes = new ArrayList<Integer>();
+        Integer newCineplexID;
+        for (int i = 0; i < noCine; i++) {
+            do {
+                System.out.println("Please enter cineplex ID " + (i + 1));
+                newCineplexID = sc.nextInt();
+                if (cineplexDB.findCineplexByID(newCineplexID)) {
+                    // cineplexes[i] = CineplexDB.CineplexMap.get(sc.nextInt());
+                    cineplexes.add(newCineplexID);
+                    break;
+                } else
+                    System.out.println("Cinexplex ID does not exist");
+            } while (true);
+        }
+
+        // add showing status for the movie
+        System.out.println("Please enter showing status for the new movie: ");
+        String showingStatus = sc.nextLine();
+        String dummy = sc.nextLine();
+
+        // add synopsis for the movie
+        System.out.println("Please enter synopsis for the movie: ");
+        String synopsis = sc.nextLine();
+
+        // check whether 2d supported
+        boolean support2D;
+        do {
+            System.out.println("Please indicate whether this movie is available in 2D (Y/N): ");
+            if (sc.next().charAt(0) == 'Y' || sc.next().charAt(0) == 'y') {
+                support2D = true;
+                break;
+            } else if (sc.next().charAt(0) == 'N' || sc.next().charAt(0) == 'n') {
+                support2D = false;
+                break;
+            } else
+                System.out.println("Invalid input, please try again. ");
+        } while (true);
+
+        // check whether 2d supported
+        boolean support3D;
+        do {
+            System.out.println("Please indicate whether this movie is available in 3D (Y/N): ");
+            if (sc.next().charAt(0) == 'Y' || sc.next().charAt(0) == 'y') {
+                support3D = true;
+                break;
+            } else if (sc.next().charAt(0) == 'N' || sc.next().charAt(0) == 'n') {
+                support3D = false;
+                break;
+            } else
+                System.out.println("Invalid input, please try again. ");
+        } while (true);
+
+        // check if the movie is a blockbuster
+        boolean isBlockbuster;
+        do {
+            System.out.println("Please indicate whether this movie is a blockbuster (Y/N): ");
+            if (sc.next().charAt(0) == 'Y' || sc.next().charAt(0) == 'y') {
+                isBlockbuster = true;
+                break;
+            } else if (sc.next().charAt(0) == 'N' || sc.next().charAt(0) == 'n') {
+                isBlockbuster = false;
+                break;
+            } else
+                System.out.println("Invalid input, please try again. ");
+        } while (true);
+
+        // add director for the movie
+        System.out.println("Enter the name of the director for this movie: ");
+        dummy = sc.nextLine();
+        String director = sc.nextLine();
+
+        // add cast for the movie
+        ArrayList<String> cast = new ArrayList<String>();
+        do {
+            System.out.println("Please enter the number of cast for this movie");
+//            if (sc.nextInt() < 3) {
+//                System.out.println("You must enter at least 3 cast for the movie");
+//                continue;
+//            }
+            int noCast = sc.nextInt();
+            dummy = sc.nextLine();
+            // String[] cast = new String[noCast];
+            for (int i = 0; i < noCast; i++) {
+                System.out.println("Enter the name of cast" + (i + 1));
+                cast.add(sc.nextLine());
+            }
+            break;
+        } while (true);
+
+        // note better change cast to type of String[] rather than String
+        MovieInfo newMovie = new MovieInfo(movieId, movieTitle, showingStatus, synopsis, cineplexes, support2D, support3D,
+                isBlockbuster, director, cast);
+        movieInfoRecord.put(movieId, newMovie);
+        System.out.println("New movie info successfully added! ");
+    }
 }

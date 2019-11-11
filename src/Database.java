@@ -1,14 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public abstract class Database {
+public interface Database {
 
-    public abstract void addRecord();
+    void addRecord();
 
-    public abstract void deleteRecord();
+    void deleteRecord();
 
-    public abstract void updateRecord();
+    void updateRecord();
 
-    public abstract void saveToFile();
+    void saveToFile();
 
 }

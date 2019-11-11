@@ -1,28 +1,26 @@
+import java.io.Serializable;
 
-
-public class Layout{
+public class Layout implements Serializable {
     //    enum Movieclass{
 //        platinum,golden,normal
 //    }
     private Seat[][] layout;
-    private String seatIDAlphabets = "ABCDEFGHIJ";
     private Cinema.CinemaClass movieclass = Cinema.CinemaClass.normal;
-//    Layout(int cid, Seat[][] clayout, Movieclass cclass){
+    private String seatIDAlphabets = "ABCDEFGHIJ";
 
     public Layout(int cid, Cinema.CinemaClass cinemaClass) {
-
-    int dimension;
-    if (cinemaClass == Cinema.CinemaClass.platinum)
-        dimension = 3; // if it's platinum, cinema has 3*3 seats;
-    else if (cinemaClass == Cinema.CinemaClass.golden)
-        dimension = 6;
-    else
-        dimension = 10;
-    layout = new Seat[dimension][dimension];
-    for(int i = 0; i< 10; i++)
-        for(int j = 0; j < 10; j++)
-            layout[i][j] = new Seat(seatIDAlphabets.charAt(i) + Integer.toString(j), false, false);
-    movieclass=cinemaClass;
+        int dimension;
+        if (cinemaClass == Cinema.CinemaClass.platinum)
+            dimension = 3; // if it's platinum, cinema has 3*3 seats;
+        else if (cinemaClass == Cinema.CinemaClass.golden)
+            dimension = 6;
+        else
+            dimension = 10;
+        layout = new Seat[dimension][dimension];
+        for(int i = 0; i< 10; i++)
+            for(int j = 0; j < 10; j++)
+                layout[i][j] = new Seat(i, j, false);
+        movieclass=cinemaClass;
 
     }
 
@@ -30,10 +28,10 @@ public class Layout{
         return movieclass;
     }
 
-    public void DisplayLayout(){
+    public void displayLayout() {
         for (int t = 0; t<Math.floor(4*layout.length)-5; t++)
             System.out.print(" ");
-        System.out.print("[SCREEN]\n");
+        System.out.print("[SCREEN]\n"); //TODO need to dispaly seat ID also!!
 //        for (int i=0; i<layout.length;i++) {
 //            for (int j = 0; j < layout[0].length; j++) {
 //                if (j==0)
@@ -99,20 +97,17 @@ public class Layout{
         return layout;
     }
 
-    public void cancelSeat(String[] seatIDs) {
-        for (int i = 0; i < seatIDs.length; i++) {
-            int x = seatIDAlphabets.indexOf(seatIDs[i].charAt(0));
-            int y = Integer.parseInt(String.valueOf(seatIDs[i].charAt(1)));
-            layout[x][y].cancelBooking();
-        }
+    public void cancelSeat(String seatID) {
+
+        int x = seatIDAlphabets.indexOf(seatID.charAt(0));
+        int y = Integer.parseInt(String.valueOf(seatID.charAt(1)));
+        layout[x][y].cancelBooking();
     }
 
-    public void bookSeat(String[] seatIDs) {
-        for (int i = 0; i < seatIDs.length; i++) {
-            int x = seatIDAlphabets.indexOf(seatIDs[i].charAt(0));
-            int y = Integer.parseInt(String.valueOf(seatIDs[i].charAt(1)));
-            layout[x][y].bookSeat();
-        }
+    public void bookSeat(String seatID) {
+        int x = seatIDAlphabets.indexOf(seatID.charAt(0));
+        int y = Integer.parseInt(String.valueOf(seatID.charAt(1)));
+        layout[x][y].bookSeat();
     }
 
 }

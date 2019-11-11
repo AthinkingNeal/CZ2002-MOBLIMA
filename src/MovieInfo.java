@@ -1,8 +1,9 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MovieInfo {
+public class MovieInfo implements Serializable {
     private int movieId;
     private String title;
     // private Cineplex[] cineplexes;
@@ -57,6 +58,12 @@ public class MovieInfo {
         return cineplexes;
     }
 
+    public void displayCineplexes() {
+        for (int i = 0; i < cineplexes.size(); i++) {
+            System.out.println(cineplexes.get(i));
+        }
+    }
+
     public void setCineplexes(ArrayList<Integer> cineplexes) {
         this.cineplexes = cineplexes;
     }
@@ -79,6 +86,18 @@ public class MovieInfo {
 
     public boolean isSupport2D() {
         return support2D;
+    }
+
+    public void setNumOfSales(int numOfSales) {
+        this.numOfSales = numOfSales;
+    }
+
+    public void setOverAllRating(float overAllRating) {
+        this.overAllRating = overAllRating;
+    }
+
+    public void setReviewsAndRating(ArrayList<RevNRat> reviewsAndRating) {
+        this.reviewsAndRating = reviewsAndRating;
     }
 
     public void setSupport2D(boolean support2D) {
@@ -166,23 +185,6 @@ public class MovieInfo {
         for (int i = 0; i < this.reviewsAndRating.size(); i++)
             reviewsAndRating.get(i).displayReviewRating();
 
-
-        // original
-//        String temp = "";
-//        temp += "Movie Title: " + getTitle();
-//        temp += "Movie ID: " + getMovieId();
-//        temp += "\nShowing Status: " + getShowingStatus();
-//        temp += "\nSynoposis: " + getSynopsis();
-//        temp += "\nAvailable types: " + "3D: " + isSupport3D() + " 2D: " + isSupport2D();
-//        temp += "\nBlockbuster: " + isBlockbluster();
-//        temp += "\nDirector: " + getDirector();
-//        temp += "\nCast: " + getCast(); //!!!
-//        temp += "\nNumber Of Sales: " + getNumOfSales();
-//        temp += "\nOverall Rating: " + getOverAllRating();
-//        temp += "\nReviews: ";
-//        System.out.println(temp);
-//        for (int i = 0; i < this.reviewsAndRating.size(); i++)
-//            reviewsAndRating.get(i).displayReviewRating();
 
 
     }

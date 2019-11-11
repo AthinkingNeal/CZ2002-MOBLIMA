@@ -1,20 +1,23 @@
-public class Seat{
-    private String id;
-    private boolean normal;
-    private boolean isOccupied;
+import java.io.Serializable;
 
-    Seat(String sid, boolean snormal,boolean sisOccupied){
-        id=sid;
-        normal=snormal;
-        isOccupied=sisOccupied;
+public class Seat implements Serializable {
+    private String seatId;
+    private boolean isOccupied;
+    private String seatIDAlphabets = "ABCDEFGHIJ";
+
+    Seat(int x, int y, boolean sisOccupied) {
+        this.seatId = seatIDAlphabets.charAt(x) + Integer.toString(y);
+        isOccupied = sisOccupied;
     }
     public  boolean GetOccu(){
         return isOccupied;}
+
     public String GetId(){
-        return id;
+        return seatId;
     }
     public boolean bookSeat(){
         if (isOccupied==true){
+            System.out.println("This seat is already occupied! Book failed!");
             return false;
         }
         else{
