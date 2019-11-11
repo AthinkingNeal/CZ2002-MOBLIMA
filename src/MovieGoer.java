@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-public class MovieGoer {
+public class MovieGoer implements java.io.Serializable{
     protected String name;
     protected int movieGoerID;
     protected int mobileNumber;
     protected String emailAddress;
     protected int age;
-    protected PaymentRecord [] History;
+    protected ArrayList <PaymentRecord> History;
 
 
     public MovieGoer(String name, int movieGoerID, int mobileNumber, String emailAddress, int age){
@@ -19,14 +19,14 @@ public class MovieGoer {
 
     public void getHistory(){
         PaymentRecord temp;
-        int len = History.length;
+        int len = History.size();
         if (len == 0) {
             System.out.println("This is no ticket history.");
         }
         else{
             int i;
             for (i = 0; i < len; i++){
-                History[i].printRecord();
+                History.get(i).printRecord();
             }
         }
     }
@@ -55,7 +55,7 @@ public class MovieGoer {
         this.age = age;
     }
 
-    public void setHistory(PaymentRecord[] history) {
+    public void setHistory(ArrayList <PaymentRecord> history) {
         History = history;
     }
 
