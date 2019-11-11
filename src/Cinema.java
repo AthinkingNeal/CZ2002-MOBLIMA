@@ -57,6 +57,7 @@ public class Cinema implements Serializable {
         Scanner s = new Scanner(System.in);
         String dateStartTime;
         double duration;
+        boolean is3D;
         System.out.println("Please enter the date in this format: yyyy-mm-dd.");
         dateStartTime = s.nextLine();
         System.out.println("Please enter the start time of the movie in this format: hh-mm.");
@@ -65,24 +66,17 @@ public class Cinema implements Serializable {
         String movieName = m.getTitle();
         System.out.println("This movie supports 3D: " + m.isSupport3D());
         System.out.println("This movie supports 2D: " + m.isSupport2D());
-        System.out.println("Is this movie 3D? Y/N");
+        System.out.println("Is this movie session 3D? Y/N");
         String ans = s.nextLine();
-        if (ans == "Y" || ans == "y")
+        if (ans.equals("Y") || ans.equals("y"))
             is3D = true;
         else
             is3D = false;
 
-        System.out.println("Is this movie a blockbuster? Y/N");
-        String ans1 = s.nextLine();
-        if (ans1 == "Y" || ans1 == "y")
-            isBlockbuster = true;
-        else
-            isBlockbuster = false;
-
         System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
         duration = Double.parseDouble(s.nextLine());
 
-        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, cineplexID, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, cinemaClass));
+        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, cineplexID, m.getMovieId(), movieName, is3D, m.isBlockbluster(), duration, cinemaID, cinemaClass));
         System.out.println("Successfully added!");
     }
 
