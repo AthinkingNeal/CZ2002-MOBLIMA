@@ -89,7 +89,6 @@ public class DateDB {
 
      date.displayContent();
        date.addHoliday();
-
        date.addHoliday();
 
 
