@@ -131,7 +131,7 @@ public class PriceTable {
         } else {
             // senior
             if (age > 60) {
-                price -= senior_down;
+                price += senior_down;
                 if (isBlockbuster) price += blockbuster_up;
                 if (is3D) price += threeD_up;
                 if (cClass == Cinema.CinemaClass.platinum) price += platinum_up;
@@ -139,7 +139,7 @@ public class PriceTable {
             }
             // junior
             else if (age < 12) {
-                price -= child_down;
+                price += child_down;
                 if (isBlockbuster) price += blockbuster_up;
                 if (is3D) price += threeD_up;
                 if (cClass == Cinema.CinemaClass.golden) price += golden_up;

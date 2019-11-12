@@ -80,7 +80,7 @@ public class MovieSchedule implements Serializable {
 
     public void displayMovieRecord()
     {
-        System.out.println(dateStartTime + ": (" + movieID + ")" + movieName + " 3D: " + is3D + " Blockbuster: " + isBlockbuster + " Duration: " + duration);
+        System.out.println(dateStartTime + ": " + movieName + "(" + movieID + ") " + "|3D: " + is3D + " |Blockbuster: " + isBlockbuster + " |Duration: " + duration + " |CinemaID: " + this.getCinemaID() + " |CinemaClass: " + this.getCinemaClass());
     }
 
     public void cancelBooking(String seatID) {
