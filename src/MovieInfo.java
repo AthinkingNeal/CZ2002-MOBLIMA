@@ -80,9 +80,11 @@ public class MovieInfo implements Serializable {
         return cineplexes;
     }
 
-    public void displayCineplexes() {
+    public void displayCineplexes(CineplexDB cineplexDB) {
         for (int i = 0; i < cineplexes.size(); i++) {
-            System.out.println(cineplexes.get(i));
+            Cineplex c = cineplexDB.getCineplexByID(cineplexes.get(i));
+            System.out.println("Cineplex ID: " + c.getCineplexID() + " Name: " + c.getName() + " Location: " + c.getLocation());
+
         }
     }
 
@@ -192,24 +194,31 @@ public class MovieInfo implements Serializable {
     public void displayMovieInfo() {
         StringBuilder temp = new StringBuilder();
         temp.append("Movie Title: ").append(getTitle());
-        temp.append("Movie ID: ").append(getMovieId());
-        temp.append("Movie Category: ").append(getMovieCategory());
-        temp.append("Movie Age Limit: ").append(getAgeLimit());
+        temp.append("\nMovie ID: ").append(getMovieId());
+        temp.append("\nMovie Category: ").append(getMovieCategory());
+        temp.append("\nMovie Age Limit: ").append(getAgeLimit());
         temp.append("\nShowing Status: ").append(getShowingStatus());
         temp.append("\nSynoposis: ").append(getSynopsis());
         temp.append("\nAvailable types: " + "3D: ").append(isSupport3D()).append(" 2D: ").append(isSupport2D());
         temp.append("\nBlockbuster: ").append(isBlockbluster());
         temp.append("\nDirector: ").append(getDirector());
 
-        for (int i = 0; i < getCast().size(); i++)
+        temp.append("\nCast: ");
+        for (int i = 0; i < getCast().size(); i++) {
             temp.append(getCast().get(i));
+            temp.append("; ");
+        }
 
         temp.append("\nNumber Of Sales: ").append(getNumOfSales());
         if (getOverAllRating() != -1)
             temp.append("\nOverall Rating: ").append(getOverAllRating());
         else
             temp.append("\nOverall Rating: N.A");
-        temp.append("\nReviews: ");
+
+        if (reviewsAndRating.size() == 0)
+            temp.append("\nReviews: N.A.");
+        else
+            temp.append("\nReviews: ");
         System.out.println(temp);
         for (int i = 0; i < this.reviewsAndRating.size(); i++)
             reviewsAndRating.get(i).displayReviewRating();

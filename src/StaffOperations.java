@@ -1,5 +1,3 @@
-import javax.xml.crypto.Data;
-import java.io.Serializable;
 import java.util.Scanner;
 
 public class StaffOperations {
@@ -102,12 +100,14 @@ public class StaffOperations {
 
     private void configureTicketPrice() {
         this.priceTable.updatePriceTable();
+        priceTable.saveToFile();
         startOperations();
     }
 
     private void configureHolidaySetting() {
         this.date.displayContent();
         this.date.addHoliday();
+        date.saveToFile();
         startOperations();
 
     }
@@ -124,11 +124,13 @@ public class StaffOperations {
 
     private void enterNewMovieInfo() {
         movieInfoDB.addRecord(cineplexDB);
+        movieInfoDB.saveToFile();
         startOperations();
     }
 
     private void updateMovieInfo() {
         movieInfoDB.updateRecord(cineplexDB);
+        movieInfoDB.saveToFile();
         startOperations();
     }
 
@@ -141,7 +143,7 @@ public class StaffOperations {
         System.out.println("Add new schedule for which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord(movieInfoDB.getMovieInfoByMovieID(movieID));
-        saveToFile();
+        cineplexDB.saveToFile();
         startOperations();
     }
 
@@ -154,6 +156,7 @@ public class StaffOperations {
         System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord();
+        cineplexDB.saveToFile();
         startOperations();
 
     }
@@ -167,12 +170,14 @@ public class StaffOperations {
         System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
+        cineplexDB.saveToFile();
         startOperations();
 
     }
 
     private void deleteMovies() {
         movieInfoDB.deleteRecord();
+        movieInfoDB.saveToFile();
         startOperations();
     }
 

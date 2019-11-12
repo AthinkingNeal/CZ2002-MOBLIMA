@@ -36,6 +36,21 @@ public class Cinema implements Serializable {
         this.filename = filename;
     }
 
+    public CinemaClass getCinemaClass() {
+        return cinemaClass;
+    }
+
+    public void setCinemaClass(CinemaClass cinemaClass) {
+        this.cinemaClass = cinemaClass;
+    }
+
+    public int getCineplexID() {
+        return cineplexID;
+    }
+
+    public void setCineplexID(int cineplexID) {
+        this.cineplexID = cineplexID;
+    }
 
     /**
      * Initialise with a file containing all the moviescheduleinfo
@@ -132,12 +147,17 @@ public class Cinema implements Serializable {
         }
     }
 
-
-    public void showAvailableDates(int movieID) {
+    public HashSet<String> getAvailableDates(int movieID) {
+        HashSet<String> toPrint = new HashSet<>();
         for (String key : cinemaSchedule.keySet()) {
-            if (cinemaSchedule.get(key).getMovieID() == movieID)
-                System.out.println(cinemaSchedule.get(key).getDateStartTime().substring(0, 10)); // print out date in "YYYY-mm-dd"
+            if (cinemaSchedule.get(key).getMovieID() == movieID) {
+                toPrint.add(cinemaSchedule.get(key).getDateStartTime().substring(0, 10));
+            } // print out date in "YYYY-mm-dd"
         }
+        return toPrint;
+//
+
+
     }
 
     /**
@@ -155,6 +175,10 @@ public class Cinema implements Serializable {
 
         }
         return rst;
+    }
+
+    public MovieSchedule getByDateStarttime(String dateStarttime) {
+        return cinemaSchedule.get(dateStarttime);
     }
 
 

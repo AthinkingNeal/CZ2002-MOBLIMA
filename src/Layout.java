@@ -12,7 +12,7 @@ public class Layout implements Serializable {
     public Layout(int cid, Cinema.CinemaClass cinemaClass) {
         int dimension;
         if (cinemaClass == Cinema.CinemaClass.platinum)
-            dimension = 3; // if it's platinum, cinema has 3*3 seats;
+            dimension = 4; // if it's platinum, cinema has 3*3 seats;
         else if (cinemaClass == Cinema.CinemaClass.golden)
             dimension = 6;
         else
@@ -74,7 +74,7 @@ public class Layout implements Serializable {
                     System.out.print(" |_"+"_/ ");
             }
             System.out.print("\n");
-            boolean res=layout[1][5].bookSeat();
+//            boolean res=layout[1][5].bookSeat();
             for (int j = 0; j < layout[0].length; j++) {
                 if (j==0)
                     System.out.print(" \\_"+"_| ");

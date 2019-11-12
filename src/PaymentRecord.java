@@ -113,18 +113,19 @@ public class PaymentRecord implements Serializable {
 
 
     public void printRecord() {
-        if (canceled == true)
+        if (canceled)
             return;
         String temp = "Following are your record information: ";
-        temp += "\nTransaction ID: " + getTID();
-        temp += "\nmovieGoerID: " + getMovieGoerID();
-        temp += "\nmovieID: " + getMovieID();
-        temp += "\ncinemaID: " + getCinemaID();
-        temp += "\namountOfTickets: " + getAmountOfTickets();
+        temp += "\nTransactionID: " + getTID();
+        temp += " |MovieGoerID: " + getMovieGoerID();
+        temp += " |MovieID: " + getMovieID();
+        temp += " |CinemaID: " + getCinemaID();
+        temp += " |MovieDateTime: " + getMovieDateStartTime();
+        temp += " |No.Tickets: " + getAmountOfTickets();
+        temp += " |SeatIDs: ";
         for (int i = 0; i < seatID.size(); i++)
-            temp += "seatID: " + seatID.get(i);
-        temp += "totalCost: " + getTotalCost();
-
-        System.out.println("temp");
+            temp += seatID.get(i) + ' ';
+        temp += " |TotalPrice: $" + getTotalCost();
+        System.out.println(temp);
     }
 }
