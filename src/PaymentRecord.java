@@ -116,10 +116,8 @@ public class PaymentRecord implements Serializable {
      * print the information of one PaymentRecord
      */
     public void printRecord() {
-        if (canceled)
-            return;
-        String temp = "Following are your record information: ";
-        temp += "\nTransactionID: " + getTID();
+        String temp = "";
+        temp += " |TransactionID: " + getTID();
         temp += " |MovieGoerID: " + getMovieGoerID();
         temp += " |MovieID: " + getMovieID();
         temp += " |CinemaID: " + getCinemaID();

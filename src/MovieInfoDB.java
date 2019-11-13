@@ -44,7 +44,9 @@ public class MovieInfoDB implements Database, Serializable {
         String filename = MoblimaApp.movieInfoDBFile;
         CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
         MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-        movieInfoDB.listPermittedCineplex(10004);
+        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
+
+//        movieInfoDB.listPermittedCineplex(10004);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
@@ -476,7 +478,7 @@ public class MovieInfoDB implements Database, Serializable {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
+            System.out.println("saving data to " + filename + "...");
             oos.writeObject(movieInfoRecord);
             oos.close();
         } catch (IOException e) {
@@ -641,4 +643,9 @@ public class MovieInfoDB implements Database, Serializable {
         movieInfoRecord.put(movieId, newMovie);
         System.out.println("New movie info successfully added! ");
     }
+
+    public boolean checkMovieIDExists(int movieID) {
+        return movieInfoRecord.containsKey(movieID);
+    }
+
 }

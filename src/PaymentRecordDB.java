@@ -96,21 +96,55 @@ public class PaymentRecordDB implements Database {
         String TID = sc.next();
         deleteRecord(TID);
     }
-//
-    public ArrayList <PaymentRecord> findRecordByMovieGoerID(int movieGoerID){
-        ArrayList <PaymentRecord> temp = new ArrayList<PaymentRecord>();
-        for (Map.Entry<String, PaymentRecord> entry : PaymentRecordMap.entrySet()){
-            if (entry.getValue().getMovieGoerID() == movieGoerID) {
-                //System.out.println("Your PaymentRecord is found!");
-                temp.add(entry.getValue());
-            }
+
+
+    public ArrayList<PaymentRecord> findRecordByMovieGoerIDUpcoming(int movieGoerID, String currentDate, String currentTime) {
+        ArrayList<PaymentRecord> temp = new ArrayList<>();
+        for (Map.Entry<String, PaymentRecord> entry : PaymentRecordMap.entrySet()) {
+            if (entry.getValue().getMovieGoerID() == movieGoerID)
+                if (!entry.getValue().getCanceled())
+                    if (entry.getValue().getMovieDateStartTime().compareTo(currentDate + '-' + currentTime) > 0) {
+                        temp.add(entry.getValue());
+                    }
         }
         if (temp.size() != 0) {
-            System.out.println("Your PaymentRecords is found!");
+            return temp;
+        } else {
+            System.out.println("There is no upcoming purchased movies");
+            return null;
+        }
+    }
+
+    public ArrayList<PaymentRecord> findRecordByMovieGoerIDWatched(int movieGoerID, String currentDate, String currentTime) {
+        ArrayList<PaymentRecord> temp = new ArrayList<>();
+        for (Map.Entry<String, PaymentRecord> entry : PaymentRecordMap.entrySet()){
+            if (entry.getValue().getMovieGoerID() == movieGoerID)
+                if (!entry.getValue().getCanceled())
+                    if (entry.getValue().getMovieDateStartTime().compareTo(currentDate + '-' + currentTime) < 0) {
+                        temp.add(entry.getValue());
+                    }
+        }
+        if (temp.size() != 0) {
             return temp;
         }
         else {
-            System.out.println("The PaymentRecord you are looking for does not exist.");
+            System.out.println("There is no records of watched movies");
+            return null;
+        }
+    }
+
+    public ArrayList<PaymentRecord> findRecordByMovieGoerIDCancelled(int movieGoerID) {
+        ArrayList<PaymentRecord> temp = new ArrayList<>();
+        for (Map.Entry<String, PaymentRecord> entry : PaymentRecordMap.entrySet()) {
+            if (entry.getValue().getMovieGoerID() == movieGoerID)
+                if (entry.getValue().getCanceled()) {
+                    temp.add(entry.getValue());
+                }
+        }
+        if (temp.size() != 0) {
+            return temp;
+        } else {
+            System.out.println("There is no cancelled transaction");
             return null;
         }
     }
@@ -120,7 +154,7 @@ public class PaymentRecordDB implements Database {
         try{
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
+            System.out.println("saving data to " + filename + "...");
             oos.writeObject(PaymentRecordMap);
             oos.close();
         } catch (IOException e) {

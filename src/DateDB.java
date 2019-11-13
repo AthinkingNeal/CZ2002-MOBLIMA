@@ -73,7 +73,7 @@ public class DateDB {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
+            System.out.println("saving data to " + filename + "...");
             oos.writeObject(dateList);
             oos.close();
         } catch (IOException e) {

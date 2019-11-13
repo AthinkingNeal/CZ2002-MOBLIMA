@@ -5,10 +5,9 @@ public class Cinema implements Serializable {
     private static final long serialVersionUID = 1L;
     // hashmap: key: "dateStarttime", value: MovieSchedule
 
-    private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
+    private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<>();
     private int cineplexID;
     private int cinemaID;
-    private String filename;
     private CinemaClass cinemaClass;
 
     public enum CinemaClass {
@@ -26,14 +25,6 @@ public class Cinema implements Serializable {
 
     public void setCinemaID(int cinemaID) {
         this.cinemaID = cinemaID;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
     }
 
     public CinemaClass getCinemaClass() {
@@ -64,7 +55,7 @@ public class Cinema implements Serializable {
     /**
      * Allow staff to add a single record of movie schedule
      */
-    public void addRecord(){
+    public void addRecord() {
         System.out.println("Added");
     }
 
@@ -83,10 +74,7 @@ public class Cinema implements Serializable {
         System.out.println("This movie supports 2D: " + m.isSupport2D());
         System.out.println("Is this movie session 3D? Y/N");
         String ans = s.nextLine();
-        if (ans.equals("Y") || ans.equals("y"))
-            is3D = true;
-        else
-            is3D = false;
+        is3D = ans.equals("Y") || ans.equals("y");
 
         System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
         duration = Double.parseDouble(s.nextLine());
@@ -147,63 +135,42 @@ public class Cinema implements Serializable {
         }
     }
 
-    public HashSet<String> getAvailableDates(int movieID) {
-        HashSet<String> toPrint = new HashSet<>();
-        for (String key : cinemaSchedule.keySet()) {
-            if (cinemaSchedule.get(key).getMovieID() == movieID) {
-                toPrint.add(cinemaSchedule.get(key).getDateStartTime().substring(0, 10));
-            } // print out date in "YYYY-mm-dd"
-        }
-        return toPrint;
+//    public HashSet<String> getAvailableDates(int movieID, String currentDate, String currentTime) {
+//        HashSet<String> toPrint = new HashSet<>();
+//        for (String key : cinemaSchedule.keySet()) {
+//            if (cinemaSchedule.get(key).getMovieID() == movieID) {
+//                if (cinemaSchedule.get(key).getDateStartTime().compareTo(currentDate + '-' + currentTime) > 0)  //only movie schedules in the future are displayed
+//                    toPrint.add(cinemaSchedule.get(key).getDateStartTime().substring(0, 10));
+//            } // print out date in "YYYY-mm-dd"
+//        }
+//        return toPrint;
+////
 //
+//
+//    }
 
-
-    }
-
-    /**
-     * Once user has selected movie, location and date, display all available times of this movie in this cinema and return selected scheduels
-     *Assumption: in one cineplex, a movie cannot start at the same time!
-     */
-    public HashMap<String, MovieSchedule> getAndDisplayAvailableTime(int movieID, String date) {
-        HashMap<String, MovieSchedule> rst = new HashMap<String, MovieSchedule>();
-        for (String key : cinemaSchedule.keySet()) {
-            if (cinemaSchedule.get(key).getMovieID() == movieID)
-                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date)) {
-                    cinemaSchedule.get(key).displayMovieRecord();
-                    rst.put(key, cinemaSchedule.get(key));
-                }
-
-        }
-        return rst;
-    }
+//    /**
+//     * Once user has selected movie, location and date, display all available times of this movie in this cinema and return selected scheduels
+//     * Assumption: in one cineplex, a movie cannot start at the same time!
+//     */
+//    public HashMap<String, MovieSchedule> getAndDisplayAvailableTime(int movieID, String date, String currentDate, String currentTime) {
+//        HashMap<String, MovieSchedule> rst = new HashMap<>();
+//        for (String key : cinemaSchedule.keySet()) {
+//            if (cinemaSchedule.get(key).getMovieID() == movieID)
+//                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date))
+//                    if (cinemaSchedule.get(key).getDateStartTime().compareTo(currentDate + '-' + currentTime) > 0)  //only movie schedules in the future are displayed
+//                    {
+//                    cinemaSchedule.get(key).displayMovieRecord();
+//                    rst.put(key, cinemaSchedule.get(key));
+//                }
+//
+//        }
+//        return rst;
+//    }
 
     public MovieSchedule getByDateStarttime(String dateStarttime) {
         return cinemaSchedule.get(dateStarttime);
     }
-
-
-    /**
-     * Save all MovieSchedule objects into the file
-     */
-//    public void saveToFile() {
-//        try {
-//            FileOutputStream fos = new FileOutputStream(this.filename);
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-//            System.out.print("saving data to " + filename + "...");
-//
-//
-////            for(String key : cinemaSchedule.keySet())
-////            {
-////                oos.writeObject(cinemaSchedule.get(key));
-////            }
-//
-////            oos.writeObject(null);
-//            oos.writeObject(cinemaSchedule);
-//            oos.close();
-//        } catch (IOException e) {
-//            System.out.println("File input error");
-//        }
-//    }
 
 }
 

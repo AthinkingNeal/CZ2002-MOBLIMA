@@ -44,6 +44,7 @@ public class MovieInfo implements Serializable {
         this.movieCategory = movieCategory;
     }
 
+
     public String getAgeLimit() {
         return ageLimit;
     }
@@ -186,10 +187,6 @@ public class MovieInfo implements Serializable {
         System.out.println("Your review has been posted successfully!");
     }
 
-    public void incrementSales() {
-        this.numOfSales++;
-    }
-
 
     public void displayMovieInfo() {
         StringBuilder temp = new StringBuilder();
@@ -226,7 +223,8 @@ public class MovieInfo implements Serializable {
     }
 
 
-    private class RevNRat {
+    private class RevNRat implements Serializable {
+        private static final long serialVersionUID = 1L;
         private int moviegoerID;
         private String review;
         private float rating;
@@ -238,9 +236,9 @@ public class MovieInfo implements Serializable {
         }
 
         public void displayReviewRating() {
-            System.out.println("User: " + moviegoerID);
-            System.out.println("Review:" + review);
-            System.out.println("Rating: " + rating);
+            System.out.println("    MoviegoerID: " + moviegoerID);
+            System.out.println("    Review: " + review);
+            System.out.println("    Rating: " + rating + '\n');
         }
     }
 }
