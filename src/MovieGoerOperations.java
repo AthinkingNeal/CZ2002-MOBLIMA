@@ -49,15 +49,10 @@ public class MovieGoerOperations {
         System.out.println("5. Check Seat Availability and Book tickets"); // as long as you know the movie name you can book seats, user check the seat availability in this.
         System.out.println("6. View booking history");
         System.out.println("7. Cancel Booking");
-<<<<<<< HEAD
-        System.out.println("8. Update your profile(Email, mobile no, age)");
-        System.out.println("9. Exit");
-=======
         System.out.println("8. Write review and give rating for movies you have seen");
         System.out.println("9. Update your profile(Email, mobile no, age)");
         System.out.println("10. Exit");
 
->>>>>>> f26fbee29aa79a40c7c01eaf9108cfb371f99147
     }
 
 
@@ -125,6 +120,7 @@ public class MovieGoerOperations {
             System.out.println("This movie has ended showing!");
             pressToReturn();
         } else {
+            System.out.println("The movie you entered is currently showing!");
             System.out.println("Do you want to view more details about this movie? Enter Y to view more details; Enter N to return to main menu.");
             char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')
