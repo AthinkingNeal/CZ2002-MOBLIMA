@@ -19,6 +19,9 @@ public class MovieGoer implements Serializable {
         this.age = age;
     }
 
+    /**
+     * Get the booking history of one movie goer
+     */
     public void getHistory(){
         PaymentRecord temp;
         int len = History.size();

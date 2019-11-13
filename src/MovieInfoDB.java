@@ -5,6 +5,9 @@ import java.util.*;
 
 public class MovieInfoDB implements Database, Serializable {
     // key: movieID, value: MovieInfo object
+    /**
+     * Serial Version UID for serialization
+     */
     private static final long serialVersionUID = 1L;
     private HashMap<Integer, MovieInfo> movieInfoRecord;
     private String filename;
@@ -12,7 +15,7 @@ public class MovieInfoDB implements Database, Serializable {
 
 
     /**
-     * Initiate the class using a txt file to populate movieInfo
+     * Constructs a MovieInfoDB with the source binary file path = "filename"
      */
     public MovieInfoDB(String filename) {
         this.filename = filename;
@@ -32,36 +35,30 @@ public class MovieInfoDB implements Database, Serializable {
             this.movieInfoRecord = new HashMap<Integer, MovieInfo>();
     }
 
-    public void addRecord() {
-        System.out.println("Add record");
-    }
-
-    public void updateRecord() {
-        System.out.println("Update record");
-    }
-
-    public static void main(String args[]) {
-        String filename = MoblimaApp.movieInfoDBFile;
-        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
+//
+//    public static void main(String args[]) {
+//        String filename = MoblimaApp.movieInfoDBFile;
+//        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+//        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
+//        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
 
 //        movieInfoDB.listPermittedCineplex(10004);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
-        movieInfoDB.saveToFile();
+//        movieInfoDB.saveToFile();
         //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
         // System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
         //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getShowingStatus());
 
 
-    }
+//    }
 
-    /*
-     * Enable update a record
-     * allow staff to update
-     * */
+    /**
+     * Updates a movie record in specified cineplexDB
+     *
+     * @param cineplexDB Specified cineplexDB
+     */
     public void updateRecord(CineplexDB cineplexDB) {
         Scanner sc = new Scanner(System.in);
         Integer movieId;
@@ -646,6 +643,15 @@ public class MovieInfoDB implements Database, Serializable {
 
     public boolean checkMovieIDExists(int movieID) {
         return movieInfoRecord.containsKey(movieID);
+    }
+
+
+    public void addRecord() {
+        System.out.println("Add record");
+    }
+
+    public void updateRecord() {
+        System.out.println("Update record");
     }
 
 }

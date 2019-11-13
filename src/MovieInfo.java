@@ -171,9 +171,20 @@ public class MovieInfo implements Serializable {
         else return -1;
     }
 
+    /**
+     * Return an ArrayList that contains reviews and rating
+     *
+     * @return ArrayList of reviews and rating
+     */
     public ArrayList<RevNRat> getReviewsAndRating() {
         return reviewsAndRating;
     }
+
+    /**
+     * Add one record of reviews and rating
+     *
+     * @param userID the userID of the one who writes the review and rating
+     */
 
     public void addReviewRating(int userID) {
         Scanner s = new Scanner(System.in);
@@ -187,7 +198,9 @@ public class MovieInfo implements Serializable {
         System.out.println("Your review has been posted successfully!");
     }
 
-
+    /**
+     * Display all information of the movie
+     */
     public void displayMovieInfo() {
         StringBuilder temp = new StringBuilder();
         temp.append("Movie Title: ").append(getTitle());
@@ -195,7 +208,7 @@ public class MovieInfo implements Serializable {
         temp.append("\nMovie Category: ").append(getMovieCategory());
         temp.append("\nMovie Age Limit: ").append(getAgeLimit());
         temp.append("\nShowing Status: ").append(getShowingStatus());
-        temp.append("\nSynoposis: ").append(getSynopsis());
+        temp.append("\nSynopsis: ").append(getSynopsis());
         temp.append("\nAvailable types: " + "3D: ").append(isSupport3D()).append(" 2D: ").append(isSupport2D());
         temp.append("\nBlockbuster: ").append(isBlockbluster());
         temp.append("\nDirector: ").append(getDirector());
@@ -223,20 +236,23 @@ public class MovieInfo implements Serializable {
     }
 
 
+    /**
+     * Class that contains review (String), rating (float) and movieGoerID (int)
+     */
     private class RevNRat implements Serializable {
         private static final long serialVersionUID = 1L;
-        private int moviegoerID;
+        private int movieGoerID;
         private String review;
         private float rating;
 
         public RevNRat(int id, String review, float rating) {
-            this.moviegoerID = id;
+            this.movieGoerID = id;
             this.review = review;
             this.rating = rating;
         }
 
         public void displayReviewRating() {
-            System.out.println("    MoviegoerID: " + moviegoerID);
+            System.out.println("    MoviegoerID: " + movieGoerID);
             System.out.println("    Review: " + review);
             System.out.println("    Rating: " + rating + '\n');
         }

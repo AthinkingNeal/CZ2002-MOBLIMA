@@ -35,8 +35,9 @@ public class PaymentRecordDB implements Database {
         canceled = false;
         PaymentRecord temp = new PaymentRecord(TID, movieGoerID, movieID, cinemaID, cineplexID, amountOfTickets, seatID, totalCost, dateStarttime, canceled);
         PaymentRecordMap.put(TID,temp);
-
     }
+
+
 
     public void addRecord(String TID, PaymentRecord r) {
         this.PaymentRecordMap.put(TID, r);

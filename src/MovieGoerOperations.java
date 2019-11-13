@@ -38,7 +38,9 @@ public class MovieGoerOperations {
         System.out.println("You have successfully saved all the files :)");
     }
 
-
+    /**
+     * Display the main menu of operations that a movie goer can perform
+     */
     private void displayMainMenu() {
         System.out.println("================================================");
         System.out.println("You are at Main Menu. Please enter your choice: ");
@@ -55,7 +57,9 @@ public class MovieGoerOperations {
 
     }
 
-
+    /**
+     * Record a movie goer's choice of operation and execute the corresponded operation
+     */
     private void startOperations() {
         Scanner sc = new Scanner(System.in);
         displayMainMenu();
@@ -98,7 +102,11 @@ public class MovieGoerOperations {
 
     }
 
-
+    /**
+     * Return the movie goer's ID which is asked to be input by the movie goer himself
+     *
+     * @return movie goer ID
+     */
     private int getID() {
         System.out.println("Please enter your MovieGoer ID or a new ID of you own: ");
         Scanner sc = new Scanner(System.in);
@@ -106,7 +114,10 @@ public class MovieGoerOperations {
 
     }
 
-
+    /**
+     * Allow the movie goer to search a movie by inputting movie name
+     * Allow the movie goer to see the details about the movie only if it is currently showing
+     */
     private void searchMovies() { // display a single movie info
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the Movie Name you want to Search: "); // example: Joker, Iron Man
@@ -120,6 +131,7 @@ public class MovieGoerOperations {
             System.out.println("This movie has ended showing!");
             pressToReturn();
         } else {
+            System.out.println("The movie you entered is currently showing!");
             System.out.println("Do you want to view more details about this movie? Enter Y to view more details; Enter N to return to main menu.");
             char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')
@@ -130,6 +142,10 @@ public class MovieGoerOperations {
         }
     }
 
+    /**
+     * List out all movies and display them into three parts based on their showing status:
+     * "Currently showing", "Preview", "Forthcoming"
+     */
     private void listMovies() { // display all the movie's name, user can query further details from here
         movieInfoDB.listAllMovies();
         Scanner s = new Scanner(System.in);
@@ -144,7 +160,13 @@ public class MovieGoerOperations {
         }
     }
 
-
+    /**
+     * Display the movie's detailed information including:
+     * Title, Movie ID, Movie Category, Movie Age Limit, Showing Status, Synopsis, Available types (2D/3D),
+     * Blockbuster(True/False), Director, Cast, Number of Sales, Overall Rating, Reviews
+     *
+     * @param movieID
+     */
     private void viewMovieDetails(int movieID) { // inside searchMovies and listMovies
         Scanner sc = new Scanner(System.in);
         MovieInfo movieInfo = movieInfoDB.getMovieInfoByMovieID(movieID);
@@ -168,6 +190,10 @@ public class MovieGoerOperations {
         }
     }
 
+    /**
+     * Check the availability of seat for one movie, display the layout of seats, the available date and time
+     * Ask the user to choose the seat, date and time he/she wants to buy
+     */
     private void checkSeatAvailability() {
         System.out.println("These are the movies that are showing: ");
         // only currently showing & preview movies are displayed
@@ -241,7 +267,11 @@ public class MovieGoerOperations {
         }
     }
 
-
+    /**
+     * Allow the movie goer to buy tickets
+     * @param ms an instance of MovieSchedule which contains the information of the tickets such as the name of the movie, the time the movie begins
+     * @param price total cost of the tickets bought
+     */
     private void bookTickets(MovieSchedule ms, double price) {
         System.out.println("How many tickets you would like to book?");
         Scanner s = new Scanner(System.in);
@@ -278,7 +308,13 @@ public class MovieGoerOperations {
         pressToReturn();
     }
 
-
+    /**
+     * Print the receipt after the movie goer books the ticket
+     *
+     * @param ms an instance of Movie Schedule which contains sufficient information for the ticket
+     * @param seatIDs arraylist of string that contains seatIDs selected by user
+     * @param price price of a single ticket
+     */
     private void printReceipt(MovieSchedule ms, ArrayList<String> seatIDs, double price) {
         System.out.println("Here is your receipt!");
         String seatIDString = "";
@@ -297,6 +333,8 @@ public class MovieGoerOperations {
     }
 
     /**
+     * Update the booking history to current database
+     *
      * @param ms MovieSchedule that the user selected
      * @param seatIDs arraylist of string that contains seatIDs selected by user
      * @param price  price of a single ticket
@@ -318,7 +356,10 @@ public class MovieGoerOperations {
         printReceipt(ms, seatIDs, price);
     }
 
-
+    /**
+     * Display the booking history of one movie goer into three parts:
+     * "Upcoming Movies", "Movies Already Watched", "Cancelled Payment"
+     */
     private void viewBookingHistory() {
         ArrayList<PaymentRecord> recordCancelled = paymentRecordDB.findRecordByMovieGoerIDCancelled(movieGoer.getMovieGoerID());
         ArrayList<PaymentRecord> recordUpcomingMovies = paymentRecordDB.findRecordByMovieGoerIDUpcoming(movieGoer.getMovieGoerID(), todayDate.getCurrentDate(), todayDate.getCurrentTime());
@@ -349,6 +390,9 @@ public class MovieGoerOperations {
         pressToReturn();
     }
 
+    /**
+     * Cancel one movie goer's booking
+     */
     private void cancelBooking() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please view your active booking of upcoming movies: ");
@@ -393,6 +437,9 @@ public class MovieGoerOperations {
 
     }
 
+    /**
+     * Allow the movie goer to write reviews and give rating for the movies he/she has watched.
+     */
     private void writeReviewRating() {
         ArrayList<PaymentRecord> paymentRecordArrayList = paymentRecordDB.findRecordByMovieGoerIDWatched(movieGoer.getMovieGoerID(), todayDate.getCurrentDate(), todayDate.getCurrentTime());
         if (paymentRecordArrayList == null)
@@ -417,22 +464,34 @@ public class MovieGoerOperations {
         pressToReturn();
         }
 
+    /**
+     * Allow the movie goer to update his/her own profile information
+     */
     private void updateProfile() {
         movieGoerDB.updateRecord(movieGoer.getMovieGoerID());
         movieGoerDB.saveToFile();
         pressToReturn();
     }
 
+    /**
+     * List current top movies by sales
+     */
     private void listCurrentTopBySales() {
         movieInfoDB.listTopMovies("sales");
         pressToReturn();
     }
 
+    /**
+     * List current top movies by ratings
+     */
     private void listCurrentTopByRating() {
         movieInfoDB.listTopMovies("rating");
         pressToReturn();
     }
 
+    /**
+     * Allow the user to return to the main menu
+     */
     private void pressToReturn() {
         System.out.println("Press R/r to return to the main menu:");
         Scanner s = new Scanner(System.in);

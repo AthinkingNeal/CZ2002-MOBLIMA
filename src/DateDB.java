@@ -35,16 +35,34 @@ public class DateDB {
         }
     }
 
+
+    /**
+     * get local date
+     *
+     * @return local date in String format
+     */
     public String getCurrentDate() {
         return java.time.LocalDate.now().toString();
     }
 
+    /**
+     * get local time
+     *
+     * @return local time in String format
+     */
     public String getCurrentTime() {
         LocalTime now = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm");
         return now.format(formatter);
     }
 
+    /**
+     * Decide whether an input date is a weekend
+     *
+     * @param yourDate the date to be determined whether is a weekend
+     * @return a boolean value that indicates whether the input date is a weekend or not
+     * @throws ParseException
+     */
     public boolean getIsWeekend(String yourDate) throws ParseException {
         Calendar calendar = Calendar.getInstance();
         java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(yourDate);
@@ -53,6 +71,11 @@ public class DateDB {
         return dayOfWeek == 6 || dayOfWeek == 7;
     }
 
+    /**
+     * Decide whether an input date is holiday
+     * @param date the input date
+     * @return a boolean value that indicates whether the input date is a holiday or not
+     */
     public boolean IsHoliday(String date) { // input date should be in the format of yyyy-mm-dd
         return dateList.contains(date);
     }
@@ -81,21 +104,24 @@ public class DateDB {
         }
     }
 
- public static void main(String args[]) throws ParseException {
-     String filename = "dateDB.ser";
-       DateDB date = new DateDB(filename);
-       if (date.IsHoliday("2019-01-01")) System.out.println("1");
-       else System.out.println("0");
+// public static void main(String args[]) throws ParseException {
+//     String filename = "dateDB.ser";
+//       DateDB date = new DateDB(filename);
+//       if (date.IsHoliday("2019-01-01")) System.out.println("1");
+//       else System.out.println("0");
+//
+//     date.displayContent();
+//       date.addHoliday();
+//       date.addHoliday();
+//
+//
+//       date.saveToFile();
+//
+// }
 
-     date.displayContent();
-       date.addHoliday();
-       date.addHoliday();
-
-
-       date.saveToFile();
-
- }
-
+    /**
+     * Display the dates that are defined as holidays in current database
+     */
     public void displayContent() {
         System.out.println("These are the current holidays:");
         for (int i = 0; i < dateList.size(); i++) {

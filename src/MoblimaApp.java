@@ -1,6 +1,9 @@
 import java.io.Serializable;
 import java.util.Scanner;
 
+/**
+ * This class is the main application class
+ */
 public class MoblimaApp {
     private boolean isStaff;
     public static String cineplexDBFile = "src/bin/cineplexDB.ser";
