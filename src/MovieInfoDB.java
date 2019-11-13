@@ -73,6 +73,7 @@ public class MovieInfoDB implements Database, Serializable {
             else
                 break;
         } while (true);
+        System.out.println("============================================");
         System.out.println("Please enter your choice: ");
         System.out.println("1. Update movie ID");
         System.out.println("2. Update movie title");
@@ -87,6 +88,7 @@ public class MovieInfoDB implements Database, Serializable {
         System.out.println("11. Update movie age limit");
         System.out.println("12. Update movie Category");
         System.out.println("13. Go back to Main Menu");
+        System.out.println("============================================");
 
         int choice = Integer.parseInt(sc.nextLine());
 //        String dummy = sc.nextLine();
@@ -318,7 +320,7 @@ public class MovieInfoDB implements Database, Serializable {
                     } while (true);
                     break;
             }
-
+            System.out.println("===========================================");
             System.out.println("Please enter your choice: ");
             System.out.println("1. Update movie ID");
             System.out.println("2. Update movie title");
@@ -333,6 +335,7 @@ public class MovieInfoDB implements Database, Serializable {
             System.out.println("11. Update movie age limit");
             System.out.println("12. Update movie Category");
             System.out.println("13. Go back to Main Menu");
+            System.out.println("===========================================");
 
             choice = Integer.parseInt(sc.nextLine());
 //            dummy = sc.nextLine();
@@ -406,8 +409,14 @@ public class MovieInfoDB implements Database, Serializable {
             for (int i = 0; i < numLoops; i++)
                 System.out.println("Top " + (i + 1) + ": " + result.get(i).getTitle() + " Total sales: " + result.get(i).getNumOfSales());
         } else {
-            for (int i = 0; i < numLoops; i++)
-                System.out.println("Top " + (i + 1) + ": " + result.get(i).getTitle() + " Overall Rating: " + result.get(i).getOverAllRating());
+            for (int i = 0; i < numLoops; i++) {
+                if (result.get(i).getOverAllRating() == -1)
+                    System.out.println("Top " + (i + 1) + ": " + result.get(i).getTitle() + " Overall Rating: " + "N.A.");
+                else
+                    System.out.println("Top " + (i + 1) + ": " + result.get(i).getTitle() + " Overall Rating: " + result.get(i).getOverAllRating());
+
+            }
+
         }
 
     }

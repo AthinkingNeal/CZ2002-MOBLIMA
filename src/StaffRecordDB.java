@@ -110,7 +110,6 @@ public class StaffRecordDB implements Database {
         // if successfully logged in
         if (login()) {
             System.out.println("Enter your staff ID: ");
-            System.out.println("Hello!");
             Scanner s = new Scanner(System.in);
             String staffID = s.next();
             String dummy = s.nextLine();
@@ -165,7 +164,7 @@ public class StaffRecordDB implements Database {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
+            System.out.println("saving data to " + filename + "...");
             oos.writeObject(staffIDPasswordRecord);
             oos.close();
         } catch (IOException e) {

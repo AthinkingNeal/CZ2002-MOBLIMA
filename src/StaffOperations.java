@@ -21,6 +21,7 @@ public class StaffOperations {
     }
 
     private void displayMainMenu() {
+        System.out.println("==========================================================");
         System.out.println("Please enter your choice: ");
         System.out.println("1. Configure the ticket prices system setting.");
         System.out.println("2. Configure the holiday dates system setting.");
@@ -38,6 +39,7 @@ public class StaffOperations {
         System.out.println("14. Update your staff password.");
         System.out.println("15. Add a Staff account for a new staff");
         System.out.println("16. Exit");
+        System.out.println("==========================================================");
     }
 
     private void startOperations() {
@@ -86,10 +88,10 @@ public class StaffOperations {
                 listCurrentTopByRating();
                 break;
             case 14:
-                staffRecordDB.updateRecord();
+                changePassword();
                 break;
             case 15:
-                staffRecordDB.addRecord();
+                addAccount();
                 break;
             case 16:
                 System.out.println("Have a nice day! Good bye!");
@@ -104,6 +106,18 @@ public class StaffOperations {
         date.saveToFile();
         priceTable.saveToFile();
         staffRecordDB.saveToFile();
+    }
+
+    private void changePassword() {
+        staffRecordDB.updateRecord();
+        staffRecordDB.saveToFile();
+        pressToReturn();
+    }
+
+    private void addAccount() {
+        staffRecordDB.addRecord();
+        staffRecordDB.saveToFile();
+        pressToReturn();
     }
 
     private void configureTicketPrice() {
