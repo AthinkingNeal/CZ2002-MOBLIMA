@@ -401,9 +401,15 @@ public class MovieInfoDB implements Database, Serializable {
             result.add(aa.getValue());
         }
 
-        for (int i = 0; i < result.size(); i++)
-            System.out.println("Top " + (i + 1) + ": " + result.get(i).getTitle());
-        //return result;
+        int numLoops = Math.min(5, result.size());
+        if (priority.equals("sales")) {
+            for (int i = 0; i < numLoops; i++)
+                System.out.println("Top " + (i + 1) + ": " + result.get(i).getTitle() + " Total sales: " + result.get(i).getNumOfSales());
+        } else {
+            for (int i = 0; i < numLoops; i++)
+                System.out.println("Top " + (i + 1) + ": " + result.get(i).getTitle() + " Overall Rating: " + result.get(i).getOverAllRating());
+        }
+
     }
 
     /**
