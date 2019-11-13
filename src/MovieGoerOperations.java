@@ -190,7 +190,7 @@ public class MovieGoerOperations {
     private void checkSeatAvailability(int movieID) {
         MovieInfo m = movieInfoDB.getMovieInfoByMovieID(movieID);
         System.out.println("These are the cineplexes that are showing the movie: ");
-        m.displayCineplexes(cineplexDB);
+        m.displayCineplexes(cineplexDB, todayDate.getCurrentDate(), todayDate.getCurrentTime());
         System.out.println("Please select the cineplexID: ");
         Scanner sc = new Scanner(System.in);
         int cineplexID = Integer.parseInt(sc.nextLine());

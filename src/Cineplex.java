@@ -21,6 +21,15 @@ public class Cineplex implements Serializable {
 
     // the user already selects the movieID, date, and time already.
     // we assume that one movie will only exist in one MovieSchedule at a specific time.
+
+    /**
+     * returns only upcoming movie schedules
+     *
+     * @param movieID
+     * @param currentDate
+     * @param currentTime
+     * @return
+     */
     public HashMap<String, MovieSchedule> getMovieScheduleByID(int movieID, String currentDate, String currentTime) {
         HashMap<String, MovieSchedule> schedules = new HashMap<>();
         for (Cinema c : cinemaHashMap.values()) {
