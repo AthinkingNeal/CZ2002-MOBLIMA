@@ -1,6 +1,7 @@
 import java.io.Serializable;
 
 public class MovieSchedule implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String dateStartTime;
     private int movieID;
     private String movieName;
@@ -79,7 +80,7 @@ public class MovieSchedule implements Serializable {
 
     public void displayMovieRecord()
     {
-        System.out.println(dateStartTime + ": (" + movieID + ")" + movieName + " 3D: " + is3D + " Blockbuster: " + isBlockbuster + " Duration: " + duration);
+        System.out.println(dateStartTime + ": " + movieName + "(" + movieID + ") " + "|3D: " + is3D + " |Blockbuster: " + isBlockbuster + " |Duration: " + duration + " |CinemaID: " + this.getCinemaID() + " |CinemaClass: " + this.getCinemaClass());
     }
 
     public void cancelBooking(String seatID) {

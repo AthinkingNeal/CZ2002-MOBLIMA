@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Cinema implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     // hashmap: key: "dateStarttime", value: MovieSchedule
 
     private HashMap<String, MovieSchedule> cinemaSchedule = new HashMap<String, MovieSchedule>();
@@ -36,6 +36,21 @@ public class Cinema implements Serializable {
         this.filename = filename;
     }
 
+    public CinemaClass getCinemaClass() {
+        return cinemaClass;
+    }
+
+    public void setCinemaClass(CinemaClass cinemaClass) {
+        this.cinemaClass = cinemaClass;
+    }
+
+    public int getCineplexID() {
+        return cineplexID;
+    }
+
+    public void setCineplexID(int cineplexID) {
+        this.cineplexID = cineplexID;
+    }
 
     /**
      * Initialise with a file containing all the moviescheduleinfo
@@ -57,6 +72,7 @@ public class Cinema implements Serializable {
         Scanner s = new Scanner(System.in);
         String dateStartTime;
         double duration;
+        boolean is3D;
         System.out.println("Please enter the date in this format: yyyy-mm-dd.");
         dateStartTime = s.nextLine();
         System.out.println("Please enter the start time of the movie in this format: hh-mm.");
@@ -65,24 +81,17 @@ public class Cinema implements Serializable {
         String movieName = m.getTitle();
         System.out.println("This movie supports 3D: " + m.isSupport3D());
         System.out.println("This movie supports 2D: " + m.isSupport2D());
-        System.out.println("Is this movie 3D? Y/N");
+        System.out.println("Is this movie session 3D? Y/N");
         String ans = s.nextLine();
-        if (ans == "Y" || ans == "y")
+        if (ans.equals("Y") || ans.equals("y"))
             is3D = true;
         else
             is3D = false;
 
-        System.out.println("Is this movie a blockbuster? Y/N");
-        String ans1 = s.nextLine();
-        if (ans1 == "Y" || ans1 == "y")
-            isBlockbuster = true;
-        else
-            isBlockbuster = false;
-
         System.out.println("How long is the duration of this movie? Answer in this format: 2.5");
         duration = Double.parseDouble(s.nextLine());
 
-        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, cineplexID, movieID, movieName, is3D, isBlockbuster, duration, cinemaID, cinemaClass));
+        this.cinemaSchedule.put(dateStartTime, new MovieSchedule(dateStartTime, cineplexID, m.getMovieId(), movieName, is3D, m.isBlockbluster(), duration, cinemaID, cinemaClass));
         System.out.println("Successfully added!");
     }
 
@@ -109,35 +118,11 @@ public class Cinema implements Serializable {
         String key = s.nextLine();
         MovieSchedule newRecord = cinemaSchedule.get(key);
         this.cinemaSchedule.remove(key); // delete original record
-        System.out.println("Which attribute in the record would you like to change?\n"
-                + "1. Change is3D\n" + "2. Change isBlockbluster\n" + "3. Change duration\n" + "4. Quit\n" + "Please key in your option");
-        int choice = Integer.parseInt(s.nextLine());
-        while (choice != 4) {
-            switch (choice) {
-                case 1:
-                    System.out.println("The current is3D is:" + newRecord.getIs3D());
-                    System.out.println("Please key in the new is3D");
-                    newRecord.setIs3D(Boolean.parseBoolean(s.nextLine()));
-                    System.out.println("Changed!");
-                    break;
-                case 2:
-                    System.out.println("The current isBlockbuster is:" + newRecord.getIsBlockbuster());
-                    System.out.println("Please key in the new isBlockbuster");
-                    newRecord.setIsBlockbuster(Boolean.parseBoolean(s.nextLine()));
-                    System.out.println("Changed!");
-                    break;
-                case 3:
-                    System.out.println("The current duration is:" + newRecord.getDuration());
-                    System.out.println("Please key in the new duration");
-                    newRecord.setDuration(Double.parseDouble(s.nextLine()));
-                    System.out.println("Changed!");
-                    break;
-                default:
-                    break;
-            }
-            System.out.println("Please key in your option:");
-            choice = s.nextInt();
-        }
+        System.out.println("Please input the new date YYYY-mm-dd:");
+        String date = s.nextLine();
+        System.out.println("Please input the new time HH-MM:");
+        String dateStartTime = date + '-' + s.nextLine();
+        newRecord.setDateStartTime(dateStartTime);
         this.cinemaSchedule.put(newRecord.getDateStartTime(), newRecord);
         System.out.println("Successfully updated!");
     }
@@ -154,11 +139,25 @@ public class Cinema implements Serializable {
     /**
      * Once user has selected movie, location, display all available dates of this movie in this cinema
      */
-    public void showAvailableDates(int movieID) {
+
+    public void displayAllSchedulesOfMovie(int movieID) {
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)
-                System.out.println(cinemaSchedule.get(key).getDateStartTime().substring(0, 10)); // print out date in "YYYY-mm-dd"
+                System.out.println("Movie ID: " + movieID + ' ' + cinemaSchedule.get(key).getDateStartTime()); // print out date in "YYYY-mm-dd"
         }
+    }
+
+    public HashSet<String> getAvailableDates(int movieID) {
+        HashSet<String> toPrint = new HashSet<>();
+        for (String key : cinemaSchedule.keySet()) {
+            if (cinemaSchedule.get(key).getMovieID() == movieID) {
+                toPrint.add(cinemaSchedule.get(key).getDateStartTime().substring(0, 10));
+            } // print out date in "YYYY-mm-dd"
+        }
+        return toPrint;
+//
+
+
     }
 
     /**
@@ -176,6 +175,10 @@ public class Cinema implements Serializable {
 
         }
         return rst;
+    }
+
+    public MovieSchedule getByDateStarttime(String dateStarttime) {
+        return cinemaSchedule.get(dateStarttime);
     }
 
 

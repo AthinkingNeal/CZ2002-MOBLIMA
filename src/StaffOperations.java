@@ -1,5 +1,3 @@
-import javax.xml.crypto.Data;
-import java.io.Serializable;
 import java.util.Scanner;
 
 public class StaffOperations {
@@ -26,16 +24,18 @@ public class StaffOperations {
         System.out.println("Please enter your choice: ");
         System.out.println("1. Configure the ticket prices system setting.");
         System.out.println("2. Configure the holiday dates system setting.");
-        System.out.println("3. Enter information about forthcoming movies");
-        System.out.println("4. Update information/Change status about Movies");
-        System.out.println("5. Add Movie Schedules for Currently Showing Movies");
-        System.out.println("6. Update Movie Schedules for Currently Showing Movies");
-        System.out.println("7. Delete Movie Schedules for Currently Showing Movies");
-        System.out.println("8. Delete movies.");
-        System.out.println("9. List the current top 5 ranking movies by ticket sales.");
-        System.out.println("10. List the current top 5 ranking movies by rating.");
-        System.out.println("11. Update your staff password.");
-        System.out.println("12. Exit");
+        System.out.println("3. List all movies");
+        System.out.println("4. List all schedules of a particular movie");
+        System.out.println("5. Enter information about forthcoming movies");
+        System.out.println("6. Update information/Change status about Movies");
+        System.out.println("7. Add Movie Schedules for Currently Showing Movies");
+        System.out.println("8. Update Movie Schedules for Currently Showing Movies");
+        System.out.println("9. Delete Movie Schedules for Currently Showing Movies");
+        System.out.println("10. Delete movies.");
+        System.out.println("11. List the current top 5 ranking movies by ticket sales.");
+        System.out.println("12. List the current top 5 ranking movies by rating.");
+        System.out.println("13. Update your staff password.");
+        System.out.println("14. Exit");
     }
 
     private void startOperations() {
@@ -51,33 +51,39 @@ public class StaffOperations {
                 configureHolidaySetting();
                 break;
             case 3:
-                enterNewMovieInfo();
+                listAllMovies();
                 break;
             case 4:
-                updateMovieInfo();
+                listAllSchedulesOfMovie();
                 break;
             case 5:
-                addMovieSchedule();
+                enterNewMovieInfo();
                 break;
             case 6:
-                updateMovieSchedule();
+                updateMovieInfo();
                 break;
             case 7:
-                deleteMovieSchedule();
+                addMovieSchedule();
                 break;
             case 8:
-                deleteMovies();
+                updateMovieSchedule();
                 break;
             case 9:
-                listCurrentTopBySales();
+                deleteMovieSchedule();
                 break;
             case 10:
-                listCurrentTopByRating();
+                deleteMovies();
                 break;
             case 11:
-                staffRecordDB.updateRecord();
+                listCurrentTopBySales();
                 break;
             case 12:
+                listCurrentTopByRating();
+                break;
+            case 13:
+                staffRecordDB.updateRecord();
+                break;
+            case 14:
                 System.out.println("Have a nice day! Good bye!");
                 saveToFile();
                 System.exit(0);
@@ -94,23 +100,37 @@ public class StaffOperations {
 
     private void configureTicketPrice() {
         this.priceTable.updatePriceTable();
+        priceTable.saveToFile();
         startOperations();
     }
 
     private void configureHolidaySetting() {
         this.date.displayContent();
         this.date.addHoliday();
+        date.saveToFile();
         startOperations();
 
     }
 
+    private void listAllMovies() {
+        movieInfoDB.listAllMovies();
+        startOperations();
+    }
+
+    private void listAllSchedulesOfMovie() {
+        movieInfoDB.listAllSchedulesOfMovie(cineplexDB);
+        startOperations();
+    }
+
     private void enterNewMovieInfo() {
         movieInfoDB.addRecord(cineplexDB);
+        movieInfoDB.saveToFile();
         startOperations();
     }
 
     private void updateMovieInfo() {
         movieInfoDB.updateRecord(cineplexDB);
+        movieInfoDB.saveToFile();
         startOperations();
     }
 
@@ -122,7 +142,8 @@ public class StaffOperations {
         int cineplexID = s.nextInt();
         System.out.println("Add new schedule for which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
-        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord(movieID);
+        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord(movieInfoDB.getMovieInfoByMovieID(movieID));
+        cineplexDB.saveToFile();
         startOperations();
     }
 
@@ -135,6 +156,7 @@ public class StaffOperations {
         System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord();
+        cineplexDB.saveToFile();
         startOperations();
 
     }
@@ -148,12 +170,14 @@ public class StaffOperations {
         System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
+        cineplexDB.saveToFile();
         startOperations();
 
     }
 
     private void deleteMovies() {
         movieInfoDB.deleteRecord();
+        movieInfoDB.saveToFile();
         startOperations();
     }
 

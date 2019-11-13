@@ -12,7 +12,7 @@ public class MovieGoerDB implements Database {
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.MovieGoerMap = (HashMap<Integer, MovieGoer>) ois.readObject();
             ois.close();
         } catch (IOException e) {
@@ -77,7 +77,7 @@ public class MovieGoerDB implements Database {
                 return entry.getValue();
             }
         }
-        System.out.println("The movieID you entered does not exist, we are assigning you to this new ID");
+        System.out.println("The movieGoer ID you entered does not exist, we are assigning you to this new ID");
         addRecord(movieGoerID);
 
         for (Map.Entry<Integer,MovieGoer> entry : MovieGoerMap.entrySet()){
@@ -149,29 +149,32 @@ public class MovieGoerDB implements Database {
         System.out.println("You are existing now...");
     }
 
+    // used to populate data in movieGoerDB
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
+//        int numOfTrials = 5;
+//        for (int i = 0 ; i < numOfTrials; i++)
+//        {
+//            test.addRecord();
+//            test.saveToFile();
+//        }
+//        test.addRecord();
+        //test.findRecordByMovieGoerID(15);
+        test.updateRecord(10);
+
+    }
 
     public void saveToFile() {
         try{
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
+            System.out.println("saving data to " + filename + "...");
             oos.writeObject(MovieGoerMap);
             oos.close();
         } catch (IOException e) {
             System.out.println("File input error");
         }
-    }
-
-    // used to populate data in movieGoerDB
-    public static void main(String args[]){
-        Scanner sc = new Scanner(System.in);
-        MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
-        int numOfTrials = 1;
-        int movieGoerID = sc.nextInt();
-        for (int i = 0 ; i < numOfTrials; i++)
-            test.addRecord();
-        test.findRecordByMovieGoerID(movieGoerID);
-        test.saveToFile();
     }
 
 }

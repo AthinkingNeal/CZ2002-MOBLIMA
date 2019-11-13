@@ -14,7 +14,7 @@ public class PaymentRecordDB implements Database {
         try {
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            System.out.print("reading data from " + filename + "...");
+            System.out.println("reading data from " + filename + "...");
             this.PaymentRecordMap = (HashMap<String, PaymentRecord>) ois.readObject();
             ois.close();
         } catch (IOException e) {
@@ -54,10 +54,9 @@ public class PaymentRecordDB implements Database {
     public void updateRecord(String TID, Boolean canceled){
         // set one Record status to be canceled
         // need to check valid input
-
         PaymentRecordMap.get(TID).setCanceled(canceled);
         System.out.println("Update successfully!");
-        // get() returns a reference to the object
+
 
     }
 
@@ -154,6 +153,10 @@ public class PaymentRecordDB implements Database {
         String dateStarttime = sc.next();
         Boolean canceled = false; // when adding a new Record, the default value of canceled is false;
         addRecord(movieGoerID, movieID, cinemaID, cineplexID, amountOfTickets, seatID, totalCost, dateStarttime, canceled);
+    }
+
+    public PaymentRecord getRecordByTID(String TID) {
+        return PaymentRecordMap.get(TID);
     }
 
 }
