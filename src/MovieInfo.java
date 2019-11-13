@@ -81,11 +81,11 @@ public class MovieInfo implements Serializable {
         return cineplexes;
     }
 
-    public void displayCineplexes(CineplexDB cineplexDB) {
+    public void displayCineplexes(CineplexDB cineplexDB, String currentDate, String currentTime) {
         for (int i = 0; i < cineplexes.size(); i++) {
             Cineplex c = cineplexDB.getCineplexByID(cineplexes.get(i));
-            System.out.println("Cineplex ID: " + c.getCineplexID() + " Name: " + c.getName() + " Location: " + c.getLocation());
-
+            if (c.getMovieScheduleByID(this.getMovieId(), currentDate, currentTime).size() != 0)
+                System.out.println("Cineplex ID: " + c.getCineplexID() + " Name: " + c.getName() + " Location: " + c.getLocation());
         }
     }
 
