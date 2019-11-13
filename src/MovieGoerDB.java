@@ -30,7 +30,9 @@ public class MovieGoerDB implements Database {
         System.out.println("MovieGoer Record update success.");
     }
 
-
+    /**
+     * Add one record of movie goer to the database
+     */
     public void addRecord() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please input your name: ");
@@ -70,6 +72,12 @@ public class MovieGoerDB implements Database {
 
     // We assume that Movie Goer does not need to delete his/her own record
 
+    /**
+     * Return an instance of movie goer by the given movieGoerID
+     *
+     * @param movieGoerID
+     * @return an instance of MovieGoer
+     */
     public MovieGoer findRecordByMovieGoerID(int movieGoerID){
         for (Map.Entry<Integer,MovieGoer> entry : MovieGoerMap.entrySet()){
             if(entry.getValue().getMovieGoerID() == movieGoerID){
@@ -82,7 +90,7 @@ public class MovieGoerDB implements Database {
 
         for (Map.Entry<Integer,MovieGoer> entry : MovieGoerMap.entrySet()){
             if(entry.getValue().getMovieGoerID() == movieGoerID){
-                System.out.println("The movie goer is found!");
+                //System.out.println("The movie goer is found!");
                 return entry.getValue();
             }
         }
@@ -90,10 +98,16 @@ public class MovieGoerDB implements Database {
         return null;
     }
 
+    /**
+     * Delete one movie goer record
+     */
     public void deleteRecord() {
         System.out.println("delete record");
     }
 
+    /**
+     * Update one movie goer record
+     */
     public void updateRecord(){
         System.out.println("Update Record");
     }
@@ -149,21 +163,21 @@ public class MovieGoerDB implements Database {
         System.out.println("You are existing now...");
     }
 
-    // used to populate data in movieGoerDB
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
-//        int numOfTrials = 5;
-//        for (int i = 0 ; i < numOfTrials; i++)
-//        {
-//            test.addRecord();
-//            test.saveToFile();
-//        }
-//        test.addRecord();
-        //test.findRecordByMovieGoerID(15);
-        test.updateRecord(10);
-
-    }
+//    // used to populate data in movieGoerDB
+//    public static void main(String args[]) {
+//        Scanner sc = new Scanner(System.in);
+//        MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
+////        int numOfTrials = 5;
+////        for (int i = 0 ; i < numOfTrials; i++)
+////        {
+////            test.addRecord();
+////            test.saveToFile();
+////        }
+////        test.addRecord();
+//        //test.findRecordByMovieGoerID(15);
+//        test.updateRecord(10);
+//
+//    }
 
     public void saveToFile() {
         try{

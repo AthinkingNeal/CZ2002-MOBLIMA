@@ -26,9 +26,9 @@ public class Cineplex implements Serializable {
      * returns only upcoming movie schedules
      *
      * @param movieID
-     * @param currentDate
-     * @param currentTime
-     * @return
+     * @param currentDate  date when the user is booking ticket
+     * @param currentTime  time when the user is booking ticket
+     * @return schedules a HashMap of MovieSchedules which will display the required Movie in the future
      */
     public HashMap<String, MovieSchedule> getMovieScheduleByID(int movieID, String currentDate, String currentTime) {
         HashMap<String, MovieSchedule> schedules = new HashMap<>();
@@ -44,6 +44,9 @@ public class Cineplex implements Serializable {
         return schedules;
     }
 
+    /**
+     *  Allow the staff to add one Cinema to the Database
+     */
     public void addCinema() {
         Scanner sc = new Scanner(System.in);
         int cinemaID;

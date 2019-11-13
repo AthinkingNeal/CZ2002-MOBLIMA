@@ -11,6 +11,12 @@ public class CineplexDB implements Database, Serializable {
     private HashMap<Integer, Cineplex> cineplexMap;
     private String filename;
 
+
+    /**
+     * Constructs the CineplexDB using deserialization from a binary file.
+     *
+     * @param filename the path of the binary file
+     */
     public CineplexDB(String filename) {
         this.filename = filename;
         try {
@@ -30,7 +36,11 @@ public class CineplexDB implements Database, Serializable {
             this.cineplexMap = new HashMap<Integer, Cineplex>();
     }
 
-
+    /**
+     * Deletes one cineplex in the database
+     *
+     * @param cineplexID
+     */
     public void deleteRecord(int cineplexID){
         if (cineplexMap.containsKey(cineplexID) == false) {
             System.out.println("You have entered an invalid cineplex ID");
@@ -50,25 +60,35 @@ public class CineplexDB implements Database, Serializable {
 
 
     // The Cineplex information  is seldom changed and is not required for the staff. Therefore we don't need to implement this method.
-    public void updateRecord() {
 
+    /**
+     * Allow the staff to update information about a Cineplex
+     */
+    public void updateRecord() {
+        System.out.println("Update succesfully!");
     }
 
-    public static void main(String args[]) {
-        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-//        for (int i = 0; i < 3; i++) {
-//            cineplexDB.addRecord();
-//        }
+//    public static void main(String args[]) {
+//        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+////        for (int i = 0; i < 3; i++) {
+////            cineplexDB.addRecord();
+////        }
+////
+////        cineplexDB.saveToFile();
 //
-//        cineplexDB.saveToFile();
-
-        ArrayList<Cinema> c = cineplexDB.getCineplexByID(2).getCinemas();
-        for (int i = 0; i < c.size(); i++) {
-            System.out.println(c.get(i).getCinemaID());
-        }
-        }
+//        ArrayList<Cinema> c = cineplexDB.getCineplexByID(2).getCinemas();
+//        for (int i = 0; i < c.size(); i++) {
+//            System.out.println(c.get(i).getCinemaID());
+//        }
+//    }
 
 
+    /**
+     * Given a cineplexID, decide whether this cineplex is in current database
+     *
+     * @param cineplexID
+     * @return a boolean value that indicates whether the cineplex is in current database
+     */
     public boolean findCineplexByID(int cineplexID) {
         if (cineplexMap.containsKey(cineplexID))
             return true;
@@ -82,6 +102,9 @@ public class CineplexDB implements Database, Serializable {
         else return null;
     }
 
+    /**
+     * Allow the staff to add a new Cineplex to the database
+     */
     public void addRecord() {
         Scanner sc = new Scanner(System.in);
         int cineplexID;
