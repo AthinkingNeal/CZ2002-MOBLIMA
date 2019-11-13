@@ -3,6 +3,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * The type Price table.
+ */
 public class PriceTable {
 
     private String filename;
@@ -15,6 +18,11 @@ public class PriceTable {
      * initialise with a file containing all the detail price records
      * */
 
+    /**
+     * Instantiates a new Price table.
+     *
+     * @param filename the filename
+     */
     public PriceTable(String filename) {
         this.filename = filename;
         try {
@@ -33,6 +41,9 @@ public class PriceTable {
 
     // movieID, cinemaType, 2d/3d,
 
+    /**
+     * Initialise table.
+     */
     public void initialiseTable() {
         if (!priceTableRecord.containsKey("initial price")) priceTableRecord.put("initial price", 0.0);
         if (!priceTableRecord.containsKey("children")) priceTableRecord.put("children", 0.0);
@@ -50,6 +61,9 @@ public class PriceTable {
         else System.out.println("You have already initialised!");
     }
 
+    /**
+     * Update price table.
+     */
     public void updatePriceTable() {
         int choice;
         double price;
@@ -110,6 +124,17 @@ public class PriceTable {
         } while (choice < 11);
     }
 
+    /**
+     * Gets price.
+     *
+     * @param is3D          the is 3 d
+     * @param isBlockbuster the is blockbuster
+     * @param cClass        the c class
+     * @param age           the age
+     * @param isHoliday     the is holiday
+     * @param isWeekend     the is weekend
+     * @return the price
+     */
     public double getPrice(boolean is3D, boolean isBlockbuster, Cinema.CinemaClass cClass, int age, boolean isHoliday, boolean isWeekend) {
 
         // initial price is the price for normal adults on weekdays
@@ -168,6 +193,9 @@ public class PriceTable {
         System.out.println("Price adjustment for " + type + " successfully updated!");
     }
 
+    /**
+     * Save to file.
+     */
     public void saveToFile() {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
@@ -180,12 +208,20 @@ public class PriceTable {
         }
     }
 
+    /**
+     * Display content.
+     */
     public void displayContent() {
         priceTableRecord.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
     }
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
 
         String filename = "priceTable.ser";

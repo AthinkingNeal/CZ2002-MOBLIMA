@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * The type Staff operations.
+ */
 public class StaffOperations {
 
     private CineplexDB cineplexDB;
@@ -8,6 +11,15 @@ public class StaffOperations {
     private PriceTable priceTable;
     private StaffRecordDB staffRecordDB;
 
+    /**
+     * Instantiates a new Staff operations.
+     *
+     * @param cineplexDBFile    the cineplex db file
+     * @param movieInfoDBFile   the movie info db file
+     * @param dateFile          the date file
+     * @param priceTableFile    the price table file
+     * @param staffRecordDBFile the staff record db file
+     */
     public StaffOperations(String cineplexDBFile, String movieInfoDBFile, String dateFile, String priceTableFile, String staffRecordDBFile) {
 
         this.cineplexDB = new CineplexDB(cineplexDBFile);
@@ -99,6 +111,7 @@ public class StaffOperations {
                 System.exit(0);
         }
     }
+
 
     private void saveToFile() {
         cineplexDB.saveToFile();

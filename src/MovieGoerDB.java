@@ -2,11 +2,19 @@ import java.util.*;
 import java.io.*;
 
 
+/**
+ * The type Movie goer db.
+ */
 public class MovieGoerDB implements Database {
     private HashMap<Integer, MovieGoer> MovieGoerMap;
     private String filename;
 
 
+    /**
+     * Instantiates a new Movie goer db.
+     *
+     * @param filename the filename
+     */
     public MovieGoerDB(String filename) {
         this.filename = filename;
         try {
@@ -24,13 +32,24 @@ public class MovieGoerDB implements Database {
             MovieGoerMap = new HashMap<Integer, MovieGoer>();
     }
 
+    /**
+     * Add record.
+     *
+     * @param name         the name
+     * @param movieGoerID  the movie goer id
+     * @param mobileNumber the mobile number
+     * @param emailAddress the email address
+     * @param age          the age
+     */
     public void addRecord(String name, int movieGoerID, int mobileNumber, String emailAddress,int age){
         MovieGoer temp = new MovieGoer(name,movieGoerID,mobileNumber,emailAddress,age);
         MovieGoerMap.put(movieGoerID,temp);
         System.out.println("MovieGoer Record update success.");
     }
 
-
+    /**
+     * Add one record of movie goer to the database
+     */
     public void addRecord() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please input your name: ");
@@ -51,6 +70,11 @@ public class MovieGoerDB implements Database {
     }
 
 
+    /**
+     * Add record.
+     *
+     * @param movieGoerID the movie goer id
+     */
     public void addRecord(int movieGoerID) {
         String dummy;
         Scanner sc = new Scanner(System.in);
@@ -70,6 +94,12 @@ public class MovieGoerDB implements Database {
 
     // We assume that Movie Goer does not need to delete his/her own record
 
+    /**
+     * Return an instance of movie goer by the given movieGoerID
+     *
+     * @param movieGoerID the movie goer id
+     * @return an instance of MovieGoer
+     */
     public MovieGoer findRecordByMovieGoerID(int movieGoerID){
         for (Map.Entry<Integer,MovieGoer> entry : MovieGoerMap.entrySet()){
             if(entry.getValue().getMovieGoerID() == movieGoerID){
@@ -82,7 +112,7 @@ public class MovieGoerDB implements Database {
 
         for (Map.Entry<Integer,MovieGoer> entry : MovieGoerMap.entrySet()){
             if(entry.getValue().getMovieGoerID() == movieGoerID){
-                System.out.println("The movie goer is found!");
+                //System.out.println("The movie goer is found!");
                 return entry.getValue();
             }
         }
@@ -90,14 +120,25 @@ public class MovieGoerDB implements Database {
         return null;
     }
 
+    /**
+     * Delete one movie goer record
+     */
     public void deleteRecord() {
         System.out.println("delete record");
     }
 
+    /**
+     * Update one movie goer record
+     */
     public void updateRecord(){
         System.out.println("Update Record");
     }
 
+    /**
+     * Update record.
+     *
+     * @param movieGoerID the movie goer id
+     */
     public void updateRecord(int movieGoerID) {
         MovieGoer m = findRecordByMovieGoerID(movieGoerID);
         System.out.println("Which attribute would you like to update?");
@@ -149,21 +190,21 @@ public class MovieGoerDB implements Database {
         System.out.println("You are existing now...");
     }
 
-    // used to populate data in movieGoerDB
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
-//        int numOfTrials = 5;
-//        for (int i = 0 ; i < numOfTrials; i++)
-//        {
-//            test.addRecord();
-//            test.saveToFile();
-//        }
-//        test.addRecord();
-        //test.findRecordByMovieGoerID(15);
-        test.updateRecord(10);
-
-    }
+//    // used to populate data in movieGoerDB
+//    public static void main(String args[]) {
+//        Scanner sc = new Scanner(System.in);
+//        MovieGoerDB test = new MovieGoerDB(MoblimaApp.movieGoerDBFile);
+////        int numOfTrials = 5;
+////        for (int i = 0 ; i < numOfTrials; i++)
+////        {
+////            test.addRecord();
+////            test.saveToFile();
+////        }
+////        test.addRecord();
+//        //test.findRecordByMovieGoerID(15);
+//        test.updateRecord(10);
+//
+//    }
 
     public void saveToFile() {
         try{

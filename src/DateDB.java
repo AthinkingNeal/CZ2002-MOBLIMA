@@ -14,11 +14,19 @@ import java.util.Scanner;
 
  */
 
+/**
+ * The type Date db.
+ */
 public class DateDB {
     private String filename;
     // the value of the hashmap is a boolean array, containing [isHoliday, isHolidayEve]
     private ArrayList<String> dateList = new ArrayList<String>();
 
+    /**
+     * Instantiates a new Date db.
+     *
+     * @param filename the filename
+     */
     public DateDB(String filename) {
         this.filename = filename;
         try {
@@ -35,16 +43,34 @@ public class DateDB {
         }
     }
 
+
+    /**
+     * get local date
+     *
+     * @return local date in String format
+     */
     public String getCurrentDate() {
         return java.time.LocalDate.now().toString();
     }
 
+    /**
+     * get local time
+     *
+     * @return local time in String format
+     */
     public String getCurrentTime() {
         LocalTime now = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm");
         return now.format(formatter);
     }
 
+    /**
+     * Decide whether an input date is a weekend
+     *
+     * @param yourDate the date to be determined whether is a weekend
+     * @return a boolean value that indicates whether the input date is a weekend or not
+     * @throws ParseException the parse exception
+     */
     public boolean getIsWeekend(String yourDate) throws ParseException {
         Calendar calendar = Calendar.getInstance();
         java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(yourDate);
@@ -53,10 +79,19 @@ public class DateDB {
         return dayOfWeek == 6 || dayOfWeek == 7;
     }
 
+    /**
+     * Decide whether an input date is holiday
+     *
+     * @param date the input date
+     * @return a boolean value that indicates whether the input date is a holiday or not
+     */
     public boolean IsHoliday(String date) { // input date should be in the format of yyyy-mm-dd
         return dateList.contains(date);
     }
 
+    /**
+     * Add holiday.
+     */
     public void addHoliday() {
         System.out.println("Enter the date to be set as holiday (yyyy-MM-dd)");
         Scanner sc = new Scanner(System.in);
@@ -69,6 +104,9 @@ public class DateDB {
         }
     }
 
+    /**
+     * Save to file.
+     */
     public void saveToFile() {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
@@ -81,21 +119,24 @@ public class DateDB {
         }
     }
 
- public static void main(String args[]) throws ParseException {
-     String filename = "dateDB.ser";
-       DateDB date = new DateDB(filename);
-       if (date.IsHoliday("2019-01-01")) System.out.println("1");
-       else System.out.println("0");
+// public static void main(String args[]) throws ParseException {
+//     String filename = "dateDB.ser";
+//       DateDB date = new DateDB(filename);
+//       if (date.IsHoliday("2019-01-01")) System.out.println("1");
+//       else System.out.println("0");
+//
+//     date.displayContent();
+//       date.addHoliday();
+//       date.addHoliday();
+//
+//
+//       date.saveToFile();
+//
+// }
 
-     date.displayContent();
-       date.addHoliday();
-       date.addHoliday();
-
-
-       date.saveToFile();
-
- }
-
+    /**
+     * Display the dates that are defined as holidays in current database
+     */
     public void displayContent() {
         System.out.println("These are the current holidays:");
         for (int i = 0; i < dateList.size(); i++) {
