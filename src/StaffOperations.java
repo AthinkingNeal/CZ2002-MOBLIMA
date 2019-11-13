@@ -200,7 +200,10 @@ public class StaffOperations {
         int cineplexID = s.nextInt();
         System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
-        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
+        if (movieInfoDB.getMovieInfoByMovieID(movieID).getCineplexes().contains(cinemaID))
+            cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
+        else
+            System.out.println("Invalid cineplex ID!");
         cineplexDB.saveToFile();
         pressToReturn();
 

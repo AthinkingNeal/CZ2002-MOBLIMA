@@ -449,15 +449,12 @@ public class MovieInfoDB implements Database, Serializable {
         System.out.println("Currently showing movies:");
         for (int i = 0; i < currentMovies.size(); i++)
             System.out.println("Name: " + currentMovies.get(i).getTitle() + " [MovieID: " + currentMovies.get(i).getMovieId() + "]");
-        System.out.println("\n");
         System.out.println("Movies for preview");
         for (int i = 0; i < previewMovies.size(); i++)
             System.out.println("Name: " + previewMovies.get(i).getTitle() + " [MovieID: " + previewMovies.get(i).getMovieId() + "]");
-        System.out.println("\n");
         System.out.println("Forthcoming movies:");
         for (int i = 0; i < forthcomingMovies.size(); i++)
             System.out.println("Name: " + forthcomingMovies.get(i).getTitle() + " [MovieID: " + forthcomingMovies.get(i).getMovieId() + "]");
-        System.out.println("\n");
     }
 
     public void listPermittedCineplex(int movieID) {

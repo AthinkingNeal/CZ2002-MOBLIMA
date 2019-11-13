@@ -214,7 +214,7 @@ public class MovieInfo implements Serializable {
         if (getOverAllRating() != -1)
             temp.append("\nOverall Rating: ").append(getOverAllRating());
         else
-            temp.append("\nOverall Rating: N.A");
+            temp.append("\nOverall Rating: N.A.");
 
         if (reviewsAndRating.size() == 0)
             temp.append("\nReviews: N.A.");
