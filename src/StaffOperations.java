@@ -28,7 +28,7 @@ public class StaffOperations {
         System.out.println("3. List all movies");
         System.out.println("4. List all schedules of a particular movie");
         System.out.println("5. Enter information about forthcoming movies");
-        System.out.println("6. Update information/Change status about Movies");
+        System.out.println("6. Update information about movies");
         System.out.println("7. Show detailed info of a movie");
         System.out.println("8. Add Movie Schedules for Currently Showing Movies");
         System.out.println("9. Update Movie Schedules for Currently Showing Movies");

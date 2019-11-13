@@ -190,16 +190,15 @@ public class MovieGoerOperations {
     private void checkSeatAvailability(int movieID) {
         MovieInfo m = movieInfoDB.getMovieInfoByMovieID(movieID);
         System.out.println("These are the cineplexes that are showing the movie: ");
-        m.displayCineplexes(cineplexDB, todayDate.getCurrentDate(), todayDate.getCurrentTime());
+        if (!m.displayCineplexes(cineplexDB, todayDate.getCurrentDate(), todayDate.getCurrentTime())) {
+            System.out.println("No current cineplexes are showing this movie!");
+            pressToReturn();
+        }
         System.out.println("Please select the cineplexID: ");
         Scanner sc = new Scanner(System.in);
         int cineplexID = Integer.parseInt(sc.nextLine());
 
         HashMap<String, MovieSchedule> movieSchedules = cineplexDB.getCineplexByID(cineplexID).getMovieScheduleByID(movieID, todayDate.getCurrentDate(), todayDate.getCurrentTime());
-        if (movieSchedules.isEmpty()) {
-            System.out.println("There's no movie schedules for this movie in the future");
-            pressToReturn();
-        }
 
         HashSet<String> toPrint = new HashSet<>();
         for (String s : movieSchedules.keySet()) {
