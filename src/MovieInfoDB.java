@@ -2,7 +2,9 @@ import java.io.*;
 import java.util.*;
 
 
-
+/**
+ * The type Movie info db.
+ */
 public class MovieInfoDB implements Database, Serializable {
     // key: movieID, value: MovieInfo object
     /**
@@ -13,9 +15,10 @@ public class MovieInfoDB implements Database, Serializable {
     private String filename;
 
 
-
     /**
      * Constructs a MovieInfoDB with the source binary file path = "filename"
+     *
+     * @param filename the filename
      */
     public MovieInfoDB(String filename) {
         this.filename = filename;
@@ -369,6 +372,8 @@ public class MovieInfoDB implements Database, Serializable {
 
     /**
      * list top movies
+     *
+     * @param priority the priority
      */
     public void listTopMovies(String priority) {
         ArrayList<MovieInfo> result = new ArrayList<>();
@@ -405,16 +410,20 @@ public class MovieInfoDB implements Database, Serializable {
 
     /**
      * save to file after modifying the database
+     *
+     * @param movieID the movie id
+     * @return the movie info by movie id
      */
-
     public MovieInfo getMovieInfoByMovieID(Integer movieID) {
         return movieInfoRecord.get(movieID);
     }
 
     /**
      * search movie by movie name
+     *
+     * @param movieName the movie name
+     * @return the movie info by name
      */
-
     public MovieInfo getMovieInfoByName(String movieName) {
         for (MovieInfo m : movieInfoRecord.values()) {
             if (m.getTitle().equals(movieName))
@@ -423,6 +432,9 @@ public class MovieInfoDB implements Database, Serializable {
         return null;
     }
 
+    /**
+     * List all movies.
+     */
     public void listAllMovies() { // need to be listed by status
         ArrayList<MovieInfo> currentMovies = getByStatus("Currently Showing");
         ArrayList<MovieInfo> previewMovies = getByStatus("Preview");
@@ -442,11 +454,21 @@ public class MovieInfoDB implements Database, Serializable {
         System.out.println("\n");
     }
 
+    /**
+     * List permitted cineplex.
+     *
+     * @param movieID the movie id
+     */
     public void listPermittedCineplex(int movieID) {
         for (int i : movieInfoRecord.get(movieID).getCineplexes())
             System.out.println("Cineplex " + i);
     }
 
+    /**
+     * List all schedules of movie.
+     *
+     * @param cineplexDB the cineplex db
+     */
     public void listAllSchedulesOfMovie(CineplexDB cineplexDB) {
         System.out.println("Please enter movie ID");
         Scanner s = new Scanner(System.in);
@@ -463,6 +485,11 @@ public class MovieInfoDB implements Database, Serializable {
 
     }
 
+    /**
+     * List movies by status.
+     *
+     * @param status the status
+     */
     public void listMoviesByStatus(String status) {
         ArrayList<MovieInfo> movies = getByStatus(status);
 
@@ -486,6 +513,8 @@ public class MovieInfoDB implements Database, Serializable {
     /**
      * Enable adding of a new movieInfo record;
      * new movieID must be different than existing movieIDs;
+     *
+     * @param cineplexDB the cineplex db
      */
     public void addRecord(CineplexDB cineplexDB) {
         Scanner sc = new Scanner(System.in);
@@ -641,6 +670,12 @@ public class MovieInfoDB implements Database, Serializable {
         System.out.println("New movie info successfully added! ");
     }
 
+    /**
+     * Check movie id exists boolean.
+     *
+     * @param movieID the movie id
+     * @return the boolean
+     */
     public boolean checkMovieIDExists(int movieID) {
         return movieInfoRecord.containsKey(movieID);
     }

@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 
+/**
+ * The type Staff record db.
+ */
 public class StaffRecordDB implements Database {
     // key: StaffID, value: password
     private HashMap<String, String> staffIDPasswordRecord;
@@ -11,8 +14,9 @@ public class StaffRecordDB implements Database {
 
     /**
      * Initiate the class using a txt file to populate userPasswordRecord
+     *
+     * @param filename the filename
      */
-
     public StaffRecordDB(String filename) {
         this.filename = filename;
         try {
@@ -34,6 +38,8 @@ public class StaffRecordDB implements Database {
 
     /**
      * main
+     *
+     * @param args the input arguments
      */
     public static void main(String[] args) {
         StaffRecordDB record = new StaffRecordDB(MoblimaApp.staffRecordDBFile);
@@ -179,6 +185,8 @@ public class StaffRecordDB implements Database {
      * Password is masked by asterisks;
      * returns true if login is successful.
      * Only runs in console! not in IDE!
+     *
+     * @return the boolean
      */
     public boolean login() {
         System.out.println("Please log in first.");

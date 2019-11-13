@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.Serializable;
 
+/**
+ * The type Cineplex.
+ */
 public class Cineplex implements Serializable {
     private static final long serialVersionUID = 1L;
     private int cineplexID;
@@ -12,6 +15,13 @@ public class Cineplex implements Serializable {
     private String location;
     private HashMap<Integer, Cinema> cinemaHashMap = new HashMap<Integer, Cinema>();
 
+    /**
+     * Instantiates a new Cineplex.
+     *
+     * @param cineplexID the cineplex id
+     * @param name       the name
+     * @param location   the location
+     */
     public Cineplex(int cineplexID, String name, String location) {
         this.cineplexID = cineplexID;
         this.name = name;
@@ -25,9 +35,9 @@ public class Cineplex implements Serializable {
     /**
      * returns only upcoming movie schedules
      *
-     * @param movieID
-     * @param currentDate  date when the user is booking ticket
-     * @param currentTime  time when the user is booking ticket
+     * @param movieID     the movie id
+     * @param currentDate date when the user is booking ticket
+     * @param currentTime time when the user is booking ticket
      * @return schedules a HashMap of MovieSchedules which will display the required Movie in the future
      */
     public HashMap<String, MovieSchedule> getMovieScheduleByID(int movieID, String currentDate, String currentTime) {
@@ -45,7 +55,7 @@ public class Cineplex implements Serializable {
     }
 
     /**
-     *  Allow the staff to add one Cinema to the Database
+     * Allow the staff to add one Cinema to the Database
      */
     public void addCinema() {
         Scanner sc = new Scanner(System.in);
@@ -75,34 +85,75 @@ public class Cineplex implements Serializable {
     }
 
 
+    /**
+     * Gets cineplex id.
+     *
+     * @return the cineplex id
+     */
     public int getCineplexID() {
         return cineplexID;
     }
 
+    /**
+     * Sets cineplex id.
+     *
+     * @param cineplexID the cineplex id
+     */
     public void setCineplexID(int cineplexID) {
         this.cineplexID = cineplexID;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets location.
+     *
+     * @return the location
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     * Sets location.
+     *
+     * @param location the location
+     */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /**
+     * Gets cinemas.
+     *
+     * @return the cinemas
+     */
     public ArrayList<Cinema> getCinemas() {
         return new ArrayList<>(cinemaHashMap.values());
     }
 
+    /**
+     * Gets cinema by cinema id.
+     *
+     * @param cinemaID the cinema id
+     * @return the cinema by cinema id
+     */
     public Cinema getCinemaByCinemaID(int cinemaID) {
         if (cinemaHashMap.containsKey(cinemaID))
             return cinemaHashMap.get(cinemaID);

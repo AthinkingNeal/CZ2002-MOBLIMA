@@ -1,6 +1,9 @@
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * The type Cinema.
+ */
 public class Cinema implements Serializable {
     private static final long serialVersionUID = 1L;
     // hashmap: key: "dateStarttime", value: MovieSchedule
@@ -10,41 +13,94 @@ public class Cinema implements Serializable {
     private int cinemaID;
     private CinemaClass cinemaClass;
 
+    /**
+     * The enum Cinema class.
+     */
     public enum CinemaClass {
-        platinum, golden, normal
+        /**
+         * Platinum cinema class.
+         */
+        platinum,
+        /**
+         * Golden cinema class.
+         */
+        golden,
+        /**
+         * Normal cinema class.
+         */
+        normal
     }
 
 
+    /**
+     * Gets cinema schedule.
+     *
+     * @return the cinema schedule
+     */
     public HashMap<String, MovieSchedule> getCinemaSchedule() {
         return cinemaSchedule;
     }
 
+    /**
+     * Gets cinema id.
+     *
+     * @return the cinema id
+     */
     public int getCinemaID() {
         return cinemaID;
     }
 
+    /**
+     * Sets cinema id.
+     *
+     * @param cinemaID the cinema id
+     */
     public void setCinemaID(int cinemaID) {
         this.cinemaID = cinemaID;
     }
 
+    /**
+     * Gets cinema class.
+     *
+     * @return the cinema class
+     */
     public CinemaClass getCinemaClass() {
         return cinemaClass;
     }
 
+    /**
+     * Sets cinema class.
+     *
+     * @param cinemaClass the cinema class
+     */
     public void setCinemaClass(CinemaClass cinemaClass) {
         this.cinemaClass = cinemaClass;
     }
 
+    /**
+     * Gets cineplex id.
+     *
+     * @return the cineplex id
+     */
     public int getCineplexID() {
         return cineplexID;
     }
 
+    /**
+     * Sets cineplex id.
+     *
+     * @param cineplexID the cineplex id
+     */
     public void setCineplexID(int cineplexID) {
         this.cineplexID = cineplexID;
     }
 
     /**
      * Initialise with a file containing all the moviescheduleinfo
+     *
+     * @param cinemaID    the cinema id
+     * @param cineplexID  the cineplex id
+     * @param cinemaClass the cinema class
      */
     public Cinema(int cinemaID, int cineplexID, CinemaClass cinemaClass) {
         this.cinemaID = cinemaID;
@@ -59,6 +115,11 @@ public class Cinema implements Serializable {
         System.out.println("Added");
     }
 
+    /**
+     * Add record.
+     *
+     * @param m the m
+     */
     public void addRecord(MovieInfo m) {
         Scanner s = new Scanner(System.in);
         String dateStartTime;
@@ -126,8 +187,9 @@ public class Cinema implements Serializable {
 
     /**
      * Once user has selected movie, location, display all available dates of this movie in this cinema
+     *
+     * @param movieID the movie id
      */
-
     public void displayAllSchedulesOfMovie(int movieID) {
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)
@@ -168,6 +230,12 @@ public class Cinema implements Serializable {
 //        return rst;
 //    }
 
+    /**
+     * Gets by date starttime.
+     *
+     * @param dateStarttime the date starttime
+     * @return the by date starttime
+     */
     public MovieSchedule getByDateStarttime(String dateStarttime) {
         return cinemaSchedule.get(dateStarttime);
     }

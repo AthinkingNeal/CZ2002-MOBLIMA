@@ -1,5 +1,8 @@
 import java.io.Serializable;
 
+/**
+ * The type Layout.
+ */
 public class Layout implements Serializable {
     private Seat[][] layout;
     private static final long serialVersionUID = 1L;
@@ -10,6 +13,12 @@ public class Layout implements Serializable {
 //        platinum,golden,normal
 //    }
 
+    /**
+     * Instantiates a new Layout.
+     *
+     * @param cid         the cid
+     * @param cinemaClass the cinema class
+     */
     public Layout(int cid, Cinema.CinemaClass cinemaClass) {
         int dimension;
         if (cinemaClass == Cinema.CinemaClass.platinum)
@@ -26,6 +35,11 @@ public class Layout implements Serializable {
 
     }
 
+    /**
+     * Get class cinema . cinema class.
+     *
+     * @return the cinema . cinema class
+     */
     public Cinema.CinemaClass GetClass() {
         return movieclass;
     }
@@ -68,6 +82,11 @@ public class Layout implements Serializable {
         }
     }
 
+    /**
+     * Get layout seat [ ] [ ].
+     *
+     * @return the seat [ ] [ ]
+     */
     public Seat[][] getLayout(){
         return layout;
     }
