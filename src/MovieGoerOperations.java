@@ -52,7 +52,6 @@ public class MovieGoerOperations {
         System.out.println("7. Cancel Booking");
         System.out.println("8. Update your profile(Email, mobile no, age)");
         System.out.println("9. Exit");
-
     }
 
 
