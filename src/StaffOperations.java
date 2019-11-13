@@ -36,7 +36,8 @@ public class StaffOperations {
         System.out.println("12. List the current top 5 ranking movies by ticket sales.");
         System.out.println("13. List the current top 5 ranking movies by rating.");
         System.out.println("14. Update your staff password.");
-        System.out.println("15. Exit");
+        System.out.println("15. Add a Staff account for a new staff");
+        System.out.println("16. Exit");
     }
 
     private void startOperations() {
@@ -88,6 +89,9 @@ public class StaffOperations {
                 staffRecordDB.updateRecord();
                 break;
             case 15:
+                staffRecordDB.addRecord();
+                break;
+            case 16:
                 System.out.println("Have a nice day! Good bye!");
                 saveToFile();
                 System.exit(0);
