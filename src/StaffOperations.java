@@ -195,6 +195,15 @@ public class StaffOperations {
         System.out.println("Update schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
+        MovieInfo info = movieInfoDB.getMovieInfoByMovieID(movieID);
+        System.out.println("These are the available schedules:");
+        for (int cid : info.getCineplexes()) {
+            System.out.println("In Cineplex " + cid + " :");
+            for (Cinema cinema : cineplexDB.getCineplexByID(cid).getCinemas()) {
+                System.out.println("   In cinema " + cinema.getCinemaID() + " :");
+                cinema.displayAllSchedulesOfMovie(movieID);
+            }
+        }
         System.out.println("which cineplex? Enter cineplex ID");
         int cineplexID = s.nextInt();
         System.out.println("which cinema? Enter cinema ID");
@@ -209,6 +218,15 @@ public class StaffOperations {
         System.out.println("delete schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
+        MovieInfo info = movieInfoDB.getMovieInfoByMovieID(movieID);
+        System.out.println("These are the available schedules:");
+        for (int cid : info.getCineplexes()) {
+            System.out.println("In Cineplex " + cid + " :");
+            for (Cinema cinema : cineplexDB.getCineplexByID(cid).getCinemas()) {
+                System.out.println("   In cinema " + cinema.getCinemaID() + " :");
+                cinema.displayAllSchedulesOfMovie(movieID);
+            }
+        }
         System.out.println("which cineplex? Enter cineplex ID");
         int cineplexID = s.nextInt();
         System.out.println("which cinema? Enter cinema ID");
