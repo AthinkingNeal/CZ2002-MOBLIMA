@@ -143,11 +143,12 @@ public class Cinema implements Serializable {
         }
     }
 
-    public HashSet<String> getAvailableDates(int movieID) {
+    public HashSet<String> getAvailableDates(int movieID, String currentDate, String currentTime) {
         HashSet<String> toPrint = new HashSet<>();
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID) {
-                toPrint.add(cinemaSchedule.get(key).getDateStartTime().substring(0, 10));
+                if (cinemaSchedule.get(key).getDateStartTime().compareTo(currentDate + '-' + currentTime) > 0)  //only movie schedules in the future are displayed
+                    toPrint.add(cinemaSchedule.get(key).getDateStartTime().substring(0, 10));
             } // print out date in "YYYY-mm-dd"
         }
         return toPrint;
@@ -160,11 +161,13 @@ public class Cinema implements Serializable {
      * Once user has selected movie, location and date, display all available times of this movie in this cinema and return selected scheduels
      * Assumption: in one cineplex, a movie cannot start at the same time!
      */
-    public HashMap<String, MovieSchedule> getAndDisplayAvailableTime(int movieID, String date) {
+    public HashMap<String, MovieSchedule> getAndDisplayAvailableTime(int movieID, String date, String currentDate, String currentTime) {
         HashMap<String, MovieSchedule> rst = new HashMap<>();
         for (String key : cinemaSchedule.keySet()) {
             if (cinemaSchedule.get(key).getMovieID() == movieID)
-                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date)) {
+                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date))
+                    if (cinemaSchedule.get(key).getDateStartTime().compareTo(currentDate + '-' + currentTime) > 0)  //only movie schedules in the future are displayed
+                    {
                     cinemaSchedule.get(key).displayMovieRecord();
                     rst.put(key, cinemaSchedule.get(key));
                 }

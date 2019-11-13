@@ -40,7 +40,7 @@ public class MovieGoerOperations {
 
 
     private void displayMainMenu() {
-        System.out.println("===================================");
+        System.out.println("================================================");
         System.out.println("You are at Main Menu. Please enter your choice: ");
         System.out.println("1. Search movies."); // Check sear availability, selection of seats and Booking tickets are inside this option
         System.out.println("2. List movies"); // when listing movies, we list all movies at one time but organize them in different groups by their type
@@ -197,8 +197,15 @@ public class MovieGoerOperations {
         ArrayList<Cinema> c = cineplexDB.getCineplexByID(cineplexID).getCinemas();
         HashSet<String> toPrint = new HashSet<>();
         for (Cinema cinema : c) {
-            toPrint.addAll(cinema.getAvailableDates(movieID));
+            toPrint.addAll(cinema.getAvailableDates(movieID, todayDate.getCurrentDate(), todayDate.getCurrentTime()));
         }
+
+        if (toPrint.isEmpty()) {
+            System.out.println("There's no movie schedules for this movie in the future");
+            pressToReturn();
+        }
+
+
         System.out.println("The available showing dates are as follows: ");
         for (String date : toPrint) {
             System.out.println(date);
@@ -209,7 +216,7 @@ public class MovieGoerOperations {
         HashMap<String, MovieSchedule> movieSchedules = new HashMap<>(); // movieSchedules contain all schedules of the movie in this cineplex on this date
 
         for (Cinema cinema : c) {
-            movieSchedules.putAll(cinema.getAndDisplayAvailableTime(movieID, date));
+            movieSchedules.putAll(cinema.getAndDisplayAvailableTime(movieID, date, todayDate.getCurrentDate(), todayDate.getCurrentTime()));
         }
 
         System.out.println("Please select the start time of the movie session in this format hh-mm: ");
@@ -223,7 +230,7 @@ public class MovieGoerOperations {
             double price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(date), todayDate.getIsWeekend(date));
 
             System.out.println("The price of this movie session is: $" + price + " per ticket");
-            System.out.println("Do you want to proceed to book a seat and make payment? Enter Y/N");
+            System.out.println("Do you want to proceed to book a seat and make payment? Enter Y to proceed/ Enter N to return to Main Menu");
             char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')
                 bookTickets(selectedSchedule, price);

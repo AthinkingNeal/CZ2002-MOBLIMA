@@ -44,6 +44,7 @@ public class MovieInfo implements Serializable {
         this.movieCategory = movieCategory;
     }
 
+
     public String getAgeLimit() {
         return ageLimit;
     }

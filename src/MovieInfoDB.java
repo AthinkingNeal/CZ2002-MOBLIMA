@@ -44,7 +44,9 @@ public class MovieInfoDB implements Database, Serializable {
         String filename = MoblimaApp.movieInfoDBFile;
         CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
         MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-        movieInfoDB.listPermittedCineplex(10004);
+        movieInfoDB.getMovieInfoByMovieID(10001).setNumOfSales(3);
+
+//        movieInfoDB.listPermittedCineplex(10004);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
