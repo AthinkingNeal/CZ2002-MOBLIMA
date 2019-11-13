@@ -28,14 +28,16 @@ public class StaffOperations {
         System.out.println("4. List all schedules of a particular movie");
         System.out.println("5. Enter information about forthcoming movies");
         System.out.println("6. Update information/Change status about Movies");
-        System.out.println("7. Add Movie Schedules for Currently Showing Movies");
-        System.out.println("8. Update Movie Schedules for Currently Showing Movies");
-        System.out.println("9. Delete Movie Schedules for Currently Showing Movies");
-        System.out.println("10. Delete movies.");
-        System.out.println("11. List the current top 5 ranking movies by ticket sales.");
-        System.out.println("12. List the current top 5 ranking movies by rating.");
-        System.out.println("13. Update your staff password.");
-        System.out.println("14. Exit");
+        System.out.println("7. Show detailed info of a movie");
+        System.out.println("8. Add Movie Schedules for Currently Showing Movies");
+        System.out.println("9. Update Movie Schedules for Currently Showing Movies");
+        System.out.println("10. Delete Movie Schedules for Currently Showing Movies");
+        System.out.println("11. Delete movies.");
+        System.out.println("12. List the current top 5 ranking movies by ticket sales.");
+        System.out.println("13. List the current top 5 ranking movies by rating.");
+        System.out.println("14. Update your staff password.");
+        System.out.println("15. Add a Staff account for a new staff");
+        System.out.println("16. Exit");
     }
 
     private void startOperations() {
@@ -63,27 +65,33 @@ public class StaffOperations {
                 updateMovieInfo();
                 break;
             case 7:
-                addMovieSchedule();
+                checkMovieInfo();
                 break;
             case 8:
-                updateMovieSchedule();
+                addMovieSchedule();
                 break;
             case 9:
-                deleteMovieSchedule();
+                updateMovieSchedule();
                 break;
             case 10:
-                deleteMovies();
+                deleteMovieSchedule();
                 break;
             case 11:
-                listCurrentTopBySales();
+                deleteMovies();
                 break;
             case 12:
-                listCurrentTopByRating();
+                listCurrentTopBySales();
                 break;
             case 13:
-                staffRecordDB.updateRecord();
+                listCurrentTopByRating();
                 break;
             case 14:
+                staffRecordDB.updateRecord();
+                break;
+            case 15:
+                staffRecordDB.addRecord();
+                break;
+            case 16:
                 System.out.println("Have a nice day! Good bye!");
                 saveToFile();
                 System.exit(0);
@@ -101,37 +109,46 @@ public class StaffOperations {
     private void configureTicketPrice() {
         this.priceTable.updatePriceTable();
         priceTable.saveToFile();
-        startOperations();
+        pressToReturn();
     }
 
     private void configureHolidaySetting() {
         this.date.displayContent();
         this.date.addHoliday();
         date.saveToFile();
-        startOperations();
+        pressToReturn();
 
     }
 
     private void listAllMovies() {
         movieInfoDB.listAllMovies();
-        startOperations();
+        pressToReturn();
     }
 
     private void listAllSchedulesOfMovie() {
         movieInfoDB.listAllSchedulesOfMovie(cineplexDB);
-        startOperations();
+        pressToReturn();
     }
 
     private void enterNewMovieInfo() {
         movieInfoDB.addRecord(cineplexDB);
         movieInfoDB.saveToFile();
-        startOperations();
+        pressToReturn();
     }
 
     private void updateMovieInfo() {
         movieInfoDB.updateRecord(cineplexDB);
         movieInfoDB.saveToFile();
-        startOperations();
+        pressToReturn();
+    }
+
+    private void checkMovieInfo() {
+        System.out.println("Which movie detail do you want to view? Enter movie ID.");
+        Scanner s = new Scanner(System.in);
+        int movieID = s.nextInt();
+        MovieInfo movieInfo = movieInfoDB.getMovieInfoByMovieID(movieID);
+        movieInfo.displayMovieInfo();
+        pressToReturn();
     }
 
     private void addMovieSchedule() {
@@ -144,7 +161,7 @@ public class StaffOperations {
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord(movieInfoDB.getMovieInfoByMovieID(movieID));
         cineplexDB.saveToFile();
-        startOperations();
+        pressToReturn();
     }
 
     private void updateMovieSchedule() {
@@ -157,7 +174,7 @@ public class StaffOperations {
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord();
         cineplexDB.saveToFile();
-        startOperations();
+        pressToReturn();
 
     }
 
@@ -171,27 +188,35 @@ public class StaffOperations {
         int cinemaID = s.nextInt();
         cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
         cineplexDB.saveToFile();
-        startOperations();
+        pressToReturn();
 
     }
 
     private void deleteMovies() {
         movieInfoDB.deleteRecord();
         movieInfoDB.saveToFile();
-        startOperations();
+        pressToReturn();
     }
 
     private void listCurrentTopBySales() {
         movieInfoDB.listTopMovies("sales");
-        startOperations();
+        pressToReturn();
     }
 
     private void listCurrentTopByRating() {
         movieInfoDB.listTopMovies("rating");
-        startOperations();
+        pressToReturn();
     }
 
-    public static void main(String args[]) {
+    private void pressToReturn() {
+        System.out.println("Press R/r to return to the main menu:");
+        Scanner s = new Scanner(System.in);
+        char r = s.nextLine().charAt(0);
+        while (r != 'R' && r != 'r') {
+            System.out.println("Invalid Input! Try again!");
+            r = s.nextLine().charAt(0);
+        }
+        startOperations();
     }
 
 

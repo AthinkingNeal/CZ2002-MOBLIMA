@@ -12,7 +12,7 @@ public class Cineplex implements Serializable {
     private String location;
     private HashMap<Integer, Cinema> cinemaHashMap = new HashMap<Integer, Cinema>();
 
-    public Cineplex(int cineplexID, String name, String location){
+    public Cineplex(int cineplexID, String name, String location) {
         this.cineplexID = cineplexID;
         this.name = name;
         this.location = location;
@@ -21,22 +21,21 @@ public class Cineplex implements Serializable {
 
     // the user already selects the movieID, date, and time already.
     // we assume that one movie will only exist in one MovieSchedule at a specific time.
-    public ArrayList <MovieSchedule> getMovieScheduleByID(int movieID, String dateStartTime){
-        ArrayList <MovieSchedule> scheduleArrayList = new ArrayList<MovieSchedule>();
-        int len = cinemaHashMap.size();
-        for(int i = 0; i < len; i++){
-            Cinema currentCinema = cinemaHashMap.get(i);
-            HashMap<String,MovieSchedule> currentScheduleMap = currentCinema.getCinemaSchedule();
-            MovieSchedule currentSchedule = currentScheduleMap.get(dateStartTime);
-            if (currentSchedule == null) {
-                System.out.println("There is no movieSchedule in this period");
+    public HashMap<String, MovieSchedule> getMovieScheduleByID(int movieID, String currentDate, String currentTime) {
+        HashMap<String, MovieSchedule> schedules = new HashMap<>();
+        for (Cinema c : cinemaHashMap.values()) {
+            HashMap<String, MovieSchedule> m = c.getCinemaSchedule();
+            for (String key : m.keySet()) {
+                if (m.get(key).getMovieID() == movieID) {
+                    if (m.get(key).getDateStartTime().compareTo(currentDate + '-' + currentTime) > 0)  //only movie schedules in the future are displayed
+                        schedules.put(key, m.get(key));
+                }
             }
-        scheduleArrayList.add(currentSchedule);
         }
-        return scheduleArrayList;
+        return schedules;
     }
 
-    public void addCinema(){
+    public void addCinema() {
         Scanner sc = new Scanner(System.in);
         int cinemaID;
         Cinema.CinemaClass cinemaClass = Cinema.CinemaClass.normal; // initialize MovieClass to normal
@@ -50,14 +49,11 @@ public class Cineplex implements Serializable {
         temp = sc.nextInt();
         if (temp == 1) {
             cinemaClass = Cinema.CinemaClass.normal;
-        }
-        else if (temp == 2) {
+        } else if (temp == 2) {
             cinemaClass = Cinema.CinemaClass.golden;
-        }
-        else if(temp == 3){
+        } else if (temp == 3) {
             cinemaClass = Cinema.CinemaClass.platinum;
-        }
-        else{
+        } else {
             System.out.println("You have entered an invalid class");
         }
 
