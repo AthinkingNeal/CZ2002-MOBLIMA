@@ -222,7 +222,8 @@ public class MovieInfo implements Serializable {
     }
 
 
-    private class RevNRat {
+    private class RevNRat implements Serializable {
+        private static final long serialVersionUID = 1L;
         private int moviegoerID;
         private String review;
         private float rating;

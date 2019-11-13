@@ -476,7 +476,7 @@ public class MovieInfoDB implements Database, Serializable {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
+            System.out.println("saving data to " + filename + "...");
             oos.writeObject(movieInfoRecord);
             oos.close();
         } catch (IOException e) {
