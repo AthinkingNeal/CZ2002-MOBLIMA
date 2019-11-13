@@ -157,6 +157,10 @@ public class StaffOperations {
         startOperations();
     }
 
+    public static void main(String args[]) {
+
+    }
+
     private void listCurrentTopBySales() {
         movieInfoDB.listTopMovies("sales");
         startOperations();
@@ -165,9 +169,6 @@ public class StaffOperations {
     private void listCurrentTopByRating() {
         movieInfoDB.listTopMovies("rating");
         startOperations();
-    }
-
-    public static void main(String args[]) {
     }
 
 
