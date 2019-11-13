@@ -110,6 +110,7 @@ public class StaffRecordDB implements Database {
         // if successfully logged in
         if (login()) {
             System.out.println("Enter your staff ID: ");
+            System.out.println("Hello!");
             Scanner s = new Scanner(System.in);
             String staffID = s.next();
             String dummy = s.nextLine();
@@ -119,10 +120,7 @@ public class StaffRecordDB implements Database {
             char[] passwordArray2 = console.readPassword("Please confirm your new password: ");
             String s1 = new String(passwordArray);
             String s2 = new String(passwordArray2);
-            System.out.println("Hello!");
             while ((!s1.equals(s2)) && (++trial2 <= 3)) {
-                System.out.println(s1);
-                System.out.println(s2);
                 System.out.println("The password does not match with the previous one! Try again!");
                 passwordArray = console.readPassword("Please update your password: ");
                 passwordArray2 = console.readPassword("Please confirm your new password: ");
