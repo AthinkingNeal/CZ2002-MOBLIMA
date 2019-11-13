@@ -147,6 +147,7 @@ public class MovieInfo implements Serializable {
         return cineplexes;
     }
 
+
     /**
      * Display cineplexes.
      *
@@ -157,9 +158,12 @@ public class MovieInfo implements Serializable {
     public void displayCineplexes(CineplexDB cineplexDB, String currentDate, String currentTime) {
         for (int i = 0; i < cineplexes.size(); i++) {
             Cineplex c = cineplexDB.getCineplexByID(cineplexes.get(i));
-            if (c.getMovieScheduleByID(this.getMovieId(), currentDate, currentTime).size() != 0)
+            if (c.getMovieScheduleByID(this.getMovieId(), currentDate, currentTime).size() != 0) {
                 System.out.println("Cineplex ID: " + c.getCineplexID() + " Name: " + c.getName() + " Location: " + c.getLocation());
+                available = true;
+            }
         }
+        return available;
     }
 
 
@@ -396,7 +400,7 @@ public class MovieInfo implements Serializable {
         if (getOverAllRating() != -1)
             temp.append("\nOverall Rating: ").append(getOverAllRating());
         else
-            temp.append("\nOverall Rating: N.A");
+            temp.append("\nOverall Rating: N.A.");
 
         if (reviewsAndRating.size() == 0)
             temp.append("\nReviews: N.A.");

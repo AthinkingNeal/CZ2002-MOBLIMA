@@ -33,13 +33,14 @@ public class StaffOperations {
     }
 
     private void displayMainMenu() {
+        System.out.println("==========================================================");
         System.out.println("Please enter your choice: ");
         System.out.println("1. Configure the ticket prices system setting.");
         System.out.println("2. Configure the holiday dates system setting.");
         System.out.println("3. List all movies");
         System.out.println("4. List all schedules of a particular movie");
         System.out.println("5. Enter information about forthcoming movies");
-        System.out.println("6. Update information/Change status about Movies");
+        System.out.println("6. Update information about movies");
         System.out.println("7. Show detailed info of a movie");
         System.out.println("8. Add Movie Schedules for Currently Showing Movies");
         System.out.println("9. Update Movie Schedules for Currently Showing Movies");
@@ -50,6 +51,7 @@ public class StaffOperations {
         System.out.println("14. Update your staff password.");
         System.out.println("15. Add a Staff account for a new staff");
         System.out.println("16. Exit");
+        System.out.println("==========================================================");
     }
 
     private void startOperations() {
@@ -98,10 +100,10 @@ public class StaffOperations {
                 listCurrentTopByRating();
                 break;
             case 14:
-                staffRecordDB.updateRecord();
+                changePassword();
                 break;
             case 15:
-                staffRecordDB.addRecord();
+                addAccount();
                 break;
             case 16:
                 System.out.println("Have a nice day! Good bye!");
@@ -117,6 +119,18 @@ public class StaffOperations {
         date.saveToFile();
         priceTable.saveToFile();
         staffRecordDB.saveToFile();
+    }
+
+    private void changePassword() {
+        staffRecordDB.updateRecord();
+        staffRecordDB.saveToFile();
+        pressToReturn();
+    }
+
+    private void addAccount() {
+        staffRecordDB.addRecord();
+        staffRecordDB.saveToFile();
+        pressToReturn();
     }
 
     private void configureTicketPrice() {
@@ -199,7 +213,10 @@ public class StaffOperations {
         int cineplexID = s.nextInt();
         System.out.println("which cinema? Enter cinema ID");
         int cinemaID = s.nextInt();
-        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
+        if (movieInfoDB.getMovieInfoByMovieID(movieID).getCineplexes().contains(cinemaID))
+            cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
+        else
+            System.out.println("Invalid cineplex ID!");
         cineplexDB.saveToFile();
         pressToReturn();
 

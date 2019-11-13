@@ -55,7 +55,7 @@ public class MovieGoerOperations {
      * Display the main menu of operations that a movie goer can perform
      */
     private void displayMainMenu() {
-        System.out.println("================================================");
+        System.out.println("==============================================================");
         System.out.println("You are at Main Menu. Please enter your choice: ");
         System.out.println("1. Search movies."); // Check sear availability, selection of seats and Booking tickets are inside this option
         System.out.println("2. List movies"); // when listing movies, we list all movies at one time but organize them in different groups by their type
@@ -67,6 +67,7 @@ public class MovieGoerOperations {
         System.out.println("8. Write review and give rating for movies you have seen");
         System.out.println("9. Update your profile(Email, mobile no, age)");
         System.out.println("10. Exit");
+        System.out.println("==============================================================");
 
     }
 
@@ -210,9 +211,9 @@ public class MovieGoerOperations {
     private void checkSeatAvailability() {
         System.out.println("These are the movies that are showing: ");
         // only currently showing & preview movies are displayed
-        System.out.println("==============================");
+        System.out.println("===========================================");
         movieInfoDB.listMoviesByStatus("Currently Showing");
-        System.out.println("==============================");
+        System.out.println("===========================================");
         movieInfoDB.listMoviesByStatus("Preview");
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the movieID you want to book: ");
@@ -228,16 +229,15 @@ public class MovieGoerOperations {
     private void checkSeatAvailability(int movieID) {
         MovieInfo m = movieInfoDB.getMovieInfoByMovieID(movieID);
         System.out.println("These are the cineplexes that are showing the movie: ");
-        m.displayCineplexes(cineplexDB, todayDate.getCurrentDate(), todayDate.getCurrentTime());
+        if (!m.displayCineplexes(cineplexDB, todayDate.getCurrentDate(), todayDate.getCurrentTime())) {
+            System.out.println("No current cineplexes are showing this movie!");
+            pressToReturn();
+        }
         System.out.println("Please select the cineplexID: ");
         Scanner sc = new Scanner(System.in);
         int cineplexID = Integer.parseInt(sc.nextLine());
 
         HashMap<String, MovieSchedule> movieSchedules = cineplexDB.getCineplexByID(cineplexID).getMovieScheduleByID(movieID, todayDate.getCurrentDate(), todayDate.getCurrentTime());
-        if (movieSchedules.isEmpty()) {
-            System.out.println("There's no movie schedules for this movie in the future");
-            pressToReturn();
-        }
 
         HashSet<String> toPrint = new HashSet<>();
         for (String s : movieSchedules.keySet()) {
