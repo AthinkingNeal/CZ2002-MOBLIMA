@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.Serializable;
 
+/**
+ * The type Cineplex db.
+ */
 public class CineplexDB implements Database, Serializable {
     private static final long serialVersionUID = 1L;
     private HashMap<Integer, Cineplex> cineplexMap;
@@ -39,7 +42,7 @@ public class CineplexDB implements Database, Serializable {
     /**
      * Deletes one cineplex in the database
      *
-     * @param cineplexID
+     * @param cineplexID the cineplex id
      */
     public void deleteRecord(int cineplexID){
         if (cineplexMap.containsKey(cineplexID) == false) {
@@ -86,7 +89,7 @@ public class CineplexDB implements Database, Serializable {
     /**
      * Given a cineplexID, decide whether this cineplex is in current database
      *
-     * @param cineplexID
+     * @param cineplexID the cineplex id
      * @return a boolean value that indicates whether the cineplex is in current database
      */
     public boolean findCineplexByID(int cineplexID) {
@@ -96,6 +99,12 @@ public class CineplexDB implements Database, Serializable {
             return false;
     }
 
+    /**
+     * Gets cineplex by id.
+     *
+     * @param cineplexID the cineplex id
+     * @return the cineplex by id
+     */
     public Cineplex getCineplexByID(int cineplexID) {
         if (findCineplexByID(cineplexID))
             return this.cineplexMap.get(cineplexID);

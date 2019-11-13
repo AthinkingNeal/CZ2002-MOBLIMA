@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
+/**
+ * The type Movie goer operations.
+ */
 public class MovieGoerOperations {
     private MovieInfoDB movieInfoDB;  // You can not declare this DB as Database because of Static binding
     private CineplexDB cineplexDB;    // If that is the case, you can only use the methods declared in Database.
@@ -14,6 +17,16 @@ public class MovieGoerOperations {
     private DateDB todayDate;
 
 
+    /**
+     * Instantiates a new Movie goer operations.
+     *
+     * @param movieInfoDBFile     the movie info db file
+     * @param cineplexDBFile      the cineplex db file
+     * @param paymentRecordDBFile the payment record db file
+     * @param priceTableFile      the price table file
+     * @param movieGoerDBFile     the movie goer db file
+     * @param dateFile            the date file
+     */
     public MovieGoerOperations(String movieInfoDBFile, String cineplexDBFile, String paymentRecordDBFile, String priceTableFile, String movieGoerDBFile, String dateFile) {
         // Login process, we assume that the MovieGoerID
         movieInfoDB = new MovieInfoDB(movieInfoDBFile);

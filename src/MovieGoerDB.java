@@ -2,11 +2,19 @@ import java.util.*;
 import java.io.*;
 
 
+/**
+ * The type Movie goer db.
+ */
 public class MovieGoerDB implements Database {
     private HashMap<Integer, MovieGoer> MovieGoerMap;
     private String filename;
 
 
+    /**
+     * Instantiates a new Movie goer db.
+     *
+     * @param filename the filename
+     */
     public MovieGoerDB(String filename) {
         this.filename = filename;
         try {
@@ -24,6 +32,15 @@ public class MovieGoerDB implements Database {
             MovieGoerMap = new HashMap<Integer, MovieGoer>();
     }
 
+    /**
+     * Add record.
+     *
+     * @param name         the name
+     * @param movieGoerID  the movie goer id
+     * @param mobileNumber the mobile number
+     * @param emailAddress the email address
+     * @param age          the age
+     */
     public void addRecord(String name, int movieGoerID, int mobileNumber, String emailAddress,int age){
         MovieGoer temp = new MovieGoer(name,movieGoerID,mobileNumber,emailAddress,age);
         MovieGoerMap.put(movieGoerID,temp);
@@ -53,6 +70,11 @@ public class MovieGoerDB implements Database {
     }
 
 
+    /**
+     * Add record.
+     *
+     * @param movieGoerID the movie goer id
+     */
     public void addRecord(int movieGoerID) {
         String dummy;
         Scanner sc = new Scanner(System.in);
@@ -75,7 +97,7 @@ public class MovieGoerDB implements Database {
     /**
      * Return an instance of movie goer by the given movieGoerID
      *
-     * @param movieGoerID
+     * @param movieGoerID the movie goer id
      * @return an instance of MovieGoer
      */
     public MovieGoer findRecordByMovieGoerID(int movieGoerID){
@@ -112,6 +134,11 @@ public class MovieGoerDB implements Database {
         System.out.println("Update Record");
     }
 
+    /**
+     * Update record.
+     *
+     * @param movieGoerID the movie goer id
+     */
     public void updateRecord(int movieGoerID) {
         MovieGoer m = findRecordByMovieGoerID(movieGoerID);
         System.out.println("Which attribute would you like to update?");

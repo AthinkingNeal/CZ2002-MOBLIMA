@@ -6,15 +6,41 @@ import java.util.Scanner;
  */
 public class MoblimaApp {
     private boolean isStaff;
+    /**
+     * The constant cineplexDBFile.
+     */
     public static String cineplexDBFile = "src/bin/cineplexDB.ser";
+    /**
+     * The constant movieInfoDBFile.
+     */
     public static String movieInfoDBFile = "src/bin/movieInfoDB.ser";
+    /**
+     * The constant dateDBFile.
+     */
     public static String dateDBFile = "src/bin/dateDB.ser";
+    /**
+     * The constant priceTableFile.
+     */
     public static String priceTableFile = "src/bin/priceTable.ser";
+    /**
+     * The constant staffRecordDBFile.
+     */
     public static String staffRecordDBFile = "src/bin/staffRecordDB.ser";
+    /**
+     * The constant paymentRecordDBFile.
+     */
     public static String paymentRecordDBFile = "src/bin/paymentRecordDB.ser";
+    /**
+     * The constant movieGoerDBFile.
+     */
     public static String movieGoerDBFile = "src/bin/movieGoerDB.ser";
 
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter your choice:");

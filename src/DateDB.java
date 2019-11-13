@@ -14,11 +14,19 @@ import java.util.Scanner;
 
  */
 
+/**
+ * The type Date db.
+ */
 public class DateDB {
     private String filename;
     // the value of the hashmap is a boolean array, containing [isHoliday, isHolidayEve]
     private ArrayList<String> dateList = new ArrayList<String>();
 
+    /**
+     * Instantiates a new Date db.
+     *
+     * @param filename the filename
+     */
     public DateDB(String filename) {
         this.filename = filename;
         try {
@@ -61,7 +69,7 @@ public class DateDB {
      *
      * @param yourDate the date to be determined whether is a weekend
      * @return a boolean value that indicates whether the input date is a weekend or not
-     * @throws ParseException
+     * @throws ParseException the parse exception
      */
     public boolean getIsWeekend(String yourDate) throws ParseException {
         Calendar calendar = Calendar.getInstance();
@@ -73,6 +81,7 @@ public class DateDB {
 
     /**
      * Decide whether an input date is holiday
+     *
      * @param date the input date
      * @return a boolean value that indicates whether the input date is a holiday or not
      */
@@ -80,6 +89,9 @@ public class DateDB {
         return dateList.contains(date);
     }
 
+    /**
+     * Add holiday.
+     */
     public void addHoliday() {
         System.out.println("Enter the date to be set as holiday (yyyy-MM-dd)");
         Scanner sc = new Scanner(System.in);
@@ -92,6 +104,9 @@ public class DateDB {
         }
     }
 
+    /**
+     * Save to file.
+     */
     public void saveToFile() {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
