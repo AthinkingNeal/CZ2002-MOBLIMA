@@ -112,6 +112,9 @@ public class PaymentRecord implements Serializable {
     }
 
 
+    /**
+     * print the information of one PaymentRecord
+     */
     public void printRecord() {
         if (canceled)
             return;
