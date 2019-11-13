@@ -149,13 +149,14 @@ public class MovieInfo implements Serializable {
 
 
     /**
-     * Display cineplexes.
      *
-     * @param cineplexDB  the cineplex db
-     * @param currentDate the current date
-     * @param currentTime the current time
+     * @param cineplexDB
+     * @param currentDate
+     * @param currentTime
+     * @return boolean whether this movie is available in a particular cineplex
      */
-    public void displayCineplexes(CineplexDB cineplexDB, String currentDate, String currentTime) {
+    public boolean displayCineplexes(CineplexDB cineplexDB, String currentDate, String currentTime) {
+        boolean available = false;
         for (int i = 0; i < cineplexes.size(); i++) {
             Cineplex c = cineplexDB.getCineplexByID(cineplexes.get(i));
             if (c.getMovieScheduleByID(this.getMovieId(), currentDate, currentTime).size() != 0) {
