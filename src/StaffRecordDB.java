@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -71,16 +72,20 @@ public class StaffRecordDB implements Database {
         int trial2 = 0;
         char[] passwordArray = console.readPassword("Please create your password: ");
         char[] passwordArray2 = console.readPassword("Please confirm your password: ");
+        String s1 = new String(passwordArray);
+        String s2 = new String(passwordArray2);
 //        System.out.println("Please create your password:");
 //        String passwordArray = s.next();
 //        dummy = s.nextLine();
 //        System.out.println("Please reenter your password:");
 //        String passwordArray2 = s.next();
 //        dummy = s.nextLine();
-        while (!passwordArray2.equals(passwordArray) && ++trial2 <= 3) {
+        while ((!s1.equals(s2)) && (++trial2 <= 3)) {
             System.out.println("The password does not match with the previous one! Try again!");
             passwordArray = console.readPassword("Please create your password: ");
             passwordArray2 = console.readPassword("Please confirm your password: ");
+            s1 = new String(passwordArray);
+            s2 = new String(passwordArray2);
 //            System.out.println("Please create your password:");
 //            passwordArray = s.next();
 //            dummy = s.nextLine();
@@ -112,10 +117,17 @@ public class StaffRecordDB implements Database {
             int trial2 = 0;
             char[] passwordArray = console.readPassword("Please type in your new password: ");
             char[] passwordArray2 = console.readPassword("Please confirm your new password: ");
-            while (!passwordArray2.equals(passwordArray) && ++trial2 <= 3) {
+            String s1 = new String(passwordArray);
+            String s2 = new String(passwordArray2);
+            System.out.println("Hello!");
+            while ((!s1.equals(s2)) && (++trial2 <= 3)) {
+                System.out.println(s1);
+                System.out.println(s2);
                 System.out.println("The password does not match with the previous one! Try again!");
                 passwordArray = console.readPassword("Please update your password: ");
                 passwordArray2 = console.readPassword("Please confirm your new password: ");
+                s1 = new String(passwordArray);
+                s2 = new String(passwordArray2);
             }
             if (trial2 > 3) {
                 System.out.println("Too many trials! Program exiting!");
