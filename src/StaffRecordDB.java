@@ -1,6 +1,5 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.io.*;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -10,11 +9,10 @@ public class StaffRecordDB implements Database {
     private String filename;
 
     /**
-     Initiate the class using a txt file to populate userPasswordRecord
+     * Initiate the class using a txt file to populate userPasswordRecord
      */
 
-    public StaffRecordDB(String filename)
-    {
+    public StaffRecordDB(String filename) {
         this.filename = filename;
         try {
             FileInputStream fis = new FileInputStream(filename);
@@ -34,9 +32,9 @@ public class StaffRecordDB implements Database {
 
 
     /**
-     * Unit testing
+     * main
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         StaffRecordDB record = new StaffRecordDB(MoblimaApp.staffRecordDBFile);
 //        for(int i = 0; i < 3; i++)
 //        {
@@ -49,11 +47,10 @@ public class StaffRecordDB implements Database {
     }
 
     /**
-     Enable adding of a new staff record;
-     new staffID must be different than existing usernames;
+     * Enable adding of a new staff record;
+     * new staffID must be different than existing usernames;
      */
-    public void addRecord()
-    {
+    public void addRecord() {
         int trial = 0;
         Scanner s = new Scanner(System.in);
         System.out.println("Please input a new staffID ");
@@ -70,26 +67,26 @@ public class StaffRecordDB implements Database {
             System.exit(0);
         }
         // if does not exist:
-//        Console console = System.console();
+        Console console = System.console();
         int trial2 = 0;
-//        char[] passwordArray = console.readPassword("Please create your password: ");
-//        char[] passwordArray2 = console.readPassword("Please confirm your password: ");
-        System.out.println("Please create your password:");
-        String passwordArray = s.next();
-        dummy = s.nextLine();
-        System.out.println("Please reenter your password:");
-        String passwordArray2 = s.next();
-        dummy = s.nextLine();
+        char[] passwordArray = console.readPassword("Please create your password: ");
+        char[] passwordArray2 = console.readPassword("Please confirm your password: ");
+//        System.out.println("Please create your password:");
+//        String passwordArray = s.next();
+//        dummy = s.nextLine();
+//        System.out.println("Please reenter your password:");
+//        String passwordArray2 = s.next();
+//        dummy = s.nextLine();
         while (!passwordArray2.equals(passwordArray) && ++trial2 <= 3) {
             System.out.println("The password does not match with the previous one! Try again!");
-//            passwordArray = console.readPassword("Please create your password: ");
-//            passwordArray2 = console.readPassword("Please confirm your password: ");
-            System.out.println("Please create your password:");
-            passwordArray = s.next();
-            dummy = s.nextLine();
-            System.out.println("Please reenter your password:");
-            passwordArray2 = s.next();
-            dummy = s.nextLine();
+            passwordArray = console.readPassword("Please create your password: ");
+            passwordArray2 = console.readPassword("Please confirm your password: ");
+//            System.out.println("Please create your password:");
+//            passwordArray = s.next();
+//            dummy = s.nextLine();
+//            System.out.println("Please reenter your password:");
+//            passwordArray2 = s.next();
+//            dummy = s.nextLine();
         }
         if (trial2 > 3) {
             System.out.println("Too many trials! Program exiting!");
@@ -165,16 +162,15 @@ public class StaffRecordDB implements Database {
             System.out.println("File input error");
         }
     }
-    
+
     /**
-     Prompts staff to enter staffID and username;
-     If all inputs are correct, login is successful;
-     Password is masked by asterisks;
-     returns true if login is successful.
-     Only runs in console! not in IDE!
+     * Prompts staff to enter staffID and username;
+     * If all inputs are correct, login is successful;
+     * Password is masked by asterisks;
+     * returns true if login is successful.
+     * Only runs in console! not in IDE!
      */
-    public boolean login()
-    {
+    public boolean login() {
         System.out.println("Please log in first.");
 
         int trial = 0;
@@ -184,12 +180,12 @@ public class StaffRecordDB implements Database {
             System.out.println("Please enter your staff ID:");
             String staffID = s.next();
             String dummy = s.nextLine();
-            System.out.println("Please enter your password:");
-            String password = s.next();
-            dummy = s.nextLine();
-//            Console console = System.console();
-//            char[] passwordArray = console.readPassword("Please enter your password: ");
-//            String password = new String(passwordArray);
+//            System.out.println("Please enter your password:");
+//            String password = s.next();
+//            dummy = s.nextLine();
+            Console console = System.console();
+            char[] passwordArray = console.readPassword("Please enter your password: ");
+            String password = new String(passwordArray);
             if (this.staffIDPasswordRecord.containsKey(staffID)) {
                 if (this.staffIDPasswordRecord.get(staffID).equals(password)) {
                     System.out.println("Successful Login!");
