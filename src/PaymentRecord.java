@@ -113,7 +113,7 @@ public class PaymentRecord implements Serializable {
 
 
     public void printRecord() {
-        if (canceled)
+        if (canceled) //TODO if cancelled do we still show the cancellation status?
             return;
         String temp = "Following are your record information: ";
         temp += "\nTransactionID: " + getTID();

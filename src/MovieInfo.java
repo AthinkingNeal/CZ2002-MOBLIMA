@@ -235,8 +235,8 @@ public class MovieInfo implements Serializable {
         }
 
         public void displayReviewRating() {
-            System.out.println("    User: " + moviegoerID);
-            System.out.println("    Review:" + review);
+            System.out.println("    MoviegoerID: " + moviegoerID);
+            System.out.println("    Review: " + review);
             System.out.println("    Rating: " + rating + '\n');
         }
     }

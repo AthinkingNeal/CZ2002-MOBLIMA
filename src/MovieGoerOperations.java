@@ -343,6 +343,11 @@ public class MovieGoerOperations {
         }
         paymentRecordDB.updateRecord(TID, true);
 
+        // need to decrease the sales of tickets
+        MovieInfo temp = movieInfoDB.getMovieInfoByMovieID(r.getMovieID());
+        int newNumberOfSales = temp.getNumOfSales() - r.getSeatID().size();
+        temp.setNumOfSales(newNumberOfSales);
+
         System.out.println("You have successfully canceled your booking!");
         cineplexDB.saveToFile();
         paymentRecordDB.saveToFile();
@@ -374,7 +379,7 @@ public class MovieGoerOperations {
             System.out.println("Thank you! Review added!");
             pressToReturn();
         }
-
+//TODO shall we prevent users from entering a second review?
 
     }
 
