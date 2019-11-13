@@ -641,4 +641,9 @@ public class MovieInfoDB implements Database, Serializable {
         movieInfoRecord.put(movieId, newMovie);
         System.out.println("New movie info successfully added! ");
     }
+
+    public boolean checkMovieIDExists(int movieID) {
+        return movieInfoRecord.containsKey(movieID);
+    }
+
 }
