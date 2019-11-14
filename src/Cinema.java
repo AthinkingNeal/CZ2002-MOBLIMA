@@ -2,7 +2,8 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * The type Cinema.
+ * Cinema class, contains a hashmap about movie schedules in this cinema
+ * The hashmap records the information about which movie is going to be played at which time in this cinema
  */
 public class Cinema implements Serializable {
     private static final long serialVersionUID = 1L;

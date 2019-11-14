@@ -7,7 +7,8 @@ import java.util.Scanner;
 import java.io.Serializable;
 
 /**
- * The type Cineplex db.
+ * Cineplex Database class, contains a hashmap about Cineplex.
+ * The hashmap records all the cineplexs we are interacting with
  */
 public class CineplexDB implements Database, Serializable {
     private static final long serialVersionUID = 1L;
