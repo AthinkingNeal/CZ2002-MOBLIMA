@@ -150,9 +150,9 @@ public class MovieInfo implements Serializable {
 
     /**
      *
-     * @param cineplexDB
-     * @param currentDate
-     * @param currentTime
+     * @param cineplexDB    the cineplex DB used
+     * @param currentDate   current date
+     * @param currentTime   current time
      * @return returns the cineplex that are showing upcoming sessions of this movie
      */
     public ArrayList<Integer> displayCineplexes(CineplexDB cineplexDB, String currentDate, String currentTime) {

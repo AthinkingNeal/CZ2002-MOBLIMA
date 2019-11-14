@@ -147,6 +147,8 @@ public class Cinema implements Serializable {
 
     /**
      * Allow staff to delete a single record of movie schedule
+     *
+     * @param movieID ID of the movie
      */
     public void deleteRecord(int movieID) {
         displayAllSchedulesOfMovie(movieID);
@@ -168,6 +170,8 @@ public class Cinema implements Serializable {
     /**
      * Allow staff to update a single record of movie schedule
      * Only allow staff to update
+     *
+     * @param movieID ID of the movie
      */
     public void updateRecord(int movieID) {
         Scanner s = new Scanner(System.in);
@@ -230,7 +234,7 @@ public class Cinema implements Serializable {
      * get all schedules of a movie in this cinema
      *
      * @param movieID movieID of s aschedule
-     * @return returns a hashmap<String, Movieschedule> that containing schedules of a movie
+     * @return returns a hashmap Key: String, Value: Movieschedule that containing schedules of a movie
      */
     public HashMap<String, MovieSchedule> getAllSchedulesOfMovie(int movieID) {
         HashMap<String, MovieSchedule> rst = new HashMap<>();
