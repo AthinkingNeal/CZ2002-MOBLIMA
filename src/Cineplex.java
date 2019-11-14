@@ -161,5 +161,15 @@ public class Cineplex implements Serializable {
             return null;
     }
 
+    /**
+     * Checks whether the input cinemaID is a valid cinema ID
+     *
+     * @param cinemaID input cinemaID
+     * @return boolean of whether the cinemaID is valid
+     */
+    public boolean containCinemaByCinemaID(int cinemaID) {
+        return cinemaHashMap.containsKey(cinemaID);
+    }
+
 
 }

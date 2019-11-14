@@ -38,24 +38,26 @@ public class MovieInfoDB implements Database, Serializable {
             this.movieInfoRecord = new HashMap<Integer, MovieInfo>();
     }
 
-//
-//    public static void main(String args[]) {
-//        String filename = MoblimaApp.movieInfoDBFile;
-//        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-//        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-//        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
 
+    public static void main(String args[]) {
+        String filename = MoblimaApp.movieInfoDBFile;
+        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
+//        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
+//
 //        movieInfoDB.listPermittedCineplex(10004);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.saveToFile();
-        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
-        // System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
-        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getShowingStatus());
+//        System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
+//         System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
+        for (Integer i : movieInfoDB.getMovieInfoByMovieID(10007).getCineplexes()) {
+            System.out.println(i);
+        }
 
 
-//    }
+    }
 
     /**
      * Updates a movie record in specified cineplexDB
@@ -455,15 +457,15 @@ public class MovieInfoDB implements Database, Serializable {
         ArrayList<MovieInfo> previewMovies = getByStatus("Preview");
         ArrayList<MovieInfo> forthcomingMovies = getByStatus("Forthcoming");
 
-        System.out.println(" |Currently showing movies| ");
+        System.out.println("|Currently showing movies| ");
         for (int i = 0; i < currentMovies.size(); i++)
             System.out.println("Name: " + currentMovies.get(i).getTitle() + " [MovieID: " + currentMovies.get(i).getMovieId() + "]");
         System.out.println();
-        System.out.println(" |Movies for preview| ");
+        System.out.println("|Movies for preview| ");
         for (int i = 0; i < previewMovies.size(); i++)
             System.out.println("Name: " + previewMovies.get(i).getTitle() + " [MovieID: " + previewMovies.get(i).getMovieId() + "]");
         System.out.println();
-        System.out.println(" |Forthcoming movies| ");
+        System.out.println("|Forthcoming movies| ");
         for (int i = 0; i < forthcomingMovies.size(); i++)
             System.out.println("Name: " + forthcomingMovies.get(i).getTitle() + " [MovieID: " + forthcomingMovies.get(i).getMovieId() + "]");
     }
@@ -487,16 +489,12 @@ public class MovieInfoDB implements Database, Serializable {
         System.out.println("Please enter movie ID");
         Scanner s = new Scanner(System.in);
         int mid = Integer.parseInt(s.nextLine());
-        MovieInfo info = movieInfoRecord.get(mid);
-        for (int cid : info.getCineplexes()) {
-            System.out.println("In Cineplex " + cid + " :");
-            for (Cinema cinema : cineplexDB.getCineplexByID(cid).getCinemas()) {
-                System.out.println("   In cinema " + cinema.getCinemaID() + " :");
-                cinema.displayAllSchedulesOfMovie(mid);
-            }
+        if (this.checkMovieIDExists(mid)) {
+            MovieInfo info = movieInfoRecord.get(mid);
+            cineplexDB.displayAllMovieSchedules(info);
+        } else {
+            System.out.println("Invalid MovieID!");
         }
-
-
     }
 
     /**

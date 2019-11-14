@@ -113,4 +113,12 @@ public class Layout implements Serializable {
         int y = Integer.parseInt(String.valueOf(seatID.charAt(1)));
         layout[x][y].bookSeat();
     }
+
+    public boolean checkValidSeatID(String seatID) {
+        int x = seatIDAlphabets.indexOf(seatID.charAt(0));
+        int y = Integer.parseInt(String.valueOf(seatID.charAt(1)));
+        if (x >= 0 && x < this.layout[0].length && y >= 0 && y < this.layout[0].length)
+            return true;
+        else return false;
+    }
 }
