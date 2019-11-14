@@ -213,7 +213,15 @@ public class PriceTable {
      */
     public void displayContent() {
         priceTableRecord.entrySet().forEach(entry -> {
-            System.out.println(entry.getKey() + " " + entry.getValue());
+            String category = entry.getKey();
+            double initialPrice = priceTableRecord.get("initial price");
+            if(category.equals("initial price")) {
+                System.out.println(category + " " + entry.getValue());
+            }
+            else{
+                double currentPrice = entry.getValue() + initialPrice;
+                System.out.println(category + " " + currentPrice);
+            }
         });
     }
 

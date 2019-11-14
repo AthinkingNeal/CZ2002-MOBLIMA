@@ -118,13 +118,15 @@ public class StaffOperations {
             }
         }
         catch (NullPointerException e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            //System.out.println(e.getMessage());
+            //e.printStackTrace();
+            System.out.println("You have entered an invalid input, please try again!");
             startOperations();
         }
         catch (RuntimeException e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            //System.out.println(e.getMessage());
+            //e.printStackTrace();
+            System.out.println("You have entered an invalid input, please try again!");
             startOperations();
         }
     }
