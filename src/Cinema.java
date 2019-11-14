@@ -14,7 +14,7 @@ public class Cinema implements Serializable {
     private CinemaClass cinemaClass;
 
     /**
-     * The enum Cinema class.
+     * The enum Cinema class, including Platinum, Golden, Normal.
      */
     public enum CinemaClass {
         /**
@@ -33,7 +33,7 @@ public class Cinema implements Serializable {
 
 
     /**
-     * Gets cinema schedule.
+     * Returns a hashMap containing cinema schedule.
      *
      * @return the cinema schedule
      */
@@ -116,9 +116,9 @@ public class Cinema implements Serializable {
     }
 
     /**
-     * Add record.
+     * Add a record.
      *
-     * @param m the m
+     * @param m the movieinfo added to the record
      */
     public void addRecord(MovieInfo m) {
         Scanner s = new Scanner(System.in);
@@ -227,7 +227,7 @@ public class Cinema implements Serializable {
 //    }
 
     /**
-     * only all schedules of a movie in this cinema
+     * get all schedules of a movie in this cinema
      *
      * @param movieID movieID of s aschedule
      * @return returns a hashmap<String, Movieschedule> that containing schedules of a movie
@@ -242,7 +242,7 @@ public class Cinema implements Serializable {
     }
 
     /**
-     * Gets by date starttime.
+     * Gets movie schedule by date starttime.
      *
      * @param dateStarttime the date starttime
      * @return the by date starttime

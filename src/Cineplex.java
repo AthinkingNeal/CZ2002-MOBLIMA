@@ -33,7 +33,7 @@ public class Cineplex implements Serializable {
     // we assume that one movie will only exist in one MovieSchedule at a specific time.
 
     /**
-     * returns only upcoming movie schedules
+     * returns upcoming movie schedules according to movie time and time
      *
      * @param movieID     the movie id
      * @param currentDate date when the user is booking ticket
@@ -55,7 +55,7 @@ public class Cineplex implements Serializable {
     }
 
     /**
-     * Allow the staff to add one Cinema to the Database
+     * Allow the staff to add one Cinema to the Database by manual input
      */
     public void addCinema() {
         Scanner sc = new Scanner(System.in);

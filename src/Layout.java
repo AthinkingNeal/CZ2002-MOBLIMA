@@ -83,7 +83,7 @@ public class Layout implements Serializable {
     }
 
     /**
-     * Get layout seat [ ] [ ].
+     * Get the cinema layout.
      *
      * @return the seat [ ] [ ]
      */

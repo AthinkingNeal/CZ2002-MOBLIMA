@@ -90,7 +90,7 @@ public class DateDB {
     }
 
     /**
-     * Add holiday.
+     * Add holiday manually.
      */
     public void addHoliday() {
         System.out.println("Enter the date to be set as holiday (yyyy-MM-dd)");

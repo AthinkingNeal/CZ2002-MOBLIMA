@@ -141,6 +141,9 @@ public class CineplexDB implements Database, Serializable {
 
     }
 
+    /**
+     * Save the data into the serialized file
+     */
     public void saveToFile() {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);

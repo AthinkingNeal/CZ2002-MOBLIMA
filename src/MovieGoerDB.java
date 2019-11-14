@@ -33,7 +33,7 @@ public class MovieGoerDB implements Database {
     }
 
     /**
-     * Add record.
+     * Add a movieGoer record.
      *
      * @param name         the name
      * @param movieGoerID  the movie goer id
