@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -65,11 +66,32 @@ public class MoblimaApp {
     public static String movieGoerDBFile = "src/bin/movieGoerDB.ser";
 
     public static void main(String args[]) {
+        try{
+            mainOperation();
+        }
+        catch (InputMismatchException e){
+            //System.out.println(e.getMessage());
+            System.out.println("You have entered an invalid input, please try again!");
+            mainOperation();
+        }
+        catch (RuntimeException e){
+            //System.out.println(e.getMessage());
+            System.out.println("You have entered an invalid input, please try again!");
+            mainOperation();
+        }
+    }
+
+
+    public static void mainOperation() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter your choice:");
         System.out.println("1.Staff");
         System.out.println("2.MovieGoer");
         int choice = sc.nextInt();
+        while(choice != 1 && choice != 2){
+            System.out.println("Please enter 1 or 2 ");
+            choice = sc.nextInt();
+        }
         boolean isStaff;
         if (choice == 1) isStaff = true;
         else isStaff = false;
@@ -79,9 +101,10 @@ public class MoblimaApp {
         } else {
             MovieGoerOperations movieGoerOperations = new MovieGoerOperations(movieInfoDBFile, cineplexDBFile, paymentRecordDBFile, priceTableFile, movieGoerDBFile, dateDBFile);
         }
-
     }
 }
+
+
 
 
 
