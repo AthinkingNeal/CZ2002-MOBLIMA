@@ -147,19 +147,23 @@ public class MovieInfo implements Serializable {
         return cineplexes;
     }
 
+
     /**
-     * Display cineplexes.
      *
-     * @param cineplexDB  the cineplex db
-     * @param currentDate the current date
-     * @param currentTime the current time
+     * @param cineplexDB
+     * @param currentDate
+     * @param currentTime
+     * @return returns the cineplex that are showing upcoming sessions of this movie
      */
-    public void displayCineplexes(CineplexDB cineplexDB, String currentDate, String currentTime) {
+    public ArrayList<Integer> displayCineplexes(CineplexDB cineplexDB, String currentDate, String currentTime) {
+        ArrayList<Integer> rst = new ArrayList<>();
         for (int i = 0; i < cineplexes.size(); i++) {
             Cineplex c = cineplexDB.getCineplexByID(cineplexes.get(i));
-            if (c.getMovieScheduleByID(this.getMovieId(), currentDate, currentTime).size() != 0)
-                System.out.println("Cineplex ID: " + c.getCineplexID() + " Name: " + c.getName() + " Location: " + c.getLocation());
+            if (c.getMovieScheduleByID(this.getMovieId(), currentDate, currentTime).size() != 0) {
+                rst.add(c.getCineplexID());
+            }
         }
+        return rst;
     }
 
 
@@ -396,7 +400,7 @@ public class MovieInfo implements Serializable {
         if (getOverAllRating() != -1)
             temp.append("\nOverall Rating: ").append(getOverAllRating());
         else
-            temp.append("\nOverall Rating: N.A");
+            temp.append("\nOverall Rating: N.A.");
 
         if (reviewsAndRating.size() == 0)
             temp.append("\nReviews: N.A.");

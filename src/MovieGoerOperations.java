@@ -55,7 +55,7 @@ public class MovieGoerOperations {
      * Display the main menu of operations that a movie goer can perform
      */
     private void displayMainMenu() {
-        System.out.println("================================================");
+        System.out.println("==============================================================");
         System.out.println("You are at Main Menu. Please enter your choice: ");
         System.out.println("1. Search movies."); // Check sear availability, selection of seats and Booking tickets are inside this option
         System.out.println("2. List movies"); // when listing movies, we list all movies at one time but organize them in different groups by their type
@@ -67,6 +67,7 @@ public class MovieGoerOperations {
         System.out.println("8. Write review and give rating for movies you have seen");
         System.out.println("9. Update your profile(Email, mobile no, age)");
         System.out.println("10. Exit");
+        System.out.println("==============================================================");
 
     }
 
@@ -111,6 +112,9 @@ public class MovieGoerOperations {
                 saveToFile();
                 System.exit(0);
                 break;
+            default:
+                System.out.println("Invalid Choice! Try again!");
+                pressToReturn();
         }
 
     }
@@ -150,7 +154,7 @@ public class MovieGoerOperations {
             if (choice == 'Y' || choice == 'y')
                 viewMovieDetails(movieInfo.getMovieId());
             else {
-                pressToReturn();
+                startOperations();
             }
         }
     }
@@ -167,7 +171,13 @@ public class MovieGoerOperations {
         if (choice == 'Y' || choice == 'y') {
             System.out.println("Which movie detail do you want to view? Enter movie ID.");
             int movieID = s.nextInt();
-            viewMovieDetails(movieID);
+            if (movieInfoDB.checkMovieIDExists(movieID)) {
+                viewMovieDetails(movieID);
+            } else {
+                System.out.println("No such movieID exists!");
+                pressToReturn();
+            }
+
         } else {
             startOperations();
         }
@@ -210,15 +220,22 @@ public class MovieGoerOperations {
     private void checkSeatAvailability() {
         System.out.println("These are the movies that are showing: ");
         // only currently showing & preview movies are displayed
-        System.out.println("==============================");
+        System.out.println("===========================================");
         movieInfoDB.listMoviesByStatus("Currently Showing");
-        System.out.println("==============================");
+        System.out.println("===========================================");
         movieInfoDB.listMoviesByStatus("Preview");
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the movieID you want to book: ");
         int movieID = sc.nextInt();
-        if (movieInfoDB.checkMovieIDExists(movieID))
-            checkSeatAvailability(movieID);
+        if (movieInfoDB.checkMovieIDExists(movieID)) {
+            MovieInfo movieInfo = movieInfoDB.getMovieInfoByMovieID(movieID);
+            if (movieInfo.getShowingStatus().equals("Currently Showing") || movieInfo.getShowingStatus().equals("Preview"))
+                checkSeatAvailability(movieID);
+            else {
+                System.out.println("This movie is neither currently showing nor preview");
+                pressToReturn();
+            }
+        }
         else {
             System.out.println("This movieID is invalid.");
             pressToReturn();
@@ -227,18 +244,26 @@ public class MovieGoerOperations {
 
     private void checkSeatAvailability(int movieID) {
         MovieInfo m = movieInfoDB.getMovieInfoByMovieID(movieID);
-        System.out.println("These are the cineplexes that are showing the movie: ");
-        m.displayCineplexes(cineplexDB, todayDate.getCurrentDate(), todayDate.getCurrentTime());
-        System.out.println("Please select the cineplexID: ");
-        Scanner sc = new Scanner(System.in);
-        int cineplexID = Integer.parseInt(sc.nextLine());
-
-        HashMap<String, MovieSchedule> movieSchedules = cineplexDB.getCineplexByID(cineplexID).getMovieScheduleByID(movieID, todayDate.getCurrentDate(), todayDate.getCurrentTime());
-        if (movieSchedules.isEmpty()) {
-            System.out.println("There's no movie schedules for this movie in the future");
+        ArrayList<Integer> validCineplexes = m.displayCineplexes(cineplexDB, todayDate.getCurrentDate(), todayDate.getCurrentTime());
+        // check if there are cineplexes
+        if (validCineplexes.size() == 0) {
+            System.out.println("No current cineplexes are showing this movie!");
             pressToReturn();
         }
 
+        System.out.println("These are the cineplexes that are showing the movie: ");
+        for (Integer i : validCineplexes) {
+            System.out.println("Cineplex ID: " + i + " Name: " + cineplexDB.getCineplexByID(i).getName() + " Location: " + cineplexDB.getCineplexByID(i).getLocation());
+        }
+        System.out.println("Please select the cineplexID: ");
+        Scanner sc = new Scanner(System.in);
+        int cineplexID = Integer.parseInt(sc.nextLine());
+        // check cineplex input
+        if (!validCineplexes.contains(cineplexID)) {
+            System.out.println("Invalid cineplex ID!");
+            pressToReturn();
+        }
+        HashMap<String, MovieSchedule> movieSchedules = cineplexDB.getCineplexByID(cineplexID).getMovieScheduleByID(movieID, todayDate.getCurrentDate(), todayDate.getCurrentTime());
         HashSet<String> toPrint = new HashSet<>();
         for (String s : movieSchedules.keySet()) {
             toPrint.add(s.substring(0, 10));
@@ -251,6 +276,11 @@ public class MovieGoerOperations {
 
         System.out.println("Please select the date in this format yyyy-mm-dd:  ");
         String date = sc.nextLine();
+        // check date input
+        if (!toPrint.contains(date)) {
+            System.out.println("Invalid date!");
+            pressToReturn();
+        }
 
         for (String ms : movieSchedules.keySet()) {
             if (ms.substring(0, 10).equals(date))
@@ -259,6 +289,11 @@ public class MovieGoerOperations {
 
         System.out.println("Please select the start time of the movie session in this format hh-mm: ");
         String dateStarttime = date + '-' + sc.nextLine();
+        if (!movieSchedules.keySet().contains(dateStarttime)) {
+            System.out.println("Invalid datetime!");
+            pressToReturn();
+        }
+
         MovieSchedule selectedSchedule = movieSchedules.get(dateStarttime);
 
         // display the seat layout
@@ -268,7 +303,7 @@ public class MovieGoerOperations {
             double price = priceTable.getPrice(selectedSchedule.getIs3D(), selectedSchedule.getIsBlockbuster(), selectedSchedule.getCinemaClass(), movieGoer.getAge(), todayDate.IsHoliday(date), todayDate.getIsWeekend(date));
 
             System.out.println("The price of this movie session is: $" + price + " per ticket");
-            System.out.println("Do you want to proceed to book a seat and make payment? Enter Y to proceed/ Enter N to return to Main Menu");
+            System.out.println("Do you want to proceed to book a seat? Enter Y to proceed/ Enter N to return to Main Menu");
             char choice = sc.nextLine().charAt(0);
             if (choice == 'Y' || choice == 'y')
                 bookTickets(selectedSchedule, price);
@@ -278,6 +313,7 @@ public class MovieGoerOperations {
         } catch (ParseException e) {
             System.out.println("Invalid date format!");
         }
+
     }
 
     /**
@@ -290,7 +326,8 @@ public class MovieGoerOperations {
         Scanner s = new Scanner(System.in);
         int numTickets = Integer.parseInt(s.nextLine());
         ArrayList<String> seatIDs = new ArrayList<>();
-        for (int i = 0; i < numTickets; i++) {
+        int i = 0;
+        while (i < numTickets) {
             String temp = "This is the " + (i + 1);
             if (i + 1 == 1)
                 temp += "st";
@@ -303,22 +340,35 @@ public class MovieGoerOperations {
             System.out.println(temp + " ticket you are booking");
             System.out.println("Please enter the seat ID you would like to book: ");
             String seatID = s.nextLine();
+            if (!ms.getLayout().checkValidSeatID(seatID)) {
+                System.out.println("This seatID is invalid!");
+                continue;
+            }
             seatIDs.add(seatID);
-            ms.bookSeat(seatID);
-            System.out.println("This seat is successfully booked!");
+            System.out.println("This seat is successfully added to your cart!");
+            i += 1;
         }
-        addToPaymentRecordDB(ms, seatIDs, price); // add to record
 
-        // add sales to the corresponded movie info
-        MovieInfo temp = movieInfoDB.getMovieInfoByMovieID(ms.getMovieID());
-        int newNumberOfSales = temp.getNumOfSales() + numTickets;
-        temp.setNumOfSales(newNumberOfSales);
+        System.out.println("Would you like to make payment? Enter Y to proceed, N to return to main menu");
+        char choice = s.nextLine().charAt(0);
+        if (choice == 'Y' || choice == 'y') {
+            for (String seatID : seatIDs) {
+                ms.bookSeat(seatID);
+            }
+            addToPaymentRecordDB(ms, seatIDs, price); // add to record
+            // add sales to the corresponded movie info
+            MovieInfo temp = movieInfoDB.getMovieInfoByMovieID(ms.getMovieID());
+            int newNumberOfSales = temp.getNumOfSales() + numTickets;
+            temp.setNumOfSales(newNumberOfSales);
 
-        System.out.println("Booking complete!");
-        cineplexDB.saveToFile();
-        movieInfoDB.saveToFile();
-        paymentRecordDB.saveToFile();
-        pressToReturn();
+            System.out.println("Booking complete!");
+            cineplexDB.saveToFile();
+            movieInfoDB.saveToFile();
+            paymentRecordDB.saveToFile();
+            pressToReturn();
+        } else {
+            startOperations();
+        }
     }
 
     /**

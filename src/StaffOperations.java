@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -33,13 +35,14 @@ public class StaffOperations {
     }
 
     private void displayMainMenu() {
+        System.out.println("==========================================================");
         System.out.println("Please enter your choice: ");
         System.out.println("1. Configure the ticket prices system setting.");
         System.out.println("2. Configure the holiday dates system setting.");
         System.out.println("3. List all movies");
         System.out.println("4. List all schedules of a particular movie");
         System.out.println("5. Enter information about forthcoming movies");
-        System.out.println("6. Update information/Change status about Movies");
+        System.out.println("6. Update information about movies");
         System.out.println("7. Show detailed info of a movie");
         System.out.println("8. Add Movie Schedules for Currently Showing Movies");
         System.out.println("9. Update Movie Schedules for Currently Showing Movies");
@@ -50,6 +53,7 @@ public class StaffOperations {
         System.out.println("14. Update your staff password.");
         System.out.println("15. Add a Staff account for a new staff");
         System.out.println("16. Exit");
+        System.out.println("==========================================================");
     }
 
     private void startOperations() {
@@ -98,15 +102,18 @@ public class StaffOperations {
                 listCurrentTopByRating();
                 break;
             case 14:
-                staffRecordDB.updateRecord();
+                changePassword();
                 break;
             case 15:
-                staffRecordDB.addRecord();
+                addAccount();
                 break;
             case 16:
                 System.out.println("Have a nice day! Good bye!");
                 saveToFile();
                 System.exit(0);
+            default:
+                System.out.println("Invalid choice! Try again");
+                pressToReturn();
         }
     }
 
@@ -117,6 +124,18 @@ public class StaffOperations {
         date.saveToFile();
         priceTable.saveToFile();
         staffRecordDB.saveToFile();
+    }
+
+    private void changePassword() {
+        staffRecordDB.updateRecord();
+        staffRecordDB.saveToFile();
+        pressToReturn();
+    }
+
+    private void addAccount() {
+        staffRecordDB.addRecord();
+        staffRecordDB.saveToFile();
+        pressToReturn();
     }
 
     private void configureTicketPrice() {
@@ -159,35 +178,85 @@ public class StaffOperations {
         System.out.println("Which movie detail do you want to view? Enter movie ID.");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
-        MovieInfo movieInfo = movieInfoDB.getMovieInfoByMovieID(movieID);
-        movieInfo.displayMovieInfo();
-        pressToReturn();
+        if (movieInfoDB.checkMovieIDExists(movieID)) {
+            MovieInfo movieInfo = movieInfoDB.getMovieInfoByMovieID(movieID);
+            movieInfo.displayMovieInfo();
+            pressToReturn();
+        } else {
+            System.out.println("This movieID does not exist!");
+            pressToReturn();
+        }
+
     }
 
     private void addMovieSchedule() {
         System.out.println("Add new schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
-        System.out.println("Add new schedule for which cineplex? Enter cineplex ID");
-        int cineplexID = s.nextInt();
-        System.out.println("Add new schedule for which cinema? Enter cinema ID");
-        int cinemaID = s.nextInt();
-        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord(movieInfoDB.getMovieInfoByMovieID(movieID));
-        cineplexDB.saveToFile();
-        pressToReturn();
+        if (movieInfoDB.checkMovieIDExists(movieID)) {
+            MovieInfo info = movieInfoDB.getMovieInfoByMovieID(movieID);
+            System.out.println("These are the cineplexes schedules to show this movie: ");
+            ArrayList<Integer> validCineplexes = info.getCineplexes();
+            for (Integer cineplexID : validCineplexes) {
+                System.out.println("Cineplex ID: " + cineplexID);
+            }
+            System.out.println("Add new schedule for which cineplex? Enter cineplex ID");
+            int cineplexID = s.nextInt();
+            if (validCineplexes.contains(cineplexID)) {
+                System.out.println("Add new schedule for which cinema? Enter cinema ID");
+                int cinemaID = s.nextInt();
+                if (cineplexDB.getCineplexByID(cineplexID).containCinemaByCinemaID(cinemaID)) {
+                    cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).addRecord(movieInfoDB.getMovieInfoByMovieID(movieID));
+                    cineplexDB.saveToFile();
+                    pressToReturn();
+                } else {
+                    System.out.println("Invalid cinema ID!");
+                    pressToReturn();
+                }
+            } else {
+                System.out.println("Invalid cineplex ID!");
+                pressToReturn();
+            }
+
+
+        } else {
+            System.out.println("This movieID does not exist!");
+            pressToReturn();
+        }
+
     }
 
     private void updateMovieSchedule() {
         System.out.println("Update schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
-        System.out.println("which cineplex? Enter cineplex ID");
-        int cineplexID = s.nextInt();
-        System.out.println("which cinema? Enter cinema ID");
-        int cinemaID = s.nextInt();
-        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord();
-        cineplexDB.saveToFile();
-        pressToReturn();
+        if (movieInfoDB.checkMovieIDExists(movieID)) {
+            MovieInfo info = movieInfoDB.getMovieInfoByMovieID(movieID);
+            cineplexDB.displayAllMovieSchedules(info);
+            System.out.println("which cineplex? Enter cineplex ID");
+            int cineplexID = s.nextInt();
+            if (cineplexDB.findCineplexByID(cineplexID) && info.getCineplexes().contains(cineplexID)) {
+                System.out.println("which cinema? Enter cinema ID");
+                int cinemaID = s.nextInt();
+                // if it'd a valid cinema ID
+                if (cineplexDB.getCineplexByID(cineplexID).containCinemaByCinemaID(cinemaID)) {
+                    cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord(cinemaID);
+                    cineplexDB.saveToFile();
+                    pressToReturn();
+                } else {
+                    System.out.println("Invalid cinema ID!");
+                    pressToReturn();
+                }
+            } else {
+                System.out.println("Invalid cineplex ID!");
+                pressToReturn();
+            }
+        } else {
+            System.out.println("This movieID does not exist!");
+            pressToReturn();
+        }
+
+
 
     }
 
@@ -195,13 +264,35 @@ public class StaffOperations {
         System.out.println("delete schedule for which movie? Enter movie ID");
         Scanner s = new Scanner(System.in);
         int movieID = s.nextInt();
-        System.out.println("which cineplex? Enter cineplex ID");
-        int cineplexID = s.nextInt();
-        System.out.println("which cinema? Enter cinema ID");
-        int cinemaID = s.nextInt();
-        cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord();
-        cineplexDB.saveToFile();
-        pressToReturn();
+        if (movieInfoDB.checkMovieIDExists(movieID)) {
+            MovieInfo info = movieInfoDB.getMovieInfoByMovieID(movieID);
+            cineplexDB.displayAllMovieSchedules(info);
+
+            System.out.println("which cineplex to delete from? Enter cineplex ID");
+            int cineplexID = s.nextInt();
+            // if it's a valid cineplexID and this movie is scheduled in this cineplex
+            if (cineplexDB.findCineplexByID(cineplexID) && info.getCineplexes().contains(cineplexID)) {
+                System.out.println("which cinema to delete from? Enter cinema ID");
+                int cinemaID = s.nextInt();
+
+                // if it's a valid cinema ID
+                if (cineplexDB.getCineplexByID(cineplexID).containCinemaByCinemaID(cinemaID)) {
+                    cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).deleteRecord(movieID);
+                    cineplexDB.saveToFile();
+                    pressToReturn();
+                } else {
+                    System.out.println("Invalid cinema ID!");
+                    pressToReturn();
+                }
+            } else {
+                System.out.println("Invalid cineplex ID!");
+                pressToReturn();
+            }
+        } else {
+            System.out.println("This movieID does not exist!");
+            pressToReturn();
+        }
+
 
     }
 

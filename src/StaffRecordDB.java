@@ -116,7 +116,6 @@ public class StaffRecordDB implements Database {
         // if successfully logged in
         if (login()) {
             System.out.println("Enter your staff ID: ");
-            System.out.println("Hello!");
             Scanner s = new Scanner(System.in);
             String staffID = s.next();
             String dummy = s.nextLine();
@@ -171,7 +170,7 @@ public class StaffRecordDB implements Database {
         try {
             FileOutputStream fos = new FileOutputStream(this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            System.out.print("saving data to " + filename + "...");
+            System.out.println("saving data to " + filename + "...");
             oos.writeObject(staffIDPasswordRecord);
             oos.close();
         } catch (IOException e) {
@@ -198,12 +197,12 @@ public class StaffRecordDB implements Database {
             System.out.println("Please enter your staff ID:");
             String staffID = s.next();
             String dummy = s.nextLine();
-//            System.out.println("Please enter your password:");
-//            String password = s.next();
-//            dummy = s.nextLine();
-            Console console = System.console();
-            char[] passwordArray = console.readPassword("Please enter your password: ");
-            String password = new String(passwordArray);
+            System.out.println("Please enter your password:");
+            String password = s.next();
+            dummy = s.nextLine();
+//            Console console = System.console();
+//            char[] passwordArray = console.readPassword("Please enter your password: ");
+//            String password = new String(passwordArray);
             if (this.staffIDPasswordRecord.containsKey(staffID)) {
                 if (this.staffIDPasswordRecord.get(staffID).equals(password)) {
                     System.out.println("Successful Login!");
