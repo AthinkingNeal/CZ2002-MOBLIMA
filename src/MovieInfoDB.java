@@ -365,6 +365,7 @@ public class MovieInfoDB implements Database, Serializable {
      * get movie by status
      *
      * @param status status of one movie
+     * @return An array list containing movies of the input status.
      */
     private ArrayList<MovieInfo> getByStatus(String status) {
         ArrayList<MovieInfo> result = new ArrayList<MovieInfo>();
