@@ -200,7 +200,7 @@ public class MovieGoerOperations {
      * Title, Movie ID, Movie Category, Movie Age Limit, Showing Status, Synopsis, Available types (2D/3D),
      * Blockbuster(True/False), Director, Cast, Number of Sales, Overall Rating, Reviews
      *
-     * @param movieID
+     * @param movieID ID of the movie
      */
     private void viewMovieDetails(int movieID) { // inside searchMovies and listMovies
         Scanner sc = new Scanner(System.in);

@@ -363,6 +363,8 @@ public class MovieInfoDB implements Database, Serializable {
 
     /**
      * get movie by status
+     *
+     * @param status status of one movie
      */
     private ArrayList<MovieInfo> getByStatus(String status) {
         ArrayList<MovieInfo> result = new ArrayList<MovieInfo>();
