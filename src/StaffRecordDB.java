@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 /**
- * The type Staff record db.
+ * The database of staff records.
  */
 public class StaffRecordDB implements Database {
     // key: StaffID, value: password
