@@ -35,7 +35,7 @@ public class StaffRecordDB implements Database {
             staffIDPasswordRecord = new HashMap<String, String>();
     }
 
-    
+
     public static void main(String[] args) {
         StaffRecordDB record = new StaffRecordDB(MoblimaApp.staffRecordDBFile);
 //        for(int i = 0; i < 3; i++)

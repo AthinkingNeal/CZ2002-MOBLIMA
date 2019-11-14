@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * The type Payment record.
+ * The class containing users' Payment record.
  */
 public class PaymentRecord implements Serializable {
     private static final long serialVersionUID = 1L;

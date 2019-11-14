@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The type Movie info.
+ * The class describing the information of movie.
  */
 public class MovieInfo implements Serializable {
     /** Serialization

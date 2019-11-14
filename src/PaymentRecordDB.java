@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * The type Payment record db.
+ * The database of the payment record.
  */
 public class PaymentRecordDB implements Database {
     private HashMap<String, PaymentRecord> PaymentRecordMap;
