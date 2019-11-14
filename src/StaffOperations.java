@@ -254,7 +254,7 @@ public class StaffOperations {
                 int cinemaID = s.nextInt();
                 // if it'd a valid cinema ID
                 if (cineplexDB.getCineplexByID(cineplexID).containCinemaByCinemaID(cinemaID)) {
-                    cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord(cinemaID);
+                    cineplexDB.getCineplexByID(cineplexID).getCinemaByCinemaID(cinemaID).updateRecord(movieID);
                     cineplexDB.saveToFile();
                     pressToReturn();
                 } else {
@@ -269,9 +269,6 @@ public class StaffOperations {
             System.out.println("This movieID does not exist!");
             pressToReturn();
         }
-
-
-
     }
 
     private void deleteMovieSchedule() {
