@@ -9,31 +9,31 @@ public class MoblimaApp {
     /**
      * The constant cineplexDBFile.
      */
-    public static String cineplexDBFile = "src/bin/cineplexDB.ser";
+    public static String cineplexDBFile = "bin/cineplexDB.ser";
     /**
      * The constant movieInfoDBFile.
      */
-    public static String movieInfoDBFile = "src/bin/movieInfoDB.ser";
+    public static String movieInfoDBFile = "bin/movieInfoDB.ser";
     /**
      * The constant dateDBFile.
      */
-    public static String dateDBFile = "src/bin/dateDB.ser";
+    public static String dateDBFile = "bin/dateDB.ser";
     /**
      * The constant priceTableFile.
      */
-    public static String priceTableFile = "src/bin/priceTable.ser";
+    public static String priceTableFile = "bin/priceTable.ser";
     /**
      * The constant staffRecordDBFile.
      */
-    public static String staffRecordDBFile = "src/bin/staffRecordDB.ser";
+    public static String staffRecordDBFile = "bin/staffRecordDB.ser";
     /**
      * The constant paymentRecordDBFile.
      */
-    public static String paymentRecordDBFile = "src/bin/paymentRecordDB.ser";
+    public static String paymentRecordDBFile = "bin/paymentRecordDB.ser";
     /**
      * The constant movieGoerDBFile.
      */
-    public static String movieGoerDBFile = "src/bin/movieGoerDB.ser";
+    public static String movieGoerDBFile = "bin/movieGoerDB.ser";
 
 
     /**
