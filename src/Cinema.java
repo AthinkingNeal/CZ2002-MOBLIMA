@@ -148,36 +148,50 @@ public class Cinema implements Serializable {
     /**
      * Allow staff to delete a single record of movie schedule
      */
-    public void deleteRecord() {
-        displayAllRecords();
+    public void deleteRecord(int movieID) {
+        displayAllSchedulesOfMovie(movieID);
         Scanner s = new Scanner(System.in);
         System.out.println("Please enter the date and time of the movie schedule you want to delete in this format: YYYY-mm-dd-hh-mm");
         String key = s.nextLine();
-        this.cinemaSchedule.remove(key);
-        System.out.println("Successfully deleted!");
+        HashMap<String, MovieSchedule> rst = getAllSchedulesOfMovie(movieID);
+        if (rst.keySet().contains(key)) {
+            this.cinemaSchedule.remove(key);
+            System.out.println("Successfully deleted!");
+        } else {
+            System.out.println("Invalid datetime! Try again!");
+        }
+
+
     }
+
 
     /**
      * Allow staff to update a single record of movie schedule
      * Only allow staff to update
      */
-    public void updateRecord() {
+    public void updateRecord(int movieID) {
         Scanner s = new Scanner(System.in);
         System.out.println("Please enter the date and time of the movie schedule you want to update in this format: YYYY-mm-dd-hh-mm");
         String key = s.nextLine();
-        MovieSchedule newRecord = cinemaSchedule.get(key);
-        this.cinemaSchedule.remove(key); // delete original record
-        System.out.println("Please input the new date YYYY-mm-dd:");
-        String date = s.nextLine();
-        System.out.println("Please input the new time HH-MM:");
-        String dateStartTime = date + '-' + s.nextLine();
-        newRecord.setDateStartTime(dateStartTime);
-        this.cinemaSchedule.put(newRecord.getDateStartTime(), newRecord);
-        System.out.println("Successfully updated!");
+        HashMap<String, MovieSchedule> rst = getAllSchedulesOfMovie(movieID);
+        if (rst.keySet().contains(key)) {
+            MovieSchedule newRecord = cinemaSchedule.get(key);
+            this.cinemaSchedule.remove(key); // delete original record
+            System.out.println("Please input the new date YYYY-mm-dd:");
+            String date = s.nextLine();
+            System.out.println("Please input the new time HH-MM:");
+            String dateStartTime = date + '-' + s.nextLine();
+            newRecord.setDateStartTime(dateStartTime);
+            this.cinemaSchedule.put(newRecord.getDateStartTime(), newRecord);
+            System.out.println("Successfully updated!");
+        } else {
+            System.out.println("Invalid datetime! Try again!");
+        }
+
     }
 
     /**
-     * Allow staff to update a single record of movie schedule
+     * Display all records in this cinema
      */
     public void displayAllRecords() {
         for (String key : cinemaSchedule.keySet()) {
@@ -185,9 +199,9 @@ public class Cinema implements Serializable {
         }
     }
 
+
     /**
      * Once user has selected movie, location, display all available dates of this movie in this cinema
-     *
      * @param movieID the movie id
      */
     public void displayAllSchedulesOfMovie(int movieID) {
@@ -196,6 +210,7 @@ public class Cinema implements Serializable {
                 System.out.println("Movie ID: " + movieID + ' ' + cinemaSchedule.get(key).getDateStartTime()); // print out date in "YYYY-mm-dd"
         }
     }
+
 
 //    public HashSet<String> getAvailableDates(int movieID, String currentDate, String currentTime) {
 //        HashSet<String> toPrint = new HashSet<>();
@@ -211,24 +226,20 @@ public class Cinema implements Serializable {
 //
 //    }
 
-//    /**
-//     * Once user has selected movie, location and date, display all available times of this movie in this cinema and return selected scheduels
-//     * Assumption: in one cineplex, a movie cannot start at the same time!
-//     */
-//    public HashMap<String, MovieSchedule> getAndDisplayAvailableTime(int movieID, String date, String currentDate, String currentTime) {
-//        HashMap<String, MovieSchedule> rst = new HashMap<>();
-//        for (String key : cinemaSchedule.keySet()) {
-//            if (cinemaSchedule.get(key).getMovieID() == movieID)
-//                if (cinemaSchedule.get(key).getDateStartTime().substring(0, 10).equals(date))
-//                    if (cinemaSchedule.get(key).getDateStartTime().compareTo(currentDate + '-' + currentTime) > 0)  //only movie schedules in the future are displayed
-//                    {
-//                    cinemaSchedule.get(key).displayMovieRecord();
-//                    rst.put(key, cinemaSchedule.get(key));
-//                }
-//
-//        }
-//        return rst;
-//    }
+    /**
+     * only all schedules of a movie in this cinema
+     *
+     * @param movieID movieID of s aschedule
+     * @return returns a hashmap<String, Movieschedule> that containing schedules of a movie
+     */
+    public HashMap<String, MovieSchedule> getAllSchedulesOfMovie(int movieID) {
+        HashMap<String, MovieSchedule> rst = new HashMap<>();
+        for (String key : cinemaSchedule.keySet()) {
+            if (cinemaSchedule.get(key).getMovieID() == movieID)
+                rst.put(key, cinemaSchedule.get(key));
+        }
+        return rst;
+    }
 
     /**
      * Gets by date starttime.

@@ -5,7 +5,36 @@ import java.util.Scanner;
  * This class is the main application class
  */
 public class MoblimaApp {
-    private boolean isStaff;
+//    /**
+//     * The constant cineplexDBFile.
+//     */
+//    public static String cineplexDBFile = "bin/cineplexDB.ser";
+//    /**
+//     * The constant movieInfoDBFile.
+//     */
+//    public static String movieInfoDBFile = "bin/movieInfoDB.ser";
+//    /**
+//     * The constant dateDBFile.
+//     */
+//    public static String dateDBFile = "bin/dateDB.ser";
+//    /**
+//     * The constant priceTableFile.
+//     */
+//    public static String priceTableFile = "bin/priceTable.ser";
+//    /**
+//     * The constant staffRecordDBFile.
+//     */
+//    public static String staffRecordDBFile = "bin/staffRecordDB.ser";
+//    /**
+//     * The constant paymentRecordDBFile.
+//     */
+//    public static String paymentRecordDBFile = "bin/paymentRecordDB.ser";
+//    /**
+//     * The constant movieGoerDBFile.
+//     */
+//    public static String movieGoerDBFile = "bin/movieGoerDB.ser";
+
+
     /**
      * The constant cineplexDBFile.
      */
