@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 
 /**
- * The type Date db.
+ * Contains information related to date operation, such as deciding whether a date is a holiday
  */
 public class DateDB {
     private String filename;

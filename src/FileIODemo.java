@@ -1,6 +1,11 @@
 import java.io.*;
 import java.util.Date;
 
+
+/**
+ * A demo for File I/O using Serialization
+ */
+
 public class FileIODemo {
 
     public static void main(String[] args) {
