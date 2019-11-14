@@ -76,7 +76,7 @@ public class DateDB {
         java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(yourDate);
         calendar.setTime(date);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        return dayOfWeek == 6 || dayOfWeek == 7;
+        return dayOfWeek == 1 || dayOfWeek == 7;
     }
 
     /**
@@ -93,15 +93,22 @@ public class DateDB {
      * Add holiday manually.
      */
     public void addHoliday() {
-        System.out.println("Enter the date to be set as holiday (yyyy-MM-dd)");
+        displayContent();
         Scanner sc = new Scanner(System.in);
-        String date = sc.next();
-        if (dateList.contains(date)) {
-            System.out.println("Holiday already added!");
-        } else {
-            dateList.add(date);
-            System.out.println("New holiday date successfully added");
+        System.out.println("Do you want to add a new holiday? Enter Y/y to proceed.");
+        char choice = sc.nextLine().charAt(0);
+        if (choice == 'Y' || choice == 'y') {
+            System.out.println("Enter the date to be set as holiday (yyyy-MM-dd)");
+            String date = sc.next();
+            if (dateList.contains(date)) {
+                System.out.println("Holiday already added!");
+            } else {
+                dateList.add(date);
+                System.out.println("New holiday date successfully added");
+            }
+            saveToFile();
         }
+        return;
     }
 
     /**

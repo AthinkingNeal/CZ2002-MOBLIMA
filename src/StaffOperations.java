@@ -159,11 +159,8 @@ public class StaffOperations {
     }
 
     private void configureHolidaySetting() {
-        this.date.displayContent();
         this.date.addHoliday();
-        date.saveToFile();
         pressToReturn();
-
     }
 
     private void listAllMovies() {
