@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * The type Price table.
+ * The class contains price of different kinds of movie tickets.
  */
 public class PriceTable {
 

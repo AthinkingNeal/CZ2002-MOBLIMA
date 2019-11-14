@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * This class is the main application class
+ * This class is the main application class of our program
  */
 public class MoblimaApp {
 //    /**

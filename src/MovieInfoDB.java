@@ -3,7 +3,7 @@ import java.util.*;
 
 
 /**
- * The type Movie info db.
+ * The class of the MovieInfo database.
  */
 public class MovieInfoDB implements Database, Serializable {
     // key: movieID, value: MovieInfo object

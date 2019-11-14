@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 /**
- * The type Movie schedule.
+ * The moviescheduel shows how a movie is shecduled, including time,movieinfo,duration,layout,cinema etc.
  */
 public class MovieSchedule implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -3,7 +3,7 @@ import java.io.*;
 
 
 /**
- * The type Movie goer db.
+ * The database of movieGoer.
  */
 public class MovieGoerDB implements Database {
     private HashMap<Integer, MovieGoer> MovieGoerMap;

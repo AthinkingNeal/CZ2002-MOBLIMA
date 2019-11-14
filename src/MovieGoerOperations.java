@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 /**
- * The type Movie goer operations.
+ * The class is provided for movieGoers to do operations.
  */
 public class MovieGoerOperations {
     private MovieInfoDB movieInfoDB;  // You can not declare this DB as Database because of Static binding
