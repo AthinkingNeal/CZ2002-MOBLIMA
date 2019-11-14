@@ -64,12 +64,6 @@ public class MoblimaApp {
      */
     public static String movieGoerDBFile = "src/bin/movieGoerDB.ser";
 
-
-    /**
-     * Main.
-     *
-     * @param args the args
-     */
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter your choice:");

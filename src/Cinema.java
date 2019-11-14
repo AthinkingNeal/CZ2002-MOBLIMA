@@ -227,7 +227,7 @@ public class Cinema implements Serializable {
 //    }
 
     /**
-     * only all schedules of a movie in this cinema
+     * get all schedules of a movie in this cinema
      *
      * @param movieID movieID of s aschedule
      * @return returns a hashmap<String, Movieschedule> that containing schedules of a movie
@@ -242,7 +242,7 @@ public class Cinema implements Serializable {
     }
 
     /**
-     * Gets by date starttime.
+     * Gets movie schedule by date starttime.
      *
      * @param dateStarttime the date starttime
      * @return the by date starttime
