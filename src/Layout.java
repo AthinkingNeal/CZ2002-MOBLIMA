@@ -50,7 +50,7 @@ public class Layout implements Serializable {
     public void displayLayout() {
         for (int t = 0; t<Math.floor(4*layout.length)-5; t++)
             System.out.print(" ");
-        System.out.print("[SCREEN]\n"); //TODO need to dispaly seat ID also!!
+        System.out.print("[SCREEN]\n"); 
         for (int i=0; i<layout.length; i++) {
             for (int j = 0; j < layout[0].length; j++) {
                 if (j==0)
