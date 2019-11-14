@@ -192,12 +192,12 @@ public class StaffRecordDB implements Database {
             System.out.println("Please enter your staff ID:");
             String staffID = s.next();
             String dummy = s.nextLine();
-            System.out.println("Please enter your password:");
-            String password = s.next();
-            dummy = s.nextLine();
-//            Console console = System.console();
-//            char[] passwordArray = console.readPassword("Please enter your password: ");
-//            String password = new String(passwordArray);
+//            System.out.println("Please enter your password:");
+//            String password = s.next();
+//            dummy = s.nextLine();
+            Console console = System.console();
+            char[] passwordArray = console.readPassword("Please enter your password: ");
+            String password = new String(passwordArray);
             if (this.staffIDPasswordRecord.containsKey(staffID)) {
                 if (this.staffIDPasswordRecord.get(staffID).equals(password)) {
                     System.out.println("Successful Login!");

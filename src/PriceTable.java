@@ -145,15 +145,34 @@ public class PriceTable {
         double golden_up = priceTableRecord.get("golden class");
         double child_down = priceTableRecord.get("children");
         double senior_down = priceTableRecord.get("seniors");
+        double holiday_up = priceTableRecord.get("holidays");
+        double weekend_up = priceTableRecord.get("weekends");
 
         // on special dates, no discount for all people
-        if (isHoliday || isWeekend) {
+        if (isHoliday && !isWeekend) {
+            price += holiday_up;
             if (isBlockbuster) price += blockbuster_up;
-            if (is3D) price += threeD_up;
+            if (is3D) price += threeD_up; // 12 + 5 + 20 +
             if (cClass == Cinema.CinemaClass.golden) price += golden_up;
             if (cClass == Cinema.CinemaClass.platinum) price += platinum_up;
+        }
             // normal days, discount apply
-        } else {
+        else if (isWeekend && !isHoliday) {
+            price += holiday_up;
+            if (isBlockbuster) price += blockbuster_up;
+            if (is3D) price += threeD_up; // 12 + 5 + 20 +
+            if (cClass == Cinema.CinemaClass.golden) price += golden_up;
+            if (cClass == Cinema.CinemaClass.platinum) price += platinum_up;
+                // normal days, discount apply
+        }
+        else if (isHoliday && isWeekend) {
+            price += Math.max(holiday_up, weekend_up);
+            if (isBlockbuster) price += blockbuster_up;
+            if (is3D) price += threeD_up; // 12 + 5 + 20 +
+            if (cClass == Cinema.CinemaClass.golden) price += golden_up;
+            if (cClass == Cinema.CinemaClass.platinum) price += platinum_up;
+        }
+        else {
             // senior
             if (age > 60) {
                 price += senior_down;
