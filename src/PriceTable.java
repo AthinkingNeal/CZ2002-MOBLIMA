@@ -70,9 +70,8 @@ public class PriceTable {
         Scanner sc = new Scanner(System.in);
 
         do {
-
+            System.out.println("==========================================================");
             System.out.println("Please enter your choice: ");
-
             System.out.println("1. Update initial price");
             System.out.println("2. Update price reduced for seniors");
             System.out.println("3. Update price reduced for children");
@@ -84,6 +83,7 @@ public class PriceTable {
             System.out.println("9. Update price increased for holidays");
             System.out.println("10. Show current price settings");
             System.out.println("11. Exit");
+            System.out.println("==========================================================");
 
             choice = sc.nextInt();
 
@@ -212,16 +212,25 @@ public class PriceTable {
      * Display content.
      */
     public void displayContent() {
+//        priceTableRecord.entrySet().forEach(entry -> {
+//            String category = entry.getKey();
+//            double initialPrice = priceTableRecord.get("initial price");
+//            if(category.equals("initial price")) {
+//                System.out.println(category + " " + entry.getValue());
+//            }
+//            else{
+//                double currentPrice = entry.getValue() + initialPrice;
+//                System.out.println(category + " " + currentPrice);
+//
+//            System.out.println(entry);
+//            }
+//        });
+
+        System.out.println("Movie ticket initial price: " + priceTableRecord.get("initial price"));
+        System.out.println("These are the offsets from the initial price for particular age groups, dates and cinema classes");
         priceTableRecord.entrySet().forEach(entry -> {
-            String category = entry.getKey();
-            double initialPrice = priceTableRecord.get("initial price");
-            if(category.equals("initial price")) {
-                System.out.println(category + " " + entry.getValue());
-            }
-            else{
-                double currentPrice = entry.getValue() + initialPrice;
-                System.out.println(category + " " + currentPrice);
-            }
+            if (!entry.getKey().equals("initial price"))
+                System.out.println(entry.getKey() + " " + entry.getValue());
         });
     }
 
