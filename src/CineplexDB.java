@@ -154,4 +154,20 @@ public class CineplexDB implements Database, Serializable {
         }
     }
 
+    /**
+     * Display all movie schedules of a movie in all cineplexes
+     *
+     * @param info MovieInfo of a movie
+     */
+
+    public void displayAllMovieSchedules(MovieInfo info) {
+        System.out.println("These are the available schedules:");
+        for (int cid : info.getCineplexes()) {
+            System.out.println("In Cineplex " + cid + " :");
+            for (Cinema cinema : this.getCineplexByID(cid).getCinemas()) {
+                System.out.println("   In cinema " + cinema.getCinemaID() + " :");
+                cinema.displayAllSchedulesOfMovie(info.getMovieId());
+            }
+        }
+    }
 }

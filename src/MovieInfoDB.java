@@ -38,24 +38,26 @@ public class MovieInfoDB implements Database, Serializable {
             this.movieInfoRecord = new HashMap<Integer, MovieInfo>();
     }
 
-//
-//    public static void main(String args[]) {
-//        String filename = MoblimaApp.movieInfoDBFile;
-//        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-//        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-//        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
 
+    public static void main(String args[]) {
+        String filename = MoblimaApp.movieInfoDBFile;
+        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
+//        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
+//
 //        movieInfoDB.listPermittedCineplex(10004);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.addRecord(cineplexDB);
 //        movieInfoDB.saveToFile();
-        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
-        // System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
-        //System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getShowingStatus());
+//        System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
+//         System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
+        for (Integer i : movieInfoDB.getMovieInfoByMovieID(10007).getCineplexes()) {
+            System.out.println(i);
+        }
 
 
-//    }
+    }
 
     /**
      * Updates a movie record in specified cineplexDB
@@ -488,15 +490,7 @@ public class MovieInfoDB implements Database, Serializable {
         Scanner s = new Scanner(System.in);
         int mid = Integer.parseInt(s.nextLine());
         MovieInfo info = movieInfoRecord.get(mid);
-        for (int cid : info.getCineplexes()) {
-            System.out.println("In Cineplex " + cid + " :");
-            for (Cinema cinema : cineplexDB.getCineplexByID(cid).getCinemas()) {
-                System.out.println("   In cinema " + cinema.getCinemaID() + " :");
-                cinema.displayAllSchedulesOfMovie(mid);
-            }
-        }
-
-
+        cineplexDB.displayAllMovieSchedules(info);
     }
 
     /**
