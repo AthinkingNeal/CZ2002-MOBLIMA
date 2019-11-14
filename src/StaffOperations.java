@@ -57,63 +57,75 @@ public class StaffOperations {
     }
 
     private void startOperations() {
+        try {
 
-        displayMainMenu();
-        Scanner s = new Scanner(System.in);
-        int choice = s.nextInt();
-        switch (choice) {
-            case 1:
-                configureTicketPrice();
-                break;
-            case 2:
-                configureHolidaySetting();
-                break;
-            case 3:
-                listAllMovies();
-                break;
-            case 4:
-                listAllSchedulesOfMovie();
-                break;
-            case 5:
-                enterNewMovieInfo();
-                break;
-            case 6:
-                updateMovieInfo();
-                break;
-            case 7:
-                checkMovieInfo();
-                break;
-            case 8:
-                addMovieSchedule();
-                break;
-            case 9:
-                updateMovieSchedule();
-                break;
-            case 10:
-                deleteMovieSchedule();
-                break;
-            case 11:
-                deleteMovies();
-                break;
-            case 12:
-                listCurrentTopBySales();
-                break;
-            case 13:
-                listCurrentTopByRating();
-                break;
-            case 14:
-                changePassword();
-                break;
-            case 15:
-                addAccount();
-                break;
-            case 16:
-                System.out.println("Have a nice day! Good bye!");
-                saveToFile();
-                System.exit(0);
-            default:
-                System.out.println("Invalid choice! Try again");
-                pressToReturn();
+            displayMainMenu();
+            Scanner s = new Scanner(System.in);
+            int choice = s.nextInt();
+            switch (choice) {
+                case 1:
+                    configureTicketPrice();
+                    break;
+                case 2:
+                    configureHolidaySetting();
+                    break;
+                case 3:
+                    listAllMovies();
+                    break;
+                case 4:
+                    listAllSchedulesOfMovie();
+                    break;
+                case 5:
+                    enterNewMovieInfo();
+                    break;
+                case 6:
+                    updateMovieInfo();
+                    break;
+                case 7:
+                    checkMovieInfo();
+                    break;
+                case 8:
+                    addMovieSchedule();
+                    break;
+                case 9:
+                    updateMovieSchedule();
+                    break;
+                case 10:
+                    deleteMovieSchedule();
+                    break;
+                case 11:
+                    deleteMovies();
+                    break;
+                case 12:
+                    listCurrentTopBySales();
+                    break;
+                case 13:
+                    listCurrentTopByRating();
+                    break;
+                case 14:
+                    changePassword();
+                    break;
+                case 15:
+                    addAccount();
+                    break;
+                case 16:
+                    System.out.println("Have a nice day! Good bye!");
+                    saveToFile();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice! Try again");
+                    pressToReturn();
+            }
+        }
+        catch (NullPointerException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            startOperations();
+        }
+        catch (RuntimeException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            startOperations();
         }
     }
 

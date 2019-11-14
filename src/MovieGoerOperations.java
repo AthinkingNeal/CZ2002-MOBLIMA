@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,48 +76,59 @@ public class MovieGoerOperations {
      * Record a movie goer's choice of operation and execute the corresponded operation
      */
     private void startOperations() {
-        Scanner sc = new Scanner(System.in);
-        displayMainMenu();
-        int choice;
-        choice = Integer.parseInt(sc.nextLine());
-        switch (choice) {
-            case 1:
-                searchMovies();
-                break;
-            case 2:
-                listMovies();
-                break;
-            case 3:
-                listCurrentTopBySales();
-                break;
-            case 4:
-                listCurrentTopByRating();
-                break;
-            case 5:
-                checkSeatAvailability();
-                break;
-            case 6:
-                viewBookingHistory();
-                break;
-            case 7:
-                cancelBooking();
-                break;
-            case 8:
-                writeReviewRating();
-                break;
-            case 9:
-                updateProfile();
-                break;
-            case 10:
-                System.out.println("Good Bye! Have a good day!");
-                saveToFile();
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Invalid Choice! Try again!");
-                pressToReturn();
+        try {
+            Scanner sc = new Scanner(System.in);
+            displayMainMenu();
+            int choice;
+            choice = Integer.parseInt(sc.nextLine());
+            switch (choice) {
+                case 1:
+                    searchMovies();
+                    break;
+                case 2:
+                    listMovies();
+                    break;
+                case 3:
+                    listCurrentTopBySales();
+                    break;
+                case 4:
+                    listCurrentTopByRating();
+                    break;
+                case 5:
+                    checkSeatAvailability();
+                    break;
+                case 6:
+                    viewBookingHistory();
+                    break;
+                case 7:
+                    cancelBooking();
+                    break;
+                case 8:
+                    writeReviewRating();
+                    break;
+                case 9:
+                    updateProfile();
+                    break;
+                case 10:
+                    System.out.println("Good Bye! Have a good day!");
+                    saveToFile();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid Choice! Try again!");
+                    pressToReturn();
+            }
         }
-
+        catch (NullPointerException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            startOperations();
+        }
+        catch (RuntimeException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            startOperations();
+        }
     }
 
     /**
