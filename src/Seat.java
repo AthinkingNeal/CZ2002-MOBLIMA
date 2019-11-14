@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 /**
- * The type Seat.
+ * The class containing the information of a seat, like id, state, also providing some operating methods.
  */
 public class Seat implements Serializable {
     private static final long serialVersionUID = 1L;

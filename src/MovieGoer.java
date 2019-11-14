@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 /**
- * The type Movie goer.
+ * The class representing the movieGoer who goes to cinema to watch the movie.
  */
 public class MovieGoer implements Serializable {
 

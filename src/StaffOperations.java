@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * The type Staff operations.
+ * The Class is provided for the staff to operate.
  */
 public class StaffOperations {
 

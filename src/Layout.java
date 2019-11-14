@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 /**
- * The type Layout.
+ * The class containing the layout of cinema rooms, containing the informations like Seat, class of the room and some methods.
  */
 public class Layout implements Serializable {
     private Seat[][] layout;
