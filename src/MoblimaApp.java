@@ -5,6 +5,9 @@ import java.util.Scanner;
 /**
  * This class is the main application class of our program
  * It is supposed to be run in a terminal environment
+ * Test case for staff:
+ * username: xchen032
+ * password: 09876
  */
 public class MoblimaApp {
     /**
