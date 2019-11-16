@@ -8,6 +8,7 @@ import java.util.Scanner;
 /**
  * The class is provided for movieGoers to do operations.
  */
+
 public class MovieGoerOperations {
     private MovieInfoDB movieInfoDB;  // You can not declare this DB as Database because of Static binding
     private CineplexDB cineplexDB;    // If that is the case, you can only use the methods declared in Database.

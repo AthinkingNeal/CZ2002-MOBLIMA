@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * This class is the main application class of our program
+ * It is supposed to be run in a terminal environment
  */
 public class MoblimaApp {
     /**

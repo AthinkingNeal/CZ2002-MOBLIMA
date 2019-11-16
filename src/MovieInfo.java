@@ -409,7 +409,20 @@ public class MovieInfo implements Serializable {
         System.out.println(temp);
         for (int i = 0; i < this.reviewsAndRating.size(); i++)
             reviewsAndRating.get(i).displayReviewRating();
+    }
 
+    public void deleteRevNRatByMovieGoerID(int movieGoerID){
+        int length = this.reviewsAndRating.size();
+        for (int i = 0; i < length; i++){
+            RevNRat temp = this.reviewsAndRating.get(i);
+            if (temp.movieGoerID == movieGoerID) {
+                this.reviewsAndRating.remove(i);
+                System.out.println("This movieGoerID is found!");
+                return;
+            }
+        }
+        System.out.println("This movieGoerID is not found!");
+        return;
     }
 
 
