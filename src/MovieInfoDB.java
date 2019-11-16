@@ -39,26 +39,36 @@ public class MovieInfoDB implements Database, Serializable {
     }
 
 
-    public static void main(String args[]) {
-        String filename = MoblimaApp.movieInfoDBFile;
-        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
-        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
-//        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
-//
-//        movieInfoDB.listPermittedCineplex(10004);
-//        movieInfoDB.addRecord(cineplexDB);
-//        movieInfoDB.addRecord(cineplexDB);
-//        movieInfoDB.addRecord(cineplexDB);
+//    public static void main(String args[]) {
+//        String filename = MoblimaApp.movieInfoDBFile;
+//        CineplexDB cineplexDB = new CineplexDB(MoblimaApp.cineplexDBFile);
+//        MovieInfoDB movieInfoDB = new MovieInfoDB(filename);
+////        movieInfoDB.getMovieInfoByMovieID(10004).setNumOfSales(4);
+////
+////        movieInfoDB.listPermittedCineplex(10004);
+////        movieInfoDB.addRecord(cineplexDB);
+////        movieInfoDB.addRecord(cineplexDB);
+////        movieInfoDB.addRecord(cineplexDB);
+////        movieInfoDB.saveToFile();
+////        System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
+////         System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
+////        for (Integer i : movieInfoDB.getMovieInfoByMovieID(10007).getCineplexes()) {
+////            System.out.println(i);
+////        }
+////
+//        movieInfoDB.deleteRevNRatByMovieGoerID(0);
+////      movieInfoDB.deleteRevNRatByMovieGoerID(10);
 //        movieInfoDB.saveToFile();
-//        System.out.println(movieInfoDB.getMovieInfoByMovieID(10001).getTitle());
-//         System.out.println(movieInfoDB.getMovieInfoByName("Joker").getTitle());
-        for (Integer i : movieInfoDB.getMovieInfoByMovieID(10007).getCineplexes()) {
-            System.out.println(i);
+//
+//
+//    }
+
+//
+    public void deleteRevNRatByMovieGoerID(int movieGoerID){
+        for (Map.Entry<Integer,MovieInfo> entry: movieInfoRecord.entrySet()){
+            entry.getValue().deleteRevNRatByMovieGoerID(movieGoerID);
         }
-
-
     }
-
     /**
      * Updates a movie record in specified cineplexDB
      *

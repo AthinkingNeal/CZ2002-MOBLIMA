@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.io.Serializable;
 
 /**
- * Cineplex class, contains a hashmap about Cinema.
- * The hashmap records which cinemas are inside this Cineplex
+ * This class contains information about cinemas in this cineplex
  */
 public class Cineplex implements Serializable {
     private static final long serialVersionUID = 1L;

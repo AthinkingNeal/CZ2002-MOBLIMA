@@ -9,13 +9,11 @@ import java.util.Scanner;
 
 /*
   in the class Date, the attribute stored is a hashmap, storing the date of holidays
-
   day of week is retrieved from system
-
  */
 
 /**
- * Contains information related to date operation, such as deciding whether a date is a holiday
+ * This class contains information related to date operation, such as deciding whether a date is a holiday
  */
 public class DateDB {
     private String filename;

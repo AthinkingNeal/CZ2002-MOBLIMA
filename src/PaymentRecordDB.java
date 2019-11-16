@@ -161,6 +161,8 @@ public class PaymentRecordDB implements Database {
         }
     }
 
+
+
     /**
      * Find record by movie goer id watched array list.
      *
